@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>About · Anubys</title>
-  <meta name="description" content="Anubys is a CI-native agent regression harness. Public beta for teams shipping LLM agents.">
+  <meta name="description" content="Anubys is a CI-native agent regression harness. Private beta for teams shipping LLM agents.">
   <link rel="canonical" href="https://anubys.dev/about/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/about/">
@@ -53,9 +53,10 @@
     <section class="section page-head about-hero" id="about" aria-labelledby="about-title">
       <div class="wrap">
         <p class="kicker">About</p>
-        <p class="beta-banner">Public beta</p>
+        <p class="beta-banner">Private beta</p>
         <h1 id="about-title">Anubys is a CI-native agent regression harness.</h1>
         <p class="lede">It runs in the pull request. The candidate and the baseline face the same scenarios, and the merge gets a statistics-backed check.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <div class="cta-row">
           <a class="btn btn-primary" href="../docs/getting-started/">Get started</a>
           <a class="btn btn-ghost" href="../method/">Read the method</a>
@@ -100,11 +101,11 @@
             <dd>0 ms</dd>
           </div>
           <div>
-            <dt>Spend stop</dt>
-            <dd>$38</dd>
+            <dt>Monthly spend check</dt>
+            <dd><span class="example-tag">Example</span> $38</dd>
           </div>
         </dl>
-        <p class="v-line about-follow">The check runs only in CI, so production responses stay on their existing path. Spend has a hard stop, and the run halts at the cap.</p>
+        <p class="v-line about-follow">The check runs only in CI, so production responses stay on their existing path. The Example $38 monthly spend check stops new live rollouts once logged spend this UTC month reaches the cap. A run already in progress can finish, so the month can overshoot slightly.</p>
         <a class="more" href="../gate/">More details</a>
       </div>
     </section>
@@ -135,7 +136,7 @@
     <section class="section" id="status" aria-labelledby="status-title">
       <div class="wrap">
         <p class="kicker">Status</p>
-        <h2 id="status-title">Public beta.</h2>
+        <h2 id="status-title">Private beta.</h2>
         <p class="v-line">Built is in the product today. Coming is not.</p>
         <div class="about-split">
           <article class="about-panel">
@@ -145,15 +146,16 @@
               <li>tau-bench retail suite</li>
               <li>Gemini adapter with record/replay</li>
               <li>Results checker</li>
-              <li><b class="about-figure">$38</b> spend stop</li>
+              <li>Rollout runner (<code>harness run</code>), live and replay</li>
+              <li><span class="example-tag">Example</span> $38 monthly spend check</li>
               <li>Sanitization gates</li>
             </ul>
           </article>
           <article class="about-panel">
             <p class="about-flag">Coming</p>
             <ul>
-              <li>Runner on main</li>
               <li>Packaged GitHub Action, November 5</li>
+              <li>Gate on real runs, November 10</li>
               <li>A second provider</li>
               <li>Per-family breakdown and cost per verdict</li>
             </ul>
@@ -169,7 +171,7 @@
         <h2 id="founders-title">Founders</h2>
         <!-- founders: edit FOUNDERS in js/founders.js. Photo, bio, and links are that one list. -->
         <ul class="founder-list" id="founder-list"></ul>
-        <noscript><p class="founder-fallback">ryanphua.dev [at] outlook.com</p></noscript>
+        <noscript><p class="founder-fallback"><a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a></p></noscript>
       </div>
     </section>
   </main>
@@ -196,7 +198,7 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
         <button type="button" class="footer-mail" data-founder-email="0">Email</button>
       </nav>
@@ -209,15 +211,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

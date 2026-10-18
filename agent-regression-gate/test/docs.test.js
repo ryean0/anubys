@@ -128,26 +128,33 @@ test("enterprise strip labels data residency Planned and the other three Built",
     assert.ok(found, name);
     return found;
   }
-  assert.match(card("Keyless CI"), /data-state="built"/);
+  assert.match(card("Keyless CI"), /data-state="planned"/);
+  assert.match(card("Keyless CI"), /In progress/);
+  assert.match(card("Keyless CI"), /roles deployed, CI wiring in progress/);
   assert.match(card("Spend governance"), /data-state="built"/);
-  assert.match(card("Reproducible audit trail"), /data-state="built"/);
+  assert.match(card("Reproducible audit trail"), /data-state="planned"/);
+  assert.match(card("Reproducible audit trail"), /run_summary\.json/);
   const data = card("Data stays in your cloud");
   assert.match(data, /data-state="planned"/);
-  assert.match(data, /S3 bucket the team controls/);
+  assert.match(data, /Nothing uploads results yet/);
+  assert.match(data, /post-MVP/);
   assert.equal(/data-state="built"/.test(data), false);
+  assert.doesNotMatch(data, /S3 bucket/);
   assert.match(data, /href="docs\/reference\/data\/#cloud"/);
 });
 
 test("data residency docs match the Planned strip", () => {
   const data = read("docs/reference/data/index.html");
   assert.match(data, /Data stays in your cloud is Planned/);
-  assert.match(data, /S3 bucket the team controls/);
+  assert.match(data, /Nothing uploads results yet/);
+  assert.doesNotMatch(data, /S3 bucket/);
   assert.match(data, /post-MVP/);
   assert.match(data, /id="cloud"[\s\S]*data-state="planned"/);
   const ci = read("docs/reference/ci/index.html");
   assert.match(ci, /no stored cloud key|does not store a cloud key/i);
   assert.match(ci, /read-only/i);
-  assert.match(ci, /S3 bucket the team controls/);
+  assert.match(ci, /roles deployed, CI wiring in progress/);
+  assert.doesNotMatch(ci, /S3 bucket/);
   assert.match(ci, /post-MVP/);
 });
 
@@ -156,11 +163,14 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.match(html, /id="built"/);
   assert.match(html, /id="next"/);
   assert.match(html, /id="planned"/);
-  assert.match(html, /Wk4/);
+  assert.match(html, /Dates are targets and can move/);
+  assert.doesNotMatch(html, /Wk4/);
   assert.match(html, /Gemini adapter/);
-  assert.match(html, /Spend stop/);
+  assert.match(html, /Monthly spend check/);
   assert.match(html, /Stats gate rule/);
-  assert.match(html, /In progress until the Wk4 stats engine/);
+  assert.match(html, /Milestone B \(target November 10\)/);
+  assert.match(html, /October 23/);
+  assert.match(html, /October 29/);
   assert.match(html, /No per-family verdict/);
   assert.match(html, /The gate stays on the pooled result/);
   assert.match(html, /Cost per verdict/);

@@ -76,7 +76,7 @@
           <ol><li><a href="#keyless">Keyless CI</a></li><li><a href="#workflow">The workflow</a></li><li><a href="#roles">Read-only pull-request roles</a></li><li><a href="#action">Packaged Action</a></li></ol>
         </nav>
         <div class="docs-body">
-          <section class="docs-sec" id="keyless" aria-labelledby="keyless-title"><h2 id="keyless-title">Keyless CI <span class="docs-badge" data-state="built">Built</span></h2><p>Keyless CI is Built. The job uses GitHub OIDC. It does not store a cloud key. There is no long-lived key in the workflow.</p><p>Results currently go to an S3 bucket the team controls. That store is not your bucket. <a href="../data/">Data stays in your cloud</a> is Planned, and bring-your-own bucket is post-MVP.</p></section>
+          <section class="docs-sec" id="keyless" aria-labelledby="keyless-title"><h2 id="keyless-title">Keyless CI <span class="docs-badge" data-state="progress">In progress</span></h2><p>Keyless CI (OIDC): roles deployed, CI wiring in progress. OIDC roles were deployed on October 9 to the dev AWS account. Pull-request CI is <code>contents: read</code> and does not receive an id-token. The pull-request job does not store a cloud key. <code>GEMINI_API_KEY</code> is a stored environment secret on <code>live-experiments</code>, not a repository secret.</p><p>Nothing uploads results yet. <a href="../data/">Data stays in your cloud</a> is Planned, and bring-your-own bucket is post-MVP.</p></section>
 <section class="docs-sec" id="workflow" aria-labelledby="workflow-title"><h2 id="workflow-title">The workflow</h2><p>The workflow runs on <code>pull_request</code> so the check can be required. A dispatch on the pull-request branch does not satisfy that requirement. The packaged Action is Planned, so the file below is the shape.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">workflow.yml · Planned action</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>name: anubys
 on:
   pull_request:
@@ -123,9 +123,8 @@ jobs:
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -136,15 +135,14 @@ jobs:
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

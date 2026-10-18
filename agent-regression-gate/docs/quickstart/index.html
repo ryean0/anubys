@@ -69,14 +69,14 @@
         <header class="docs-head">
           <p class="kicker">Start</p>
           <h1>Quickstart</h1>
-          <p class="docs-lede">Five steps: add the workflow, add the adapter, allowlist the model, set the secret, open a PR. Anything not shipped yet is marked Planned.</p>
+          <p class="docs-lede">Five steps: add the workflow, add the adapter, allowlist the model, set the secret, open a PR. You cannot wire your own agent or repository on this check today. The packaged Action is a stub until about November 5. Bring-your-own scenarios is post-MVP. Anything not shipped yet is marked Planned.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
           <ol><li><a href="#workflow">Add the workflow</a></li><li><a href="#adapter">Add the adapter</a></li><li><a href="#allowlist">Allowlist the model</a></li><li><a href="#secret">Set the secret</a></li><li><a href="#pr">Open a pull request</a></li></ol>
         </nav>
         <div class="docs-body">
-          <section class="docs-sec" id="workflow" aria-labelledby="workflow-title"><h2 id="workflow-title">Add the workflow <span class="docs-badge" data-state="planned">Planned</span></h2><p>Add a workflow that runs on <code>pull_request</code>. The packaged Action that does this in one file is Planned. The shape below is the job: OIDC, no stored cloud key, and a read-only pull-request role.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">workflow.yml · Planned</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>name: anubys
+          <section class="docs-sec" id="workflow" aria-labelledby="workflow-title"><h2 id="workflow-title">Add the workflow <span class="docs-badge" data-state="planned">Planned</span></h2><p>Add a workflow that runs on <code>pull_request</code>. The packaged Action that does this in one file is Planned, a stub until about November 5. This page does not wire your own agent or repository today. Bring-your-own is post-MVP. The shape below is the job: OIDC for a later role, and a read-only pull-request role. Pull-request CI is <code>contents: read</code> and does not receive an id-token.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">workflow.yml · Planned</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>name: anubys
 on:
   pull_request:
 permissions:
@@ -92,12 +92,10 @@ jobs:
       # Planned: a packaged Action, one file.
       # The job requests an OIDC token.
       # It does not store a cloud key.</code></pre></div><p>The <a href="../reference/ci/">CI reference</a> is the same contract. <code>workflow_dispatch</code> on a pull-request branch does not satisfy a required check.</p></section>
-<section class="docs-sec" id="adapter" aria-labelledby="adapter-title"><h2 id="adapter-title">Add the adapter <span class="docs-badge" data-state="built">Built</span></h2><p>Add the adapter. Gemini is the reference: one adapter, and one allowlist entry. The adapter runs a scenario and returns one outcome. It does not decide the suite status.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">adapter.yml</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>adapter: gemini
-allow:
-  - a pinned Gemini Flash-Lite model id (exact version set in suite config)</code></pre></div><p>The contract is on the <a href="../reference/adapter/">adapter reference</a>. A second provider is Planned.</p></section>
+<section class="docs-sec" id="adapter" aria-labelledby="adapter-title"><h2 id="adapter-title">Add the adapter <span class="docs-badge" data-state="built">Built</span></h2><p>Add the adapter. Gemini is the reference: one adapter, and one allowlist entry. The adapter runs a scenario and returns one outcome. It does not decide the suite status.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">config/allowed_models.txt</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>&lt;pinned Gemini Flash-Lite id&gt;</code></pre></div><p>passed with --model (listed in config/allowed_models.txt and passed with --model). The contract is on the <a href="../reference/adapter/">adapter reference</a>. A second provider is Planned.</p></section>
 <section class="docs-sec" id="allowlist" aria-labelledby="allowlist-title"><h2 id="allowlist-title">Allowlist the model <span class="docs-badge" data-state="built">Built</span></h2><p>Allowlist the model id the adapter may call. The shipped entry is a pinned Gemini Flash-Lite model id (exact version set in suite config). A floating alias is not the pin.</p><p>OpenAI and Anthropic are not on the allowlist. That second provider is Planned.</p></section>
-<section class="docs-sec" id="secret" aria-labelledby="secret-title"><h2 id="secret-title">Set the secret <span class="docs-badge" data-state="built">Built</span></h2><p>Set the secret is the keyless step. Do not store a cloud key on the repository. The workflow asks GitHub for an OIDC token. The role it assumes can read the pull request and cannot write it.</p><p>That path is Built. A long-lived cloud key is not part of the setup. Keyless CI, spend governance, and the audit trail are Built. <a href="../reference/data/">Data stays in your cloud</a> is Planned.</p></section>
-<section class="docs-sec" id="pr" aria-labelledby="pr-title"><h2 id="pr-title">Open a pull request <span class="docs-badge" data-state="planned">Planned</span></h2><p>Open a PR. The check is meant to run on that event and post one suite status. Requiring the check waits on the packaged Action, which is Planned.</p><p>This site already reads the results file that job is meant to upload. Replace that file in place when a real run is ready. The page does not change.</p></section>
+<section class="docs-sec" id="secret" aria-labelledby="secret-title"><h2 id="secret-title">Set the secret <span class="docs-badge" data-state="progress">In progress</span></h2><p><code>GEMINI_API_KEY</code> goes in an environment secret on the <code>live-experiments</code> environment (main only, approving reviewer), never a repository secret, never a file.</p><p>Keyless CI (OIDC): roles deployed, CI wiring in progress. Spend governance is Built. The audit trail is in progress. <a href="../reference/data/">Data stays in your cloud</a> is Planned, and post-MVP.</p></section>
+<section class="docs-sec" id="pr" aria-labelledby="pr-title"><h2 id="pr-title">Open a pull request <span class="docs-badge" data-state="planned">Planned</span></h2><p>Open a PR. The check is meant to run on that event and post one suite status. Requiring the check waits on the packaged Action, which is Planned.</p><p>Today <code>harness run</code> writes <code>run_summary.json</code>, not a verdict. The harness will write the results file once scoring lands. Replace that file in place when the scorer is ready. The page does not change.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../getting-started/"><span>Previous</span><b>Getting started</b></a><a class="docs-next" href="../install/"><span>Next</span><b>Install and setup</b></a></nav>
       </article>
@@ -126,9 +124,8 @@ allow:
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -139,15 +136,14 @@ allow:
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

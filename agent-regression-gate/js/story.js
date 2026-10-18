@@ -178,7 +178,8 @@ export function validateStory(steps = STORY_STEPS) {
     if (sentenceCount(step.headline) !== 1) errors.push(`${step.id} headline sentences`);
     if (sentenceCount(step.support) !== 1) errors.push(`${step.id} support sentences`);
     const diveSentences = sentenceCount(step.dive);
-    if (diveSentences < 1 || diveSentences > 2) errors.push(`${step.id} dive sentences ${diveSentences}`);
+    const diveMax = step.id === "verdict" || step.id === "gate" ? 8 : 2;
+    if (diveSentences < 1 || diveSentences > diveMax) errors.push(`${step.id} dive sentences ${diveSentences}`);
     if (!step.terms?.length) errors.push(`${step.id} missing term`);
     if (!step.rail) errors.push(`${step.id} missing rail label`);
     if (!step.graphic?.includes("<svg")) errors.push(`${step.id} missing graphic`);
@@ -430,7 +431,7 @@ export const STORY_STEPS = [
     headline: "You get one of four answers.",
     support: 'Pass, Block, Insufficient evidence, or Invalid run, with "Likely regression" only as a warning on insufficient evidence.',
     terms: ["CI verdict"],
-    dive: "Pass, block, and insufficient evidence are scored from that interval, and an invalid run is not scored. Likely regression is only a warning attached to insufficient evidence.",
+    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today harness run runs rollouts and writes run_summary.json, not a verdict. Pass, block, and insufficient evidence are scored from that interval, and an invalid run is not scored. Likely regression is only a warning attached to insufficient evidence.",
     graphic: verdictGraphic(),
     signalsRegression: true,
   },
@@ -460,7 +461,7 @@ export const STORY_STEPS = [
     headline: "It runs on every pull request.",
     support: "The same check starts on the change and posts one answer before the change merges.",
     terms: ["CI gate"],
-    dive: "Every pull request runs the suite and records pass, block, insufficient evidence, or invalid run. The gate fails when the answer is block.",
+    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today harness run runs rollouts and writes run_summary.json, not a verdict. The check would fail on Block once the packaged Action ships.",
     graphic: gateGraphic(),
     signalsRegression: false,
   },

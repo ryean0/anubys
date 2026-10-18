@@ -78,7 +78,7 @@
         <div class="docs-body">
           <section class="docs-sec" id="between" aria-labelledby="between-title"><h2 id="between-title">Between eval tools and production</h2><p>Dashboards and tracing tools score a run and keep the trace. Production is the agent already serving traffic. Anubys is the check between them.</p><p>It runs the candidate and the baseline on the same scenarios and returns one suite status a pull request can require. The status is a statistic. The run has a spend cap.</p><p>The <a href="../#why">Why Anubys</a> section on the landing page is that comparison, with no vendor marks.</p></section>
 <section class="docs-sec" id="status" aria-labelledby="status-title"><h2 id="status-title">One suite status</h2><p>The suite status is one of four: <strong>Pass</strong>, <strong>Block</strong>, <strong>Insufficient evidence</strong>, or <strong>Invalid run</strong>. Insufficient evidence can carry a Likely regression warning. An invalid run isn't scored.</p><p>Scenario rows are diagnostics. They are not individual gates. The rule is written up under <a href="./concepts/">Concepts</a> and on the <a href="../gate/">Gate</a> page.</p></section>
-<section class="docs-sec" id="file" aria-labelledby="file-title"><h2 id="file-title">The results file</h2><p>This site reads one results file. Schema 1, schema 2.0.0, and schema 2.1.0 are the versions the page shows. The Wk4 fields on that file are in progress.</p><p>The harness writes that file. A packaged GitHub Action for the check is Planned. The <a href="./quickstart/">quickstart</a> marks each step that is not shipped yet. A first install is the <a href="./getting-started/">getting started guide</a>. The <a href="./install/">install guide</a> lists the same checks for people who already use a terminal.</p></section>
+<section class="docs-sec" id="file" aria-labelledby="file-title"><h2 id="file-title">The results file</h2><p>This site reads one results file. Schema 1, schema 2.0.0, and schema 2.1.0 are the versions the page shows. The planned fields on that file are in progress.</p><p>The harness will write that file once scoring lands. Today <code>harness run</code> writes <code>run_summary.json</code>. A packaged GitHub Action for the check is Planned. The <a href="./quickstart/">quickstart</a> marks each step that is not shipped yet. A first install is the <a href="./getting-started/">getting started guide</a>. The <a href="./install/">install guide</a> lists the same checks for people who already use a terminal.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-next" href="./getting-started/"><span>Next</span><b>Getting started</b></a></nav>
       </article>
@@ -107,9 +107,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -120,15 +119,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

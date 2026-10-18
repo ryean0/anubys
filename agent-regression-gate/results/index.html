@@ -55,7 +55,8 @@
       <div class="wrap">
         <p class="kicker">results.json</p>
         <h1>Recorded suite status.</h1>
-        <p class="section-intro">This panel reads <code>data/results.preliminary.json</code>. Pass rates in that sample are numbers. The check fails on Block. An invalid run isn't scored. Scenario rows are diagnostics.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="section-intro">This panel reads <code>data/results.preliminary.json</code>. Pass rates in that sample are numbers. The check would fail on Block once the packaged Action ships. An invalid run isn't scored. Scenario rows are diagnostics.</p>
         <p>Schema 2.1.0 sets <code>schema_version</code> to <code>2.1.0</code>. Model ids are recorded at <code>verdicts.overall.model_ids</code> for the baseline and the candidate. <code>baseline_pool_model_id</code> names the pinned pool. <code>run_kind</code> is <code>screening</code>, <code>baseline</code>, <code>aa</code>, or <code>gate</code>. Screening, baseline, and aa share one model id across both arms. A gate run may use a different candidate id, and its baseline id must equal <code>baseline_pool_model_id</code>. The bundled diagnostics include <code>example.clean.v1</code> (family <code>example.clean</code>) and <code>example.broken.v1</code> (family <code>example.broken</code>). A run summary is a separate file with <code>schema_version</code> <code>1.0.0</code>. This page reads that example from <code>data/run_summary.example.json</code>. It is not a field of results.json. The page still reads results version 1 and 2.0.0, including a per-arm model id on those older files, and rejects any other major version. The results path is <code>data/results.preliminary.json</code>. promptfoo can also write a file named <code>results.json</code>. That file is a different contract.</p>
         <p class="fine">Results are read from a results file. The console replays a sample configuration in the browser.</p>
         <div id="results-root" class="results-panel" aria-live="polite">
@@ -103,9 +104,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -116,15 +116,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

@@ -101,7 +101,7 @@ A check created by a workflow job is a required pull-request check only when the
 
 3. **Evals are moving into the pull request, and some of them are moving into the model vendor.** promptfoo, Braintrust, and DeepEval already fail or comment on a PR. OpenAI has agreed to buy promptfoo, subject to closing. Vendor evals will be convenient and provider-shaped. An independent gate still has a job: the same scenarios, two arms, one statistical call, and an invalid run when the sample cannot support a call.
 
-4. **Cost control is record/replay, under several names.** promptfoo caches model calls in CI. Braintrust’s proxy caches them too. A cassette keyed by scenario hash is the provider-agnostic version of that idea. It is in review on harness #14, not merged yet.
+4. **Cost control is record/replay, under several names.** promptfoo caches model calls in CI. Braintrust’s proxy caches them too. A cassette keyed by a hash of each model request is the provider-agnostic version of that idea. Cassette replay is Built. You need your own recording first. No sample recording ships.
 
 5. **The adapter is the stable seam.** Each SDK’s run function is different (`Runner.run`, `query()`, `graph.invoke`, `kickoff`, a Flow). The contract that can stay still is narrower than any of them: one scenario in, one scored rollout out, then a results file the page already knows how to read (version `1`, `2.0.0`, or `2.1.0`).
 
@@ -113,4 +113,4 @@ The first backend the harness is being built against is **a pinned Gemini Flash-
 
 - [Gemini models and version name patterns](https://ai.google.dev/gemini-api/docs/models)
 
-Not shipped here, and labeled on the page as **planned** or **roadmap adapter example**: the GitHub Action and wrappers for the other SDKs and eval tools above. Record/replay cassettes are labeled **In review** (harness #14, not merged). No official partnerships. The page does not name GPT-4.1-nano.
+Not shipped here, and labeled on the page as **planned** or **roadmap adapter example**: the GitHub Action and wrappers for the other SDKs and eval tools above. Cassette replay is Built. No official partnerships. The page does not name GPT-4.1-nano.

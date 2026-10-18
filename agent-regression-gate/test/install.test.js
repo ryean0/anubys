@@ -36,7 +36,9 @@ test("install guide exists, is marked beta, and has no real-looking key", () => 
   assert.match(html, /Python 3\.11 or newer/);
   assert.match(html, /git clone https:\/\/github\.com\/rphua-dev\/ci-agent-regression-harness\.git/);
   assert.match(html, /cd ci-agent-regression-harness/);
-  assert.match(html, /python -m pip install -e "\.\[dev\]"/);
+  assert.match(html, /python -m pip install --require-hashes -r requirements\.lock/);
+  assert.match(html, /python -m pip install --no-deps -e \./);
+  assert.doesNotMatch(html, /python -m pip install -e "\.\[dev\]"/);
   for (const command of [
     "pytest",
     "python -m harness validate suites/tau_retail",
@@ -68,7 +70,8 @@ test("install guide exists, is marked beta, and has no real-looking key", () => 
   assert.doesNotMatch(html, /\bAKIA[0-9A-Z]{8,}/);
   assert.doesNotMatch(html, /\bghp_[A-Za-z0-9]{8,}/);
   assert.doesNotMatch(html, /\bgithub_pat_[A-Za-z0-9_]{8,}/);
-  assert.doesNotMatch(html, /GEMINI_API_KEY=(?!your-key-here\b)\S+/);
+  assert.match(html, /export GEMINI_API_KEY="your-key-here"/);
+  assert.match(html, /never in a file/i);
   assert.equal(html.includes("your-key-here"), true);
   assert.doesNotMatch(html, /\bFail\b/);
   assert.doesNotMatch(html, /\d+\/20\b/);
@@ -87,16 +90,18 @@ test("install guide exists, is marked beta, and has no real-looking key", () => 
   }
 });
 
-test("every harness link on the install guide carries the beta label", () => {
+test("the install guide does not link the private repository", () => {
   const html = read("docs/install/index.html");
   const links = [...html.matchAll(/<a\b[^>]*href="(https:\/\/github\.com\/rphua-dev\/ci-agent-regression-harness[^"]*)"[^>]*>[\s\S]*?<\/a>/g)];
-  assert.ok(links.length >= 3, `expected harness links, found ${links.length}`);
-  for (const match of links) {
-    assert.equal(match[1].startsWith(HARNESS), true, match[1]);
-    const after = html.slice(match.index, match.index + match[0].length + 60);
-    assert.match(after, /\(beta testing\)/, match[1]);
-  }
-  assert.match(html, /docs\/BACKGROUND\.md/);
+  assert.equal(links.length, 0);
+  assert.equal(html.includes(HARNESS), true);
+  assert.doesNotMatch(html, /docs\/BACKGROUND\.md/);
+  assert.match(html, /docs\/GETTING_STARTED\.md/);
+  assert.match(html, /private beta/);
+  assert.match(html, /MIT license planned/);
+  assert.match(html, /Not on PyPI yet/);
+  assert.match(html, /Invalid run/);
+  assert.match(html, /The only free run step is the dry run/);
 });
 
 test("install nav links resolve and the landing page offers Get started", () => {
