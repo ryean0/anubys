@@ -106,6 +106,8 @@ test("concepts keep the gate rule, the four statuses, and the miss cap", () => {
   assert.match(html, /Exactly 5% still scores/);
   assert.match(html, /invalid_run/);
   assert.match(html, /minimum detectable effect/i);
+  assert.match(html, /Showing the MDE on the check is planned with Milestone B \(target November 10\)/);
+  assert.doesNotMatch(html, /Showing the MDE on the check is Next/);
   const results = read("docs/reference/results/index.html");
   assert.match(results, /schema_version/);
   assert.match(results, /verdicts\.overall\.model_ids/);
@@ -175,6 +177,11 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.match(html, /The gate stays on the pooled result/);
   assert.match(html, /Cost per verdict/);
   assert.match(html, /MDE on the check/);
+  const nextLane = html.slice(html.indexOf('id="next"'), html.indexOf('id="planned"'));
+  const plannedLane = html.slice(html.indexOf('id="planned"'));
+  assert.equal(nextLane.includes("MDE on the check"), false);
+  assert.match(plannedLane, /MDE on the check/);
+  assert.match(plannedLane, /Showing the MDE on the check is planned with Milestone B \(target November 10\)/);
   for (const item of [
     "Packaged GitHub Action",
     "A second provider",
