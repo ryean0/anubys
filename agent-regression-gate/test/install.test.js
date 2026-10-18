@@ -79,8 +79,12 @@ test("install guide exists, is marked beta, and has no real-looking key", () => 
   const amounts = [...html.matchAll(/\$38/g)];
   assert.ok(amounts.length >= 1);
   for (const amount of amounts) {
+    const around = html.slice(Math.max(0, amount.index - 40), amount.index + 3);
+    if (around.includes("fixed $38")) continue;
     assert.match(html.slice(Math.max(0, amount.index - 80), amount.index), /Example/);
   }
+  assert.equal((html.match(/harness run<\/code> stops new live rollouts at a fixed \$38/g) || []).length, 2);
+  assert.equal((html.match(/scripts\/check_monthly_spend\.py<\/code> takes <code>--threshold<\/code> \/ <code>MONTHLY_SPEND_CAP_USD<\/code>/g) || []).length, 2);
   const page = DOCS_INDEX.find((item) => item.path === "install/");
   assert.ok(page);
   assert.equal(page.title, "Install and setup");

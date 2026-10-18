@@ -42,3 +42,19 @@ test("site pages, site JS, and both READMEs stay clear of banned copy", () => {
     }
   }
 });
+
+test("no page has an Email footer button or the old suite-config pin", () => {
+  const pages = filesUnder(root, (name) => name.endsWith(".html"));
+  assert.ok(pages.length > 20);
+  for (const file of pages) {
+    const text = fs.readFileSync(file, "utf8");
+    const label = path.relative(repo, file);
+    const footerStart = text.indexOf("<footer");
+    const footerEnd = text.indexOf("</footer>");
+    assert.ok(footerStart !== -1 && footerEnd > footerStart, `${label} footer`);
+    const footer = text.slice(footerStart, footerEnd);
+    assert.doesNotMatch(footer, />Email</, `${label} Email footer button`);
+    assert.doesNotMatch(text, /footer-mail|founder-mail|data-founder-email/, `${label} mail hook`);
+    assert.doesNotMatch(text, /exact version set in suite config/, `${label} suite config pin`);
+  }
+});

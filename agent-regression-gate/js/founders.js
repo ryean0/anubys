@@ -36,7 +36,3 @@ export function renderFounderCard(person) {
 export function renderFoundersHtml(people = FOUNDERS) {
   return people.map((person) => renderFounderCard(person)).join("");
 }
-
-export function bindFounderEmails() {
-  // Contact is a LinkedIn link. Nothing to bind.
-}

@@ -141,7 +141,8 @@ test("getting started ports the verified guide", () => {
   assert.match(main, /Coming soon/);
   assert.match(main, /Do not start a live run from this page/);
   assert.match(main, /experiment\.yml/);
-  assert.match(main, /after Ryan approves/);
+  assert.match(main, /after a required reviewer approves/);
+  assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /On main today that rollout is recorded as a miss\. It is being changed to count as a fail \(team decision October 16\)\./);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /Block: clearly worse, by more than the allowed margin\./);
@@ -210,6 +211,8 @@ test("sample use cases follow the verified checks", () => {
   assert.match(main, /stub that exits with an error on purpose/);
   assert.match(main, /Coming soon/);
   assert.match(main, /Do not start a live run from this page/);
+  assert.match(main, /after a required reviewer approves/);
+  assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /On main today that rollout is recorded as a miss\. It is being changed to count as a fail \(team decision October 16\)\./);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /clearly worse, by more than the allowed margin/);

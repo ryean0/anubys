@@ -290,7 +290,9 @@ assert.match(fs.readFileSync(path.join(site, "css/site.css"), "utf8"), /\.scale-
 const integrations = fs.readFileSync(path.join(site, "integrations/index.html"), "utf8");
 assert.match(integrations, /id="integrations"/);
 assert.match(integrations, /adapter example/);
-assert.match(integrations, /a pinned Gemini Flash-Lite model id \(exact version set in suite config\)/);
+assert.match(integrations, /a pinned Gemini Flash-Lite model id \(lives in <code>config\/allowed_models\.txt<\/code> and is passed with <code>--model<\/code>\)/);
+assert.match(integrations, /Gemini is the only adapter today/);
+assert.doesNotMatch(integrations, /does not ship an adapter/);
 assert.doesNotMatch(integrations, /gemini-/);
 assert.match(integrations, /Gemini adapter is Built/);
 assert.match(integrations, /OpenAI Agents SDK · adapter example/);

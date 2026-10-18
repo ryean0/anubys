@@ -85,7 +85,9 @@ test("quickstart names the five steps and marks the unshipped workflow", () => {
   }
   assert.match(html, /id="workflow"[\s\S]*data-state="planned"/);
   assert.match(html, /id="adapter"[\s\S]*data-state="built"/);
-  assert.match(html, /a pinned Gemini Flash-Lite model id \(exact version set in suite config\)/);
+  assert.match(html, /a pinned Gemini Flash-Lite model id \(lives in <code>config\/allowed_models\.txt<\/code> and is passed with <code>--model<\/code>\)/);
+  assert.match(html, /The pinned model id lives in <code>config\/allowed_models\.txt<\/code> and is passed with <code>--model<\/code>/);
+  assert.doesNotMatch(html, /passed with --model \(listed/);
   assert.doesNotMatch(html, /gemini-/);
 });
 
@@ -169,6 +171,9 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.doesNotMatch(html, /Wk4/);
   assert.match(html, /Gemini adapter/);
   assert.match(html, /Monthly spend check/);
+  const spend = read("docs/guides/spend/index.html");
+  assert.match(spend, /<code>harness run<\/code> stops new live rollouts at a fixed \$38\. The standalone <code>scripts\/check_monthly_spend\.py<\/code> takes <code>--threshold<\/code> \/ <code>MONTHLY_SPEND_CAP_USD<\/code>/);
+  assert.doesNotMatch(spend, /real knob/);
   assert.match(html, /Stats gate rule/);
   assert.match(html, /Milestone B \(target November 10\)/);
   assert.match(html, /October 23/);

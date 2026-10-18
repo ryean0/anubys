@@ -78,7 +78,10 @@ test("the founders section is one card for Ryan Phua and verdicts do not say Fai
   assert.equal(cards[0][0].includes("taskss"), false);
   const main = fs.readFileSync(path.join(root, "js", "main.js"), "utf8");
   assert.match(main, /renderFoundersHtml/);
-  assert.match(main, /bindFounderEmails/);
+  assert.doesNotMatch(main, /bindFounderEmails/);
+  assert.doesNotMatch(source, /bindFounderEmails/);
+  const footer = html.slice(html.indexOf("<footer"), html.indexOf("</footer>"));
+  assert.doesNotMatch(footer, />Email</);
   assert.match(html, /Pass/);
   assert.match(html, /Block/);
   assert.match(html, /Insufficient evidence/);

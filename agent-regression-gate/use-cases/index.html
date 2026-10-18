@@ -233,7 +233,7 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
           <div class="docs-callout">
             <p>A live run sends tasks to Google Gemini and can charge the Google account that owns the API key. Read this section so you know how the guard rails work. Do not start a live run from this page.</p>
           </div>
-          <p><code>python -m harness run --mode live</code> is the command that calls the model. It needs <code>GEMINI_API_KEY</code> in the current terminal and <code>--ceiling</code>. A live run that starts writes <code>run_summary.json</code>. It does not write a verdict. The approved path for a paid run is the manual workflow <code>.github/workflows/experiment.yml</code>, started from <code>main</code> in the <code>live-experiments</code> environment after Ryan approves it. Do not start a live run from this page.</p>
+          <p><code>python -m harness run --mode live</code> is the command that calls the model. It needs <code>GEMINI_API_KEY</code> in the current terminal and <code>--ceiling</code>. A live run that starts writes <code>run_summary.json</code>. It does not write a verdict. The approved path for a paid run is the manual workflow <code>.github/workflows/experiment.yml</code>, started from <code>main</code> in the <code>live-experiments</code> environment after a required reviewer approves it. Do not start a live run from this page.</p>
           <p>The steps below only explain the key and the free spend check. They are not a live run.</p>
           <h3>Get a Gemini API key</h3>
           <ol>
@@ -319,7 +319,7 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
           <h3>Start free (no account, no key, <span class="example-tag">Example</span> $0)</h3>
           <p>Everything in the free use cases above runs offline. Those checks read files already in the project, so they never call an AI model and can't cost you anything. You don't need an API key for any of it. The only harness run step in that list is --dry-run. Replay is not a free beginner step. No sample recording ships, and replay refuses without model.json. A replay costs <span class="example-tag">Example</span> $0 only after a live run with --record has written that file.</p>
           <h3>Costs money: live runs with a Gemini key</h3>
-          <p>A live run sends real requests to Google's Gemini model, and Google bills you for each one. Do not start one from this page. The approved path is <code>.github/workflows/experiment.yml</code> on <code>main</code>, in the <code>live-experiments</code> environment, after Ryan approves the run.</p>
+          <p>A live run sends real requests to Google's Gemini model, and Google bills you for each one. Do not start one from this page. The approved path is <code>.github/workflows/experiment.yml</code> on <code>main</code>, in the <code>live-experiments</code> environment, after a required reviewer approves the run.</p>
           <ol>
             <li><strong>Get a key.</strong> Sign in at <a href="https://aistudio.google.com/apikey" rel="noopener noreferrer">Google AI Studio</a> and create an API key. Think of it like a password that can spend your money.</li>
             <li><strong>Store it in your terminal, never in a file you share.</strong> Do not run these lines during the free steps. A placeholder still makes the free check print <code>set</code>.

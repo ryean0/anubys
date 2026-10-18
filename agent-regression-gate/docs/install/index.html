@@ -116,7 +116,7 @@ python -m harness validate-results docs/examples/results.preliminary.json
 python -m harness gates suites/tau_retail/scenarios
 python scripts/check_monthly_spend.py</code></pre>
             </div>
-            <p><code>python scripts/check_monthly_spend.py --threshold</code> (default 38) or <code>MONTHLY_SPEND_CAP_USD</code> stops new live rollouts once logged spend this UTC month reaches <span class="example-tag">Example</span> $38. A run already in progress can finish, so the month can overshoot slightly. The same check is described on <a href="../guides/spend/">spend governance</a>.</p>
+            <p><code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish, so the month can overshoot slightly. The same check is described on <a href="../guides/spend/">spend governance</a>.</p>
             <h3 id="key">The provider key</h3>
             <p>Set <code>GEMINI_API_KEY</code> only when a live run calls the provider. The line below is a terminal export, never in a file. The placeholder is <code>your-key-here</code>.</p>
             <div class="docs-code">
@@ -163,7 +163,7 @@ terraform validate</code></pre>
             <h2 id="troubleshooting-title">Troubleshooting</h2>
             <ul>
               <li><strong>Missing key.</strong> Offline checks do not need <code>GEMINI_API_KEY</code>. A live run does. If the variable is unset, the provider call cannot start. The placeholder is <code>your-key-here</code>. In CI the real value is an environment secret on <code>live-experiments</code>.</li>
-              <li><strong>Spend cap stop.</strong> <code>python scripts/check_monthly_spend.py --threshold</code> stops new live rollouts when logged spend this UTC month reaches <span class="example-tag">Example</span> $38. A run already in progress can finish.</li>
+              <li><strong>Spend cap stop.</strong> <code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish.</li>
               <li><strong>Insufficient evidence.</strong> The interval does not support Pass, and it does not support Block. <code>likely_regression</code> on that result is a warning, not its own status. Read the statuses on <a href="../concepts/#statuses">Concepts</a>.</li>
             </ul>
           </section>

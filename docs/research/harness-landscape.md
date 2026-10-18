@@ -109,7 +109,7 @@ A check created by a workflow job is a required pull-request check only when the
 
 Shipped here: a static page and a results reader for results.json version `1` and `2.x.y` (the 2.0.0 caption revision and the 2.1.0 model-id and gate-settings revision). The reader is the contract the page enforces. It is not an adapter, an Action, or a cassette player.
 
-The first backend the harness is being built against is **a pinned Gemini Flash-Lite model id (exact version set in suite config)**. That version is not final. A floating alias is not the pin, because it moves. The site labels this adapter **in progress** until it merges. It is not an official Google partnership, and the suite verdict still does not depend on the provider. OpenAI Agents SDK, Claude Agent SDK, and the other framework wrappers are **roadmap adapter examples**, not backends in development.
+The first backend the harness is being built against is **a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)**. That version is not final. A floating alias is not the pin, because it moves. The site labels this adapter **in progress** until it merges. It is not an official Google partnership, and the suite verdict still does not depend on the provider. OpenAI Agents SDK, Claude Agent SDK, and the other framework wrappers are **roadmap adapter examples**, not backends in development.
 
 - [Gemini models and version name patterns](https://ai.google.dev/gemini-api/docs/models)
 

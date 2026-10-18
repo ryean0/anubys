@@ -14,7 +14,7 @@ import { RESULTS_PATH, RUN_SUMMARY_PATH, parseResults, parseResultsV2, parseRunS
 import { TIMING_SAMPLE_PATH, readTiming, renderTimingHtml } from "./timing.js";
 import { bindFilm, bindStory, renderFilmHtml, renderStoryHtml } from "./story.js";
 import { METHOD_NOTES, armMissExceeds, formatPercent, formatPoints, formatSignedNumber, scoreRun } from "./verdict.js";
-import { bindFounderEmails, renderFoundersHtml } from "./founders.js";
+import { renderFoundersHtml } from "./founders.js";
 
 const LINKEDIN = "https://www.linkedin.com/in/rphua-dev";
 const SLOT_LABEL = {
@@ -876,7 +876,6 @@ let repaintConsole = () => {};
 
 const founderList = document.getElementById("founder-list");
 if (founderList) founderList.innerHTML = renderFoundersHtml();
-bindFounderEmails(document);
 
 const howRoot = document.getElementById("how-root");
 if (howRoot) howRoot.innerHTML = renderStoryHtml();

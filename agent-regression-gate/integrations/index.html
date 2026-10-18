@@ -67,7 +67,7 @@
         <div class="logo-strip" aria-label="Gemini today">
           <p>Gemini today</p>
           <ul>
-            <li>a pinned Gemini Flash-Lite model id (exact version set in suite config) · Built</li>
+            <li>a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>) · Built</li>
           </ul>
         </div>
         <div class="logo-strip" aria-label="Roadmap adapter examples">
@@ -100,8 +100,8 @@
         <div class="faq-list">
           <details>
             <summary>Technical details</summary>
-            <p>The adapter contract is provider-agnostic, and it is the intended seam. This repository does not ship an adapter. One rollout is one call: scenario id, SHA-256 of the scenario text, arm (<code>baseline</code> or <code>candidate</code>), and a step budget. The adapter returns pass, fail, agent timeout, or an infrastructure miss. An agent timeout scores 0. A provider error, a rate limit, or a killed runner is excluded from the score and counted toward the 5% miss cap. The model name does not enter the suite verdict.</p>
-            <p>Gemini today. The harness calls a pinned Gemini Flash-Lite model id (exact version set in suite config). A floating alias is not the pin, because it moves. The Gemini adapter is Built. OpenAI Agents SDK, Claude Agent SDK, LangGraph, LlamaIndex, CrewAI, AutoGen, and Microsoft Agent Framework are roadmap adapter examples, not backends in development, and not partnerships.</p>
+            <p>The adapter contract is provider-agnostic, and it is the intended seam. Gemini is the only adapter today. One rollout is one call: scenario id, SHA-256 of the scenario text, arm (<code>baseline</code> or <code>candidate</code>), and a step budget. The adapter returns pass, fail, agent timeout, or an infrastructure miss. An agent timeout scores 0. A provider error, a rate limit, or a killed runner is excluded from the score and counted toward the 5% miss cap. The model name does not enter the suite verdict.</p>
+            <p>Gemini today. The harness calls a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>). A floating alias is not the pin, because it moves. The Gemini adapter is Built. OpenAI Agents SDK, Claude Agent SDK, LangGraph, LlamaIndex, CrewAI, AutoGen, and Microsoft Agent Framework are roadmap adapter examples, not backends in development, and not partnerships.</p>
             <p>The scorer does not import an agent SDK. It pairs scenarios, builds the 90% interval, and the check fails on Block. Scenario rows stay diagnostics. They are not individual gates.</p>
             <p>GitHub Action, planned. Trigger <code>pull_request</code> so the check can be required. The job runs both arms through the adapter and uploads <code>results.json</code>. It fails the check on Block. An invalid run is reported as invalid and isn't scored. A merge queue would also need the <code>merge_group</code> event. Buildkite, Jenkins, and your own runner are the same planned job, not separate products.</p>
             <p>Cassette replay is Built. Record mode stores model and tool traffic keyed by a hash of each model request. Replay mode returns that recording and does not call the provider. You need your own --record first. No sample recording ships. A hash mismatch is a miss, not a silent reuse. A cassette is an input to scoring. It is not a verdict.</p>
@@ -119,7 +119,7 @@
           </ul>
         </div>
         <div class="faq-list">
-          <details><summary>Which frameworks does it work with?</summary><p>None are official integrations. The gate stays provider-agnostic. The first backend is a pinned Gemini Flash-Lite model id (exact version set in suite config), and that adapter is Built. OpenAI Agents SDK, Claude Agent SDK, and the other framework names are roadmap adapter examples. The GitHub Action is planned. Cassette replay is Built. This page does read the results file.</p></details>
+          <details><summary>Which frameworks does it work with?</summary><p>None are official integrations. The gate stays provider-agnostic. The first backend is a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>), and that adapter is Built. OpenAI Agents SDK, Claude Agent SDK, and the other framework names are roadmap adapter examples. The GitHub Action is planned. Cassette replay is Built. This page does read the results file.</p></details>
         </div>
       </div>
     </section>
