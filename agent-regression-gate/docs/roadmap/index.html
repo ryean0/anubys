@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Roadmap · Anubys</title>
-  <meta name="description" content="Built, Next for Wk4, and Planned. The stats gate rule stays in progress until the Wk4 stats engine.">
+  <meta name="description" content="Built, Next, and Planned. Dates are targets and can move.">
   <link rel="canonical" href="https://anubys.dev/docs/roadmap/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/docs/roadmap/">
@@ -69,16 +69,16 @@
         <header class="docs-head">
           <p class="kicker">Project</p>
           <h1>Roadmap</h1>
-          <p class="docs-lede">Three labels: Built, Next, and Planned. Next is Wk4. The stats gate rule is listed under Built and marked in progress until the Wk4 stats engine.</p>
+          <p class="docs-lede">Three labels: Built, Next, and Planned. Dates are targets and can move.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
           <ol><li><a href="#built">Built</a></li><li><a href="#next">Next</a></li><li><a href="#planned">Planned</a></li></ol>
         </nav>
         <div class="docs-body">
-          <div class="roadmap" aria-label="Built, Next, and Planned"><section class="docs-sec road-lane" id="built" aria-labelledby="built-title"><h2 id="built-title">Built</h2><article class="road-card"><p class="road-flag">Built</p><h3>Gemini adapter</h3><p>One adapter and an allowlist entry for a pinned Gemini Flash-Lite model id (exact version set in suite config).</p></article><article class="road-card"><p class="road-flag">Built</p><h3>Spend stop</h3><p>A monthly hard stop. The example is $38. A replay is $0.</p></article><article class="road-card" data-state="in-progress"><p class="road-flag">Built · In progress</p><h3>Stats gate rule</h3><p>Non-inferiority, δ = 5 pp, 90% interval. In progress until the Wk4 stats engine.</p></article></section>
-<section class="docs-sec road-lane" id="next" aria-labelledby="next-title"><h2 id="next-title">Next <span class="docs-badge" data-state="next">Wk4</span></h2><article class="road-card"><p class="road-flag">Next</p><h3>Per-family breakdown</h3><p>An estimate and an interval for where the drop came from. No per-family verdict. The gate stays on the pooled result.</p></article><article class="road-card"><p class="road-flag">Next</p><h3>Cost per verdict</h3><p>The cost of the run, shown with the suite status.</p></article><article class="road-card"><p class="road-flag">Next</p><h3>MDE on the check</h3><p>The minimum detectable effect, shown on the check. It is not a status.</p></article></section>
-<section class="docs-sec road-lane" id="planned" aria-labelledby="planned-title"><h2 id="planned-title">Planned</h2><article class="road-card"><p class="road-flag">Planned</p><h3>Packaged GitHub Action</h3><p>One-file setup for the pull-request check.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>A second provider</h3><p>OpenAI or Anthropic, beside the Gemini adapter.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Bring-your-own scenarios</h3><p>Your own scenario set, in the documented format.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>OTel trace import</h3><p>OpenTelemetry traces as a diagnostic. Spans do not set the suite status.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Bring-your-own bucket</h3><p>Data stays in your cloud is Planned, and post-MVP. Results currently go to an S3 bucket the team controls.</p></article></section></div>
+          <div class="roadmap" aria-label="Built, Next, and Planned"><section class="docs-sec road-lane" id="built" aria-labelledby="built-title"><h2 id="built-title">Built</h2><article class="road-card"><p class="road-flag">Built</p><h3>Rollout runner</h3><p><code>harness run</code>, live and replay.</p></article><article class="road-card"><p class="road-flag">Built</p><h3>Results schema 2.1.0 checker</h3><p>The site reads schema 2.1.0, and still reads 1 and 2.0.0.</p></article><article class="road-card"><p class="road-flag">Built</p><h3>Gemini adapter</h3><p>One adapter and an allowlist entry for a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>). Gemini is the only provider today.</p></article><article class="road-card"><p class="road-flag">Built</p><h3>Cassette replay</h3><p>Keyed by a hash of each model request. Needs your own <code>--record</code> first. No sample recording ships. A replay is <span class="example-tag">Example</span> $0.</p></article><article class="road-card"><p class="road-flag">Built</p><h3>Monthly spend check</h3><p>The <span class="example-tag">Example</span> $38 check stops new live rollouts once logged spend this UTC month reaches the cap. A run already in progress can finish, so the month can overshoot slightly.</p></article></section>
+<section class="docs-sec road-lane" id="next" aria-labelledby="next-title"><h2 id="next-title">Next</h2><p class="fine">By October 23: first live baseline and suite freeze. By October 29: the items below.</p><article class="road-card"><p class="road-flag">Next</p><h3>Per-family breakdown</h3><p>An estimate and an interval for where the drop came from. No per-family verdict. The gate stays on the pooled result. By October 29.</p></article><article class="road-card"><p class="road-flag">Next</p><h3>Cost per verdict</h3><p>The cost of the run, shown with the suite status. By October 29.</p></article><article class="road-card"><p class="road-flag">Next</p><h3>harness export-replay</h3><p>Recorded-run replays for this site. By October 29.</p></article></section>
+<section class="docs-sec road-lane" id="planned" aria-labelledby="planned-title"><h2 id="planned-title">Planned</h2><article class="road-card"><p class="road-flag">Planned</p><h3>Packaged GitHub Action</h3><p>One-file setup for the pull-request check. The action is a stub until about November 5.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Stats gate rule</h3><p>Stats gate rule. Spec: non-inferiority, δ = 5 pp, 90% interval. Computed on real runs with Milestone B (target November 10).</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Gate on real runs</h3><p>Verdict computation on real runs. Milestone B, November 10.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>MDE on the check</h3><p>Showing the MDE on the check is planned with Milestone B (target November 10). It is not a status.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>A second provider</h3><p>OpenAI or Anthropic, beside the Gemini adapter. November 12.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>PyPI v0.1</h3><p>November 16 to 20. Not on PyPI yet.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Bring-your-own scenarios</h3><p>Your own scenario set, in the documented format. Post-MVP.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>OTel trace import</h3><p>OpenTelemetry traces as a diagnostic. Spans do not set the suite status.</p></article><article class="road-card"><p class="road-flag">Planned</p><h3>Bring-your-own bucket</h3><p>Data stays in your cloud is Planned, and post-MVP. Nothing uploads results yet.</p></article></section></div>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../changelog/"><span>Previous</span><b>Changelog</b></a><a class="docs-next" href="../dns-setup/"><span>Next</span><b>DNS setup</b></a></nav>
       </article>
@@ -107,9 +107,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -120,15 +119,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

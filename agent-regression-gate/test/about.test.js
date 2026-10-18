@@ -4,11 +4,11 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
-import { FOUNDERS, founderMailto, renderFoundersHtml } from "../js/founders.js";
+import { FOUNDERS, founderContact, renderFoundersHtml } from "../js/founders.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const BIO = "Early career software engineer specialising in cloud migration of CI/CD automation. Led end-to-end migration of SaaS delivery stack from AWS Amplify V1 to V2, built an air-gapped Kubernetes cluster customised for on-satellite ML workloads for image segmentation tasks in Pytorch & Tensorflow. Anubys is my portfolio product aimed at delivering scalable, cost-efficient & effective AI model infrastructure to guarantee accountable, reproducible, and retraceable ML workflows for enterprise-scale tooling and/or individual hobbyists.";
-const ADDRESS = "ryanphua.dev@outlook.com";
+const LINKEDIN = "https://www.linkedin.com/in/rphua-dev";
 
 function htmlFiles(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -57,27 +57,31 @@ test("the founders section is one card for Ryan Phua and verdicts do not say Fai
   assert.equal(FOUNDERS[0].photo, "");
   assert.equal(FOUNDERS[0].bio, BIO);
   assert.equal(FOUNDERS[0].github, "https://github.com/ryean0");
-  assert.equal(founderMailto(FOUNDERS[0]), `mailto:${ADDRESS}`);
-  assert.equal(source.includes(ADDRESS), false);
-  assert.equal(html.includes(ADDRESS), false);
+  assert.equal(FOUNDERS[0].linkedin, LINKEDIN);
+  assert.equal(founderContact(FOUNDERS[0]), LINKEDIN);
+  assert.doesNotMatch(source, /mailto:/i);
+  assert.doesNotMatch(html, /mailto:/i);
   assert.equal(html.includes("Bio coming soon."), false);
   assert.match(html, /id="founder-list"/);
-  assert.match(html, /<noscript>[\s\S]*ryanphua\.dev \[at\] outlook\.com/);
+  assert.match(html, /<noscript>[\s\S]*linkedin\.com\/in\/rphua-dev/);
+  assert.doesNotMatch(html, /\[at\]/);
   const cards = [...renderFoundersHtml().matchAll(/<li class="founder-card">[\s\S]*?<\/li>/g)];
   assert.equal(cards.length, 1);
   assert.match(cards[0][0], /Ryan Phua/);
   assert.match(cards[0][0], /Founder/);
   assert.match(cards[0][0], />RP</);
   assert.match(cards[0][0], /href="https:\/\/github\.com\/ryean0"/);
-  assert.match(cards[0][0], /class="founder-mail"/);
-  assert.match(cards[0][0], /class="founder-mail-icon"/);
-  assert.match(cards[0][0], />Email</);
-  assert.equal(cards[0][0].includes(ADDRESS), false);
+  assert.match(cards[0][0], /href="https:\/\/www\.linkedin\.com\/in\/rphua-dev"/);
+  assert.match(cards[0][0], />LinkedIn</);
+  assert.doesNotMatch(cards[0][0], />Email</);
   assert.match(cards[0][0], /image segmentation tasks/);
   assert.equal(cards[0][0].includes("taskss"), false);
   const main = fs.readFileSync(path.join(root, "js", "main.js"), "utf8");
   assert.match(main, /renderFoundersHtml/);
-  assert.match(main, /bindFounderEmails/);
+  assert.doesNotMatch(main, /bindFounderEmails/);
+  assert.doesNotMatch(source, /bindFounderEmails/);
+  const footer = html.slice(html.indexOf("<footer"), html.indexOf("</footer>"));
+  assert.doesNotMatch(footer, />Email</);
   assert.match(html, /Pass/);
   assert.match(html, /Block/);
   assert.match(html, /Insufficient evidence/);

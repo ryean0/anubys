@@ -172,7 +172,7 @@ export const DOCS_INDEX = [
     "headings": [
       {
         "id": "stop",
-        "text": "Monthly hard stop"
+        "text": "Monthly spend check"
       },
       {
         "id": "call",
@@ -268,6 +268,10 @@ export const DOCS_INDEX = [
     "path": "changelog/",
     "title": "Changelog",
     "headings": [
+      {
+        "id": "sync-134af48",
+        "text": "18 October 2026"
+      },
       {
         "id": "example-results",
         "text": "16 October 2026"

@@ -70,7 +70,7 @@
           <p class="kicker">Start</p>
           <p class="beta-banner">(beta testing)</p>
           <h1>Install and setup</h1>
-          <p class="docs-lede">Install the harness and run the offline checks. A full local gate is still Coming soon. The license is MIT. The repository is <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">ci-agent-regression-harness</a> <span class="beta-mark">(beta testing)</span>.</p>
+          <p class="docs-lede">Install the harness and run the offline checks. A full local gate is still Coming soon. MIT license planned. Private beta. Public install opens soon. Not on PyPI yet. PyPI v0.1 is planned for November 16 to 20.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
@@ -90,8 +90,9 @@
           </section>
           <section class="docs-sec" id="local" aria-labelledby="local-title">
             <h2 id="local-title">Run it locally</h2>
-            <p>Commands below are the ones on harness main. The repository is <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">ci-agent-regression-harness</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>Commands below are the ones on harness main. Private beta. Public install opens soon.</p>
             <h3 id="clone">Clone <span class="beta-mark">(beta testing)</span></h3>
+            <p>Private beta. The repository is not public yet, so this command only works if you already have access. The public install opens soon.</p>
             <p>Clone the repository, then change into it.</p>
             <div class="docs-code">
               <div class="docs-code-bar"><p class="docs-code-label">shell · (beta testing)</p><button type="button" class="code-copy">Copy</button></div>
@@ -102,7 +103,8 @@ cd ci-agent-regression-harness</code></pre>
             <p>From the virtualenv at the repository root:</p>
             <div class="docs-code">
               <div class="docs-code-bar"><p class="docs-code-label">shell</p><button type="button" class="code-copy">Copy</button></div>
-              <pre tabindex="0"><code>python -m pip install -e ".[dev]"</code></pre>
+              <pre tabindex="0"><code>python -m pip install --require-hashes -r requirements.lock
+python -m pip install --no-deps -e .</code></pre>
             </div>
             <h3 id="verify">Verify the setup</h3>
             <p>These checks stay offline. They do not call a model.</p>
@@ -114,13 +116,14 @@ python -m harness validate-results docs/examples/results.preliminary.json
 python -m harness gates suites/tau_retail/scenarios
 python scripts/check_monthly_spend.py</code></pre>
             </div>
-            <p><code>python scripts/check_monthly_spend.py</code> stops at <span class="example-tag">Example</span> $38 of logged spend this month. The same stop is described on <a href="../guides/spend/">spend governance</a>.</p>
+            <p><code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish, so the month can overshoot slightly. The same check is described on <a href="../guides/spend/">spend governance</a>.</p>
             <h3 id="key">The provider key</h3>
-            <p>Set <code>GEMINI_API_KEY</code> only when a live run calls the provider. The line below is a placeholder.</p>
+            <p>Set <code>GEMINI_API_KEY</code> only when a live run calls the provider. The line below is a terminal export, never in a file. The placeholder is <code>your-key-here</code>.</p>
             <div class="docs-code">
-              <div class="docs-code-bar"><p class="docs-code-label">environment · placeholder</p><button type="button" class="code-copy">Copy</button></div>
-              <pre tabindex="0"><code>GEMINI_API_KEY=your-key-here</code></pre>
+              <div class="docs-code-bar"><p class="docs-code-label">shell · placeholder</p><button type="button" class="code-copy">Copy</button></div>
+              <pre tabindex="0"><code>export GEMINI_API_KEY="your-key-here"</code></pre>
             </div>
+            <p>Never in a file. In CI the value is an environment secret on the <code>live-experiments</code> environment (main only, approving reviewer), never a repository secret.</p>
             <p>In CI, that value is an environment secret on the <code>live-experiments</code> environment. It is not a repository secret. Live runs are manual, on the experiment workflow (<code>.github/workflows/experiment.yml</code>). That workflow starts with the spend check. The model id is an explicit input, pinned, and checked against the allowlist (<code>config/allowed_models.txt</code>). Ids that contain latest, preview, or exp are rejected. There is no fallback.</p>
             <details class="docs-fold">
               <summary>Contributors</summary>
@@ -140,27 +143,27 @@ terraform validate</code></pre>
               </div>
             </details>
             <h3 id="verdict">Read the verdict <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>A full gate on your machine is Coming soon. The rollout runner is implemented. Suite scoring, statistics, and report rendering are still placeholders. A live comparison needs a model and an API key, so this page does not print a run command.</p>
-            <p>When a run does print a suite status, read it as one of three: <strong>Pass</strong>, <strong>Block</strong>, or <strong>Insufficient evidence</strong>. <code>likely_regression</code> is a warning. It is not a status. An invalid run is not scored. Scenario rows stay diagnostics. The rule is on <a href="../concepts/">Concepts</a>.</p>
+            <p>A full gate on your machine is Coming soon. The rollout runner is implemented. Suite scoring, statistics, and report rendering are still placeholders. The only free run step is the dry run in the getting started guide.</p>
+            <p>When a run does print a suite status, read it as one of four: <strong>Pass</strong>, <strong>Block</strong>, <strong>Insufficient evidence</strong>, or <strong>Invalid run</strong>. <code>likely_regression</code> is a warning. It is not a status. An invalid run is not scored. Scenario rows stay diagnostics. The rule is on <a href="../concepts/">Concepts</a>.</p>
           </section>
           <section class="docs-sec" id="enterprise" aria-labelledby="enterprise-title">
             <h2 id="enterprise-title">Enterprise and CI</h2>
             <p>The packaged GitHub Action is <span class="docs-badge" data-state="planned">Coming soon</span>. The <code>action/</code> directory is an intentional stub.</p>
             <p>CI on main is <code>.github/workflows/ci.yml</code>. It runs on pull requests and on pushes to main. The job is read-only (<code>contents: read</code>). The workflow has no secrets. A pull request run does not receive an OIDC token.</p>
-            <p>A live model call is a different workflow. It is manual, it starts with the spend check, and it reads <code>GEMINI_API_KEY</code> from the <code>live-experiments</code> environment. Pull request runs never receive that secret. <span class="example-tag">Example</span> The spend check stops at $38 of logged spend this month. The experiment workflow also has a dollar ceiling.</p>
+            <p>A live model call is a different workflow. It is manual, it starts with the spend check, and it reads <code>GEMINI_API_KEY</code> from the <code>live-experiments</code> environment. Pull request runs never receive that secret. The spend check stops new live rollouts at <span class="example-tag">Example</span> $38 of logged spend this UTC month. A run already in progress can finish. The experiment workflow also has a dollar ceiling.</p>
           </section>
           <section class="docs-sec" id="background" aria-labelledby="background-title">
             <h2 id="background-title" class="sr-only">New to this?</h2>
             <aside class="docs-callout">
               <p class="kicker">New to this?</p>
-              <p>On this site, start with the <a href="../getting-started/">getting started guide</a> if you have not used a terminal before. Read <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/docs/BACKGROUND.md" rel="noopener noreferrer">docs/BACKGROUND.md</a> <span class="beta-mark">(beta testing)</span>.</p>
+              <p>On this site, start with the <a href="../getting-started/">getting started guide</a> if you have not used a terminal before. The same steps are in docs/GETTING_STARTED.md <span class="beta-mark">(private beta)</span>.</p>
             </aside>
           </section>
           <section class="docs-sec" id="troubleshooting" aria-labelledby="troubleshooting-title">
             <h2 id="troubleshooting-title">Troubleshooting</h2>
             <ul>
               <li><strong>Missing key.</strong> Offline checks do not need <code>GEMINI_API_KEY</code>. A live run does. If the variable is unset, the provider call cannot start. The placeholder is <code>your-key-here</code>. In CI the real value is an environment secret on <code>live-experiments</code>.</li>
-              <li><strong>Spend cap stop.</strong> <code>python scripts/check_monthly_spend.py</code> halts the run when logged spend this month reaches the stop. <span class="example-tag">Example</span> That stop is $38.</li>
+              <li><strong>Spend cap stop.</strong> <code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish.</li>
               <li><strong>Insufficient evidence.</strong> The interval does not support Pass, and it does not support Block. <code>likely_regression</code> on that result is a warning, not its own status. Read the statuses on <a href="../concepts/#statuses">Concepts</a>.</li>
             </ul>
           </section>
@@ -192,9 +195,8 @@ terraform validate</code></pre>
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a> <span class="beta-mark">(beta testing)</span>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -205,15 +207,14 @@ terraform validate</code></pre>
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

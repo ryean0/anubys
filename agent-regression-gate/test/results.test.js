@@ -38,8 +38,8 @@ test("the shipped harness preliminary file parses as insufficient evidence", () 
   assert.doesNotMatch(view.interval.text, /\d+\/20\b/);
   assert.equal(view.runSummary, null);
   assert.equal(view.costUsd, 1.25);
-  assert.equal(view.arms.baseline.rateText, "0%");
-  assert.equal(view.arms.candidate.rateText, "5%");
+  assert.equal(view.arms.baseline.rateText, "Example: 0% miss rate");
+  assert.equal(view.arms.candidate.rateText, "Example: 5% miss rate");
   assert.equal(view.arms.candidate.overMissLimit, false);
   assert.equal(view.arms.candidate.environmentMisses, 1);
   const broken = view.diagnostics.find((row) => row.scenarioId === "example.broken.v1");
@@ -545,6 +545,68 @@ test("run_summary stopped is null or monthly_cap", () => {
   delete doc.run_summary;
   assert.equal(parseResults(doc).runSummary, null);
   assert.equal(summaryRows(null).length, 0);
+});
+
+test("money accepts a number or a decimal string and rejects exponents and negatives", () => {
+  const base = {
+    schema_version: "1.0.0",
+    planned_rollouts: 2,
+    completed_rollouts: 2,
+    infra_misses: 0,
+    stopped: null,
+    total_cached_input_tokens: 0,
+    rollout_duration_p50_s: 1.5,
+    rollout_duration_max_s: 1.5,
+  };
+  const fromNumber = summaryRows(parseRunSummary({ ...base, total_cost_usd: 0.0123 }));
+  const fromString = summaryRows(parseRunSummary({ ...base, total_cost_usd: "0.0123" }));
+  assert.equal(parseRunSummary({ ...base, total_cost_usd: "0.0123" }).totalCostUsd, 0.0123);
+  assert.equal(parseRunSummary({ ...base, total_cost_usd: 0.0123 }).totalCostUsd, 0.0123);
+  assert.equal(
+    fromString.find((row) => row.label === "Total cost").text,
+    fromNumber.find((row) => row.label === "Total cost").text,
+  );
+  assert.equal(fromString.find((row) => row.label === "Total cost").text, "$0.012");
+  for (const bad of ["1e2", "1E-2", "1.5e1", "-1", "-0.5", " -0.1", "unset", "1.2.3", ""]) {
+    assert.throws(() => parseRunSummary({ ...base, total_cost_usd: bad }), /decimal string/);
+  }
+  assert.throws(() => parseRunSummary({ ...base, total_cost_usd: -1 }), /non-negative number/);
+  assert.equal(parseRunSummary({ ...base, total_cost_usd: "0", ceiling: null, per_rollout_cost_usd: "0.01" }).totalCostUsd, 0);
+});
+
+test("a zero duration with no completed rollouts renders n/a", () => {
+  const idle = parseRunSummary({
+    schema_version: "1.0.0",
+    planned_rollouts: 1,
+    completed_rollouts: 0,
+    infra_misses: 0,
+    stopped: null,
+    total_cost_usd: "0.0",
+    total_cached_input_tokens: 0,
+    rollout_duration_p50_s: 0.0,
+    rollout_duration_max_s: 0,
+  });
+  const rows = summaryRows(idle);
+  for (const label of ["Rollout duration p50", "Rollout duration max"]) {
+    const row = rows.find((item) => item.label === label);
+    assert.equal(row.text, "n/a");
+    assert.equal(row.example, false);
+    assert.notEqual(row.text, "0 s");
+    assert.notEqual(row.text, "0s");
+    assert.notEqual(row.text, "0 ms");
+  }
+  const running = summaryRows(parseRunSummary({
+    schema_version: "1.0.0",
+    planned_rollouts: 1,
+    completed_rollouts: 1,
+    infra_misses: 0,
+    stopped: null,
+    total_cost_usd: 0,
+    total_cached_input_tokens: 0,
+    rollout_duration_p50_s: 0,
+    rollout_duration_max_s: 0,
+  }));
+  assert.equal(running.find((row) => row.label === "Rollout duration p50").text, "0 s");
 });
 
 test("schema_version 2.1.0 can stand in for version and must agree when both are set", () => {

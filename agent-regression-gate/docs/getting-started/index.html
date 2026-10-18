@@ -85,8 +85,8 @@
           </ol>
         </nav>
         <div class="docs-body" data-os-switch data-os="mac">
-          <p>Anubys is free and open source, under the MIT license. The program you type is called <code>harness</code>. The project folder is named <code>ci-agent-regression-harness</code>. Both of those names mean Anubys.</p>
-          <p>The same steps are in <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/docs/GETTING_STARTED.md" rel="noopener noreferrer">docs/GETTING_STARTED.md</a> <span class="beta-mark">(beta testing)</span>. That file is the canonical source. These checks are also listed on the <a href="../../use-cases/">use cases</a> page.</p>
+          <p>Anubys is in private beta. MIT license planned. The public install opens soon. The program you type is called <code>harness</code>. The project folder is named <code>ci-agent-regression-harness</code>. Both of those names mean Anubys.</p>
+          <p>The same steps are in docs/GETTING_STARTED.md <span class="beta-mark">(private beta)</span>. That file is the canonical source. These checks are also listed on the <a href="../../use-cases/">use cases</a> page.</p>
 
           <section class="docs-sec" id="what-anubys-does">
             <h2>What Anubys does</h2>
@@ -278,11 +278,12 @@
 
           <section class="docs-sec" id="install-anubys">
             <h2>Install Anubys</h2>
-            <p>There is no <code>pip install anubys</code> package on the public Python package index. Use one of the two options below.</p>
+            <p>There is no <code>pip install anubys</code> package on the public Python package index. Not on PyPI yet. PyPI v0.1 is planned for November 16 to 20. Use one of the two options below.</p>
             <p>Start with Option B. It downloads the project folder, which the samples on this page need. Skip Option A for now.</p>
 
             <h3 id="option-b">Option B. Download the repository and install the pinned versions</h3>
             <p>This is the recommended setup for this guide. It is also what the project contributors use. The samples need these cloned files. In a folder where you keep projects:</p>
+            <p>Private beta. The repository is not public yet, so this command only works if you already have access. The public install opens soon.</p>
             <div class="docs-code">
               <div class="docs-code-bar"><p class="docs-code-label">shell · (beta testing)</p><button type="button" class="code-copy" aria-label="Copy command: git clone the repository">Copy</button></div>
               <pre tabindex="0"><code>git clone https://github.com/rphua-dev/ci-agent-regression-harness.git</code></pre>
@@ -429,6 +430,7 @@ available.</code></pre>
 
             <h3 id="option-a">Option A. Install the program only (advanced)</h3>
             <p>Skip this until the public launch. Without access it stops at the username prompt above.</p>
+            <p>Private beta. The repository is not public yet, so this command only works if you already have access. The public install opens soon.</p>
             <p>Option A also does not put the sample files in the folder you are standing in. The samples need the clone from Option B. When the repository is public and a virtual environment is on, the command is:</p>
             <div class="docs-code">
               <div class="docs-code-bar"><p class="docs-code-label">shell · (beta testing)</p><button type="button" class="code-copy" aria-label="Copy command: install the program from GitHub">Copy</button></div>
@@ -440,7 +442,7 @@ available.</code></pre>
               <div class="docs-code-bar"><p class="docs-code-label">shell</p><button type="button" class="code-copy" aria-label="Copy command: python -m harness --help">Copy</button></div>
               <pre tabindex="0"><code>python -m harness --help</code></pre>
             </div>
-            <p>This lists the commands the program accepts. The check printed these names: <code>validate</code>, <code>export-schema</code>, <code>convert-tau-retail</code>, <code>hash</code>, <code>gates</code>, <code>build-mvp-families</code>, and <code>validate-results</code>.</p>
+            <p>This lists the commands the program accepts. The check printed these names: <code>validate</code>, <code>export-schema</code>, <code>convert-tau-retail</code>, <code>hash</code>, <code>gates</code>, <code>build-mvp-families</code>, <code>validate-results</code>, and <code>run</code>.</p>
             <p>Running a sample from a folder that does not contain the repository prints a line like this (the path will be whatever folder you used):</p>
             <div class="docs-code">
               <div class="docs-code-bar"><p class="docs-code-label">output</p></div>
@@ -451,29 +453,55 @@ available.</code></pre>
 
           <section class="docs-sec" id="sample-use-cases">
             <h2>Sample use cases</h2>
-            <p>Run these from the project folder, with the virtual environment on. The free commands before the live-model section were run on Python 3.11 with <code>GEMINI_API_KEY</code> unset. They do not call a model, and they do not spend money.</p>
+            <p>Run these from the project folder, with the virtual environment on. The free commands before the live-model section do not call a model, and they do not spend money. They were checked with <code>GEMINI_API_KEY</code> unset. The dry run on this page was checked on Python 3.12.3. The other free commands on this page were checked on Python 3.11.</p>
             <p><code>python -m harness</code> runs the program even if the <code>harness</code> command is not on your PATH. After Option B, <code>harness</code> and <code>python -m harness</code> do the same job. The samples use <code>python -m harness</code>.</p>
 
             <h3 id="why-youd-use-this">Why you'd use this</h3>
-            <p>These are the jobs Anubys is for. There is no <code>harness run</code> command on main yet, so you cannot do them from the terminal today.</p>
+            <p>These are the jobs Anubys is for. The command that runs a suite is <code>python -m harness run</code>. It writes <code>run_summary.json</code> when a run actually starts. It does not choose a verdict yet and it does not write <code>results.json</code>. The free step is a dry run, which prints the plan and does not call a model.</p>
             <div class="use-grid">
               <article class="use-case">
-                <p class="use-flag">Coming once harness run lands</p>
-                <h3>A prompt tweak on a support bot</h3>
-                <p>You change the wording your support bot uses when a customer asks for a refund, and you want to know if the new wording still handles the practice chats. <span class="example-tag">Example</span>: 12 chats. Coming once <code>harness run</code> lands.</p>
+                                <h3>A prompt tweak on a support bot</h3>
+                <p>You change the wording your support bot uses when a customer asks for a refund, and you want to know if the new wording still handles the practice chats. <span class="example-tag">Example</span>: 12 chats. The free step is a dry run. A live run of those chats costs money.</p>
               </article>
               <article class="use-case">
-                <p class="use-flag">Coming once harness run lands</p>
-                <h3>Comparing two model settings</h3>
-                <p>You keep the same tasks and try two settings, one steadier and one more free. <span class="example-tag">Example</span>: temperature 0.2 and temperature 0.8. Coming once <code>harness run</code> lands.</p>
+                                <h3>Comparing two model settings</h3>
+                <p>You keep the same tasks and try two settings, one steadier and one more free. <span class="example-tag">Example</span>: temperature 0.2 and temperature 0.8. A dry run prints the plan for the model id you pass. It does not call the model. A live comparison costs money.</p>
               </article>
               <article class="use-case">
-                <p class="use-flag">Coming once harness run lands</p>
-                <h3>Gating a side-project pull request</h3>
-                <p>You want the pull request to wait for one of the four verdicts, and you want <span class="verdict-chip" data-state="block">Block</span> to stop the merge. <span class="example-tag">Example</span>: one candidate against the baseline you already trust. Coming once <code>harness run</code> lands.</p>
+                                <h3>Gating a side-project pull request</h3>
+                <p>You want the pull request to wait for one of the four verdicts, and you want <span class="verdict-chip" data-state="block">Block</span> to stop the merge. <span class="example-tag">Example</span>: one candidate against the baseline you already trust. <code>harness run</code> does not write that verdict yet. The GitHub Action that would block a merge is still a stub.</p>
               </article>
             </div>
 
+            <h3 id="preview-a-run">Preview a run without calling a model</h3>
+            <p>You want the plan for a small live run: which scenarios would be selected, and the upper bound on cost. You do not want a model call, and you do not want to spend money.</p>
+            <p>This is the only <code>harness run</code> step on this page. It is a dry run. Live mode still needs <code>--ceiling</code>, even on a dry run. The plan uses that number as the per-rollout limit when it prints the upper bound. The dry run does not reserve spend against the monthly check, and it does not call the model. It does not need a key, it does not add a spend row, and it does not create a <code>runs/</code> directory. Copy the model id from <code>config/allowed_models.txt</code>. The command does not fill one in for you.</p>
+            <div class="docs-code">
+              <div class="docs-code-bar"><p class="docs-code-label">shell</p><button type="button" class="code-copy" aria-label="Copy command: dry run a plan">Copy</button></div>
+              <pre tabindex="0"><code>python -m harness run suites/tau_retail --model "&lt;id from config/allowed_models.txt&gt;" --mode live --out runs/plan --limit 3 --rollouts 1 --ceiling 1 --dry-run</code></pre>
+            </div>
+            <p>This prints a plan and exits. It does not call a model, does not create <code>runs/plan</code>, and does not add a row to the spend log. The cost of this command is <span class="example-tag">Example</span> $0.</p>
+            <p>Leave <code>--ceiling</code> in the command. Without it the command stops with an error and does not print the plan. The error says live mode requires <code>--ceiling</code>. <span class="example-tag">Example</span>: with <code>--ceiling 1</code>, <code>--limit 3</code> and <code>--rollouts 1</code>, the plan's upper bound is $3. That is a cap on the plan, not a charge.</p>
+            <p>You should see a plan. The block below is an <span class="example-tag">Example</span>. Where it shows <code>&lt;the id you passed&gt;</code>, your output has the id you copied from the allowlist. Every rate and total below is an <span class="example-tag">Example</span>. One allowlisted id printed input 0.30, output 2.50, and cached 0.03. Another id can print different rates.</p>
+            <div class="docs-code">
+              <div class="docs-code-bar"><p class="docs-code-label">output · Example</p></div>
+              <pre tabindex="0"><code>plan
+suite: tau_retail
+model: &lt;the id you passed&gt;
+mode: live
+seed: scenario
+per_rollout_ceiling_usd: 1
+pricing_file: config/gemini_pricing.yaml
+input_usd_per_million: 0.30
+output_usd_per_million: 2.50
+cached_usd_per_million: 0.03
+scenario: tau_retail.policy.051.v1 rollouts=1
+scenario: tau_retail.policy.051.v2 rollouts=1
+scenario: tau_retail.policy.051.v3 rollouts=1
+total_rollouts: 3
+upper_bound_usd: 3</code></pre>
+            </div>
+            <p>On the current retail suite, <code>--limit 3</code> keeps the first three scenario ids in sorted order. The command finishes after the plan. Replay is not a free first step.</p>
             <h3 id="validate-examples">Check that the example scenarios are valid</h3>
             <p>You want to know that the small set of example shopping tasks is written in the shape Anubys accepts.</p>
             <div class="docs-code">
@@ -498,7 +526,7 @@ available.</code></pre>
               <pre tabindex="0"><code>ok 87 scenario(s), 1 suite file(s)</code></pre>
             </div>
             <p>That means 87 scenario files and 1 suite file passed. The 9 example files and the 78 files in the scenarios folder are those 87.</p>
-            <p>More detail on the file shape is in <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/docs/scenario-format.md" rel="noopener noreferrer">scenario-format.md</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>More detail on the file shape is in scenario-format.md <span class="beta-mark">(private beta)</span>.</p>
 
             <h3 id="safety-checks">Run the safety checks</h3>
             <p>You want to know the sanitized scenarios are safe to keep: the shape is valid, the personal data is synthetic, there are no secrets, and the tasks are not copies of each other.</p>
@@ -553,11 +581,11 @@ ok 6 gate(s)</code></pre>
               <pre tabindex="0"><code>insufficient_evidence
 This test cannot yet tell whether the new agent is close enough, so it is not a yes or a no.</code></pre>
             </div>
-            <p>That is <span class="verdict-chip" data-state="insufficient">Insufficient evidence</span>: the test cannot yet say yes or no. The file itself says the numbers are fake practice data, so this is not a real comparison. The field guide for the file is <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/docs/results-format.md" rel="noopener noreferrer">results-format.md</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>That is <span class="verdict-chip" data-state="insufficient">Insufficient evidence</span>: the test cannot yet say yes or no. The file itself says the numbers are fake practice data, so this is not a real comparison. The field guide for the file is results-format.md <span class="beta-mark">(private beta)</span>.</p>
 
-            <h3 id="replay">Replay a recorded run <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>Replaying a saved model recording is supported inside the code, and that path writes a cost of <span class="example-tag">Example</span> $0 because it does not call a model. Replaying only the tool environment while the model itself is live still calls the model and can spend money.</p>
-            <p>There is no beginner command for either path. <code>python -m harness --help</code> has no <code>replay</code> or <code>run</code> command. The repository also has no sample recording you can point at. This page skips the replay exercise for that reason.</p>
+            <h3 id="replay">Replay a recorded run <span class="docs-badge" data-state="built">Built</span></h3>
+            <p>Replay is not a free first step. <code>python -m harness run --mode replay</code> reruns a saved model recording without calling a model. That costs <span class="example-tag">Example</span> $0 only after you already have one. A live run with <code>--record</code> writes it as <code>model.json</code> in the cassettes folder, and no sample recording ships. Without <code>model.json</code>, replay refuses before any rollout. Replaying only the tool environment while the model is live still calls the model and can spend money.</p>
+            <p>Skip replay until you have your own recording. This page does not ask you to make one.</p>
 
             <h3 id="tau-preview">Preview converting tau-bench retail tasks</h3>
             <p>You want a preview of how the vendored tau-bench retail tasks would be classified, without writing files and without spending money.</p>
@@ -582,8 +610,8 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
             <div class="docs-callout">
               <p>A live run sends tasks to Google Gemini and can charge the Google account that owns the API key. Read this section so you know how the guard rails work. Do not start a live run from this page.</p>
             </div>
-            <p><strong>There is no tiny live command on main.</strong> <code>python -m harness --help</code> has no command that calls Gemini. The manual workflow file <code>.github/workflows/experiment.yml</code> is still a placeholder. Its last step says that no Gemini call was made. Do not run that workflow as if it were a live test, and do not paste a workflow into your repository from this page.</p>
-            <p>When a real live command exists, it will be a labeled experiment. Until then, the steps below only prepare a key and show the free spend check.</p>
+            <p><code>python -m harness run --mode live</code> is the command that calls the model. It needs <code>GEMINI_API_KEY</code> in the current terminal and <code>--ceiling</code>. A live run that starts writes <code>run_summary.json</code>. It does not write a verdict. The approved path for a paid run is the manual workflow <code>.github/workflows/experiment.yml</code>, started from <code>main</code> in the <code>live-experiments</code> environment after a required reviewer approves it. Do not start a live run from this page.</p>
+            <p>The steps below only explain the key and the free spend check. They are not a live run.</p>
             <h3>Get a Gemini API key</h3>
             <ol>
               <li>Sign in to <a href="https://aistudio.google.com/" rel="noopener noreferrer">Google AI Studio</a>.</li>
@@ -632,7 +660,7 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
             </div>
             <h3>Spend safety</h3>
             <p>Two checks sit in front of a live rollout.</p>
-            <p><strong>Per-rollout dollar limit.</strong> A live rollout can be given a dollar ceiling. If the model cost of that one rollout is above the ceiling, Anubys records the reason <code>spend_ceiling</code>. On main today that rollout is recorded as a miss. It is being changed to count as a fail (team decision October 16). The cost is still written to the spend log. The suite can continue with the next rollout. That miss or fail is a result for one rollout. The suite verdict is still only Pass, Block, Insufficient evidence, or Invalid run.</p>
+            <p><strong>Per-rollout dollar limit.</strong> A live rollout can be given a dollar ceiling. It is checked after each model call, and the call that crosses it is included, so the rollout can cost slightly more than the ceiling. Anubys records the reason <code>spend_ceiling</code>. On main today that rollout is recorded as a miss. It is being changed to count as a fail (team decision October 16). The cost is still written to the spend log. The suite can continue with the next rollout. That miss or fail is a result for one rollout. The suite verdict is still only Pass, Block, Insufficient evidence, or Invalid run.</p>
             <p><strong>The <span class="example-tag">Example</span> $38 monthly check.</strong> The <span class="example-tag">Example</span> $38 monthly check stops new live rollouts once logged spend reaches <span class="example-tag">Example</span> $38 and can overshoot slightly. Anubys adds up <code>spend/spend_log.jsonl</code> for the current calendar month in UTC. Before it starts a new live rollout, it also adds what that rollout is allowed to cost: your per-rollout ceiling, or the cost of the previous logged row when no ceiling is set. If that sum would reach <span class="example-tag">Example</span> $38, the next rollout does not start. A rollout that has already started is allowed to finish, so the logged total can end a little above <span class="example-tag">Example</span> $38.</p>
             <p>A budget alert in Google's own console does not stop the calls. The monthly check is what stops new live rollouts, and a small overshoot is possible.</p>
             <p>You can run the monthly check itself for free. It only reads the log. Stay in the project folder. The key can stay unset.</p>
@@ -649,15 +677,15 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
             <p>Your line can start with a later month, such as the month you run it. <span class="example-tag">Example</span> $0 means the log has no spend in that month. The log file in the repository is empty until a labeled experiment appends a row. Leave the file alone.</p>
 
             <h3 id="github-ci">Use it in GitHub CI (coming soon) <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>The packaged GitHub Action in <code>action/action.yml</code> is a stub that exits with an error on purpose, so a workflow cannot treat it as a passing check. A real Action is planned for November 5. Until then, pull-request CI includes the free checks from this page (scenario validation, the sanitization gates, the sample results file, and the monthly spend check) and does not call a model. This page does not include a workflow file, because a sample would not be a working gate yet. The stub is described in <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/action/README.md" rel="noopener noreferrer">action/README.md</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>The packaged GitHub Action in <code>action/action.yml</code> is a stub that exits with an error on purpose, so a workflow cannot treat it as a passing check. A real Action is planned for November 5. Until then, pull-request CI includes the free checks from this page (scenario validation, the sanitization gates, the sample results file, and the monthly spend check) and does not call a model. A paid Gemini run is not this Action. It is the manual workflow <code>.github/workflows/experiment.yml</code>, in the <code>live-experiments</code> environment, after a reviewer approves it, started from <code>main</code>. This page does not include a workflow file to copy, because a sample would not be a working gate yet. The stub is described in action/README.md <span class="beta-mark">(private beta)</span>.</p>
           </section>
 
           <section class="docs-sec" id="keeping-it-free-and-safe">
             <h2>Keeping it free and safe</h2>
             <h3>Start free (no account, no key, <span class="example-tag">Example</span> $0)</h3>
-            <p>Everything in the free use cases above runs offline. Those checks read files already in the project, so they never call an AI model and can't cost you anything. You don't need an API key for any of it. Replaying a saved model recording is in the code, but there is no command for it yet, so the free use cases are the offline checks, not a replay.</p>
-            <h3>Costs money: live runs with a Gemini key (Coming soon) <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>A live run sends real requests to Google's Gemini model, and Google bills you for each one.</p>
+            <p>Everything in the free use cases above runs offline. Those checks read files already in the project, so they never call an AI model and can't cost you anything. You don't need an API key for any of it. The only <code>harness run</code> step in that list is <code>--dry-run</code>. Replay is not a free beginner step. No sample recording ships, and replay refuses without <code>model.json</code>. A replay costs <span class="example-tag">Example</span> $0 only after a live run with <code>--record</code> has written that file.</p>
+            <h3>Costs money: live runs with a Gemini key</h3>
+            <p>A live run sends real requests to Google's Gemini model, and Google bills you for each one. Do not start one from this page. The approved path is <code>.github/workflows/experiment.yml</code> on <code>main</code>, in the <code>live-experiments</code> environment, after a required reviewer approves the run.</p>
             <ol>
               <li><strong>Get a key.</strong> Sign in at <a href="https://aistudio.google.com/apikey" rel="noopener noreferrer">Google AI Studio</a> and create an API key. Think of it like a password that can spend your money.</li>
               <li><strong>Store it in your terminal, never in a file you share.</strong> Do not run these lines during the free steps. A placeholder still makes the free check print <code>set</code>.
@@ -674,14 +702,14 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
               </li>
               <li><strong>Never</strong> paste the key into code, a config file you commit, a screenshot, a chat, or a GitHub issue. If it leaks, delete it in AI Studio and make a new one.</li>
               <li><strong>Set a budget alert.</strong> In the Google Cloud console, go to Billing, then "Budgets &amp; alerts", and set a small monthly budget (for example <span class="example-tag">Example</span> $5). Heads-up: Google only <em>emails</em> you when you cross it. It does not stop spending.</li>
-              <li><strong>Know what stops spending.</strong> Anubys has its own spend limit for each test rollout. The other gate settings live in <code>suite.yaml</code>. On main today, a rollout that goes over that limit is recorded as a miss. It is being changed to count as a fail (team decision October 16). The <span class="example-tag">Example</span> $38 monthly check stops new live rollouts once logged spend reaches <span class="example-tag">Example</span> $38 and can overshoot slightly. Your own budget is still on you, so start small.</li>
+              <li><strong>Know what stops spending.</strong> Anubys has its own spend limit for each test rollout. That limit is checked after each model call, and the call that crosses it is included, so the rollout can cost slightly more than the limit. The other gate settings live in <code>suite.yaml</code>. On main today, a rollout that goes over that limit is recorded as a miss. It is being changed to count as a fail (team decision October 16). The <span class="example-tag">Example</span> $38 monthly check stops new live rollouts once logged spend reaches <span class="example-tag">Example</span> $38, and the month can overshoot slightly. Your own budget is still on you. This page does not ask you to start a live run.</li>
             </ol>
             <h3>What does a run cost?</h3>
             <p>Real figures go here once the team's measured cost runs are done. Until then, treat any dollar amount in this guide as an <span class="example-tag">Example</span>, not a quote. The <span class="example-tag">Example</span> $38 monthly check is a limit in the tool, not a price for a run.</p>
             <h3>Free tier vs paid</h3>
-            <p>Google AI Studio has a free tier with low rate limits, which is fine for trying a few live runs. If you turn on billing, every request is charged, so set the budget alert first.</p>
+            <p>Google AI Studio has a free tier with low rate limits. If you turn on billing, every request is charged, so set the budget alert first. This page does not ask you to start a live run.</p>
             <h3>Using it in GitHub CI (Coming soon) <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>When the GitHub Action ships, your key goes into <strong>repo Settings &gt; Secrets and variables &gt; Actions</strong>, never into the workflow file. Pull requests from forks never get your key or trigger paid runs.</p>
+            <p>Your key goes in an environment secret on a <code>live-experiments</code> environment, never a repository secret and never the workflow file. Restrict that environment to <code>main</code> and to an approving reviewer. Pull requests, including forks, never get the key or start paid runs.</p>
           </section>
 
           <section class="docs-sec" id="glossary">
@@ -690,20 +718,20 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
             <p><strong>Baseline.</strong> The agent you already trust. Anubys compares the new agent against it.</p>
             <p><strong>Candidate.</strong> The new agent you are considering.</p>
             <p><strong>Verdict.</strong> The single decision for a comparison. It is Pass, Block, Insufficient evidence, or Invalid run. Block: clearly worse, by more than the allowed margin.</p>
-            <p><strong>Rollout.</strong> One try of one scenario by one agent. A live rollout can call a model. The free commands on this page do not run rollouts.</p>
+            <p><strong>Rollout.</strong> One try of one scenario by one agent. A live rollout can call a model. The free commands on this page do not run rollouts. The dry run only prints a plan.</p>
             <p><strong>Sanitization gates.</strong> The six safety checks in <code>python -m harness gates</code>: file shape, synthetic personal data, secrets, exact copies, near copies, and one split per family.</p>
             <p><strong>Virtual environment.</strong> A private folder of Python packages for this project, usually named <code>.venv</code>.</p>
-            <p><strong>Spend log.</strong> The file <code>spend/spend_log.jsonl</code>, an append-only list of what live runs cost. Replay of a model recording writes a <span class="example-tag">Example</span> $0 row. The monthly check reads this file.</p>
-            <p><strong>Cassette.</strong> A saved recording of a previous run. The code can replay one. There is no <code>harness</code> command for that yet.</p>
+            <p><strong>Spend log.</strong> The file <code>spend/spend_log.jsonl</code>, an append-only list of what live runs cost. A live dry run does not add a row and does not need this file. A real live run refuses a missing log instead of treating it as <span class="example-tag">Example</span> $0. The file in the repository is empty. Replay of a model recording writes an <span class="example-tag">Example</span> $0 row. The monthly check reads this file.</p>
+            <p><strong>Cassette.</strong> A saved recording of a model run, stored as <code>model.json</code>. <code>python -m harness run --mode replay</code> reads it. No sample recording ships.</p>
             <p><strong>tau-bench retail.</strong> A public set of shopping support tasks. This repository already contains a copy. <code>convert-tau-retail --dry-run</code> only counts that local copy.</p>
           </section>
 
           <section class="docs-sec" id="getting-help">
             <h2>Getting help</h2>
-            <p>Open an issue on the repository: <a href="https://github.com/rphua-dev/ci-agent-regression-harness/issues" rel="noopener noreferrer">https://github.com/rphua-dev/ci-agent-regression-harness/issues</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>The issues page is on the repository. The repository is private, so that page is not public yet. Public install opens soon.</p>
             <p>Include the command you ran, the full output, and the output of <code>python --version</code>. Say whether you are on macOS, Windows, or Linux. <strong>Never paste your API key in an issue.</strong></p>
             <p>If GitHub says you cannot see the repository, it is not public yet.</p>
-            <p>The contributor checks (lint and tests) are listed in <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/CONTRIBUTING.md" rel="noopener noreferrer">CONTRIBUTING.md</a> <span class="beta-mark">(beta testing)</span>. The spend log rules are in <a href="https://github.com/rphua-dev/ci-agent-regression-harness/blob/main/spend/README.md" rel="noopener noreferrer">spend/README.md</a> <span class="beta-mark">(beta testing)</span>.</p>
+            <p>The contributor checks (lint and tests) are listed in CONTRIBUTING.md <span class="beta-mark">(private beta)</span>. The spend log rules are in spend/README.md <span class="beta-mark">(private beta)</span>.</p>
           </section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../"><span>Previous</span><b>Introduction</b></a><a class="docs-next" href="../quickstart/"><span>Next</span><b>Quickstart</b></a></nav>
@@ -733,7 +761,7 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a> <span class="beta-mark">(beta testing)</span>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
       </nav>
     </div>
@@ -745,15 +773,14 @@ This test cannot yet tell whether the new agent is close enough, so it is not a 
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

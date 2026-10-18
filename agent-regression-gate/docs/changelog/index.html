@@ -73,13 +73,14 @@
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
-          <ol><li><a href="#example-results">16 October 2026</a></li><li><a href="#performance-day">15 October 2026</a></li><li><a href="#october">13 October 2026</a></li><li><a href="#earlier">Earlier on this site</a></li></ol>
+          <ol><li><a href="#sync-134af48">18 October 2026</a></li><li><a href="#example-results">16 October 2026</a></li><li><a href="#performance-day">15 October 2026</a></li><li><a href="#october">13 October 2026</a></li><li><a href="#earlier">Earlier on this site</a></li></ol>
         </nav>
         <div class="docs-body">
+          <section class="docs-sec" id="sync-134af48" aria-labelledby="sync-134af48-title"><h2 id="sync-134af48-title">18 October 2026</h2><ul><li>Copy now matches harness main. <code>harness run</code> is live, replay, and dry run. It writes <code>run_summary.json</code>, not a verdict.</li><li>Cassette replay is Built. The Gemini adapter is Built. This site reads results schema 2.1.0, and still reads 1 and 2.0.0.</li><li>The monthly spend check stops new live rollouts at <span class="example-tag">Example</span> $38. A run already in progress can finish.</li><li>Private beta. MIT license planned. Not on PyPI yet. PyPI v0.1 is planned for November 16 to 20.</li></ul></section>
           <section class="docs-sec" id="example-results" aria-labelledby="example-results-title"><h2 id="example-results-title">16 October 2026</h2><ul><li>The bundled results sample matches harness schema 2.1.0. Model ids are recorded at verdicts.overall.model_ids and baseline_pool_model_id. Diagnostics include example.clean.v1 (family example.clean) and example.broken.v1 (family example.broken).</li><li>The results panel reads a run summary from a separate example file, schema_version 1.0.0. That file is not a field of results.json. It shows planned rollouts, completed rollouts, infrastructure misses, cached input tokens, total cost, and rollout duration p50 and max.</li><li>schema/step.schema.json matches the harness Step contract. thinking_tokens and cached_tokens are optional and may be null.</li></ul></section>
-          <section class="docs-sec" id="performance-day" aria-labelledby="performance-day-title"><h2 id="performance-day-title">15 October 2026</h2><ul><li>The landing page has a Zero latency in production section. More details opens the performance page.</li><li>Anubys runs as a CI check when a pull request opens and adds 0 ms to production model responses.</li><li>Example efficiency figures render from data/timing.sample.json. Measured numbers coming from Oct cost runs.</li><li>Cassette replay is labeled Landing with harness #14. It is not merged yet. Integrations and spend call it In review.</li><li>The model id is not final. Pages name a pinned Gemini Flash-Lite model id (exact version set in suite config).</li><li>The install guide is at docs/install/. It is labeled beta testing. Offline checks use the harness README commands. A full local gate stays Coming soon.</li></ul></section>
+          <section class="docs-sec" id="performance-day" aria-labelledby="performance-day-title"><h2 id="performance-day-title">15 October 2026</h2><ul><li>The landing page has a Zero latency in production section. More details opens the performance page.</li><li>Anubys runs as a CI check when a pull request opens and adds 0 ms to production model responses.</li><li>Example efficiency figures render from data/timing.sample.json. Measured numbers coming from Oct cost runs.</li><li>Cassette replay is labeled Landing with harness #14. It is not merged yet. Integrations and spend call it In review.</li><li>The model id is not final. Pages name a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model).</li><li>The install guide is at docs/install/. It is labeled beta testing. Offline checks use the harness README commands. A full local gate stays Coming soon.</li></ul></section>
           <section class="docs-sec" id="october" aria-labelledby="october-title"><h2 id="october-title">13 October 2026</h2><ul><li>Docs for the introduction, the quickstart, concepts, guides, and reference.</li><li>The landing page gained a Why Anubys comparison and an enterprise strip.</li><li>The roadmap is labeled Built, Next, and Planned.</li><li>Data stays in your cloud is Planned, because results go to an S3 bucket the team controls. Bring-your-own bucket is post-MVP.</li></ul></section>
-<section class="docs-sec" id="earlier" aria-labelledby="earlier-title"><h2 id="earlier-title">Earlier on this site</h2><ul><li>The page reads results schema 1, 2.0.0, and 2.1.0. The Wk4 fields are in progress.</li><li>The gate rule on the site is non-inferiority, δ = 5 pp, at a 90% interval.</li><li>The reference adapter is a pinned Gemini Flash-Lite model id (exact version set in suite config): one adapter and an allowlist entry.</li></ul></section>
+<section class="docs-sec" id="earlier" aria-labelledby="earlier-title"><h2 id="earlier-title">Earlier on this site</h2><ul><li>The page reads results schema 1, 2.0.0, and 2.1.0. The Wk4 fields are in progress.</li><li>The gate rule on the site is non-inferiority, δ = 5 pp, at a 90% interval.</li><li>The reference adapter is a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model): one adapter and an allowlist entry.</li></ul></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../reference/data/"><span>Previous</span><b>Where results go</b></a><a class="docs-next" href="../roadmap/"><span>Next</span><b>Roadmap</b></a></nav>
       </article>
@@ -108,9 +109,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -121,15 +121,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

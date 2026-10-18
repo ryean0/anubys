@@ -55,6 +55,7 @@
       <div class="wrap">
         <p class="kicker">Specification</p>
         <h1 id="spec-title">The decision rules.</h1>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <p class="section-intro">A <span class="term"><button type="button" aria-expanded="false" aria-controls="tip-rollout" aria-describedby="tip-rollout">rollout</button><span class="term-tip" id="tip-rollout" role="tooltip">One execution of one scenario. A pass scores 1. A fail scores 0.</span></span> is one execution. Pass is 1. Fail is 0. The status applies to the suite. Repeated rollouts per arm. Scenarios are SHA-256 hashes.</p>
         <!-- brand: body gate decision intro -->
         <p class="section-intro">Compare a candidate agent with the one already in production, on the same scenarios. Anubys returns one suite status at 90% confidence: Pass, Block, Insufficient evidence, or Invalid run. Insufficient evidence can carry a <span class="term"><button type="button" aria-expanded="false" aria-controls="tip-regression" aria-describedby="tip-regression">Likely regression</button><span class="term-tip" id="tip-regression" role="tooltip">A warning on insufficient evidence, not a separate status. Pass if the 90% interval's lower bound is above −5 pp. Block if its upper bound is below −5 pp. An invalid run isn't scored. Scenarios are diagnostics, not individual gates.</span></span> warning.</p>
@@ -92,7 +93,7 @@
                 </li>
                 <li>
                   <h3>Timeout policy</h3>
-                  <p>A loop or an exhausted step budget scores 0 and stays in the sample. Provider 5xx, rate limits, and a killed CI runner are excluded from the score and counted toward the miss cap.</p>
+                  <p>A loop or an exhausted step budget scores 0 and stays in the sample. Provider 5xx, rate limits, and a killed CI runner are excluded from the score and counted toward the miss cap. spend_ceiling: Miss today, being changed (team decision October 16).</p>
                   <p class="annotation">agent timeout → 0 · infrastructure timeout → excluded</p>
                   <div class="tvis" aria-hidden="true">
                     <p class="tvis-kicker">Outcome</p>
@@ -100,6 +101,7 @@
                     <p class="tvis-row"><span>Provider 5xx</span><b>Excluded</b></p>
                     <p class="tvis-row"><span>Rate limit</span><b>Excluded</b></p>
                     <p class="tvis-row"><span>Runner killed</span><b>Excluded</b></p>
+                    <p class="tvis-row"><span>spend_ceiling</span><b>Miss</b></p>
                   </div>
                 </li>
                 <li>
@@ -170,9 +172,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -183,15 +184,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

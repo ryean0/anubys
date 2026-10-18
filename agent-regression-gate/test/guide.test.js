@@ -33,7 +33,6 @@ function rejectForbidden(html, label) {
   assert.doesNotMatch(html, /py --version/, `${label} py launcher`);
   assert.doesNotMatch(html, /py -m venv/, `${label} py venv`);
   assert.doesNotMatch(html, /git\+https:\/\/github\.com\/rphua-dev\/ci-agent-regression-harness\.git/, `${label} pip URL suffix`);
-  assert.doesNotMatch(html, /python -m harness run/, `${label} live run command`);
   assert.doesNotMatch(html, /rollout runner|retail simulator/, `${label} advanced tools`);
   for (const match of html.matchAll(/<pre[^>]*>\s*<code>([\s\S]*?)<\/code>/g)) {
     assert.equal(/^\s*pip install anubys\b/i.test(match[1]), false, `${label} PyPI install block`);
@@ -118,8 +117,7 @@ test("getting started ports the verified guide", () => {
   assert.match(html, /https:\/\/anubys\.dev\/docs\/getting-started\//);
   assert.match(main, /There is no <code>pip install anubys<\/code> package/);
   assert.match(main, /The free parts need no API key and no money\./);
-  assert.match(main, /MIT/);
-  assert.match(main, /free and open source/);
+  assert.match(main, /MIT license planned/);
   assert.match(main, /Suite scoring, statistics, and report rendering are still placeholders/);
   assert.match(main, /https:\/\/www\.python\.org\/downloads\//);
   assert.doesNotMatch(main, /python\.org\/downloads\/macos/);
@@ -127,7 +125,8 @@ test("getting started ports the verified guide", () => {
   assert.match(main, /https:\/\/git-scm\.com\/downloads/);
   assert.match(main, /Python 3\.11\.17/);
   assert.match(main, /Git 2\.43\.0/);
-  assert.match(main, /https:\/\/github\.com\/rphua-dev\/ci-agent-regression-harness\/blob\/main\/docs\/GETTING_STARTED\.md/);
+  assert.match(main, /docs\/GETTING_STARTED\.md/);
+  assert.match(main, /private beta/);
   assert.match(main, /role="tablist"/);
   assert.match(main, /aria-label="Choose your computer"/);
   assert.match(main, /macOS/);
@@ -141,7 +140,9 @@ test("getting started ports the verified guide", () => {
   assert.match(main, /\(beta testing\)/);
   assert.match(main, /Coming soon/);
   assert.match(main, /Do not start a live run from this page/);
-  assert.match(main, /There is no tiny live command on main/);
+  assert.match(main, /experiment\.yml/);
+  assert.match(main, /after a required reviewer approves/);
+  assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /On main today that rollout is recorded as a miss\. It is being changed to count as a fail \(team decision October 16\)\./);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /Block: clearly worse, by more than the allowed margin\./);
@@ -210,6 +211,8 @@ test("sample use cases follow the verified checks", () => {
   assert.match(main, /stub that exits with an error on purpose/);
   assert.match(main, /Coming soon/);
   assert.match(main, /Do not start a live run from this page/);
+  assert.match(main, /after a required reviewer approves/);
+  assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /On main today that rollout is recorded as a miss\. It is being changed to count as a fail \(team decision October 16\)\./);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /clearly worse, by more than the allowed margin/);

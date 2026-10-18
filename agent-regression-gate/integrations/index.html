@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Integrations · Anubys</title>
-  <meta name="description" content="Works with the agent you already run. Adapters, a planned GitHub Action, and your CI.">
+  <meta name="description" content="Gemini today. Adapters, a planned GitHub Action, and your CI.">
   <link rel="canonical" href="https://anubys.dev/integrations/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/integrations/">
@@ -54,19 +54,20 @@
     <section class="section reveal" id="integrations">
       <div class="wrap">
         <p class="kicker">Integrations</p>
-        <h1>Works with the agent you already run.</h1>
+        <h1>Gemini today.</h1>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <!-- brand: body integrations intro -->
-        <p class="section-intro">Anubys does not replace your agent framework, and it is not a partnership with one. You keep the agent. A thin adapter wraps it, so the same scenarios can run on the version in production and the version on the pull request. The gate stays provider-agnostic: the suite status does not depend on which model answered. The first adapter, for Gemini, is in progress until it merges. The job is meant to run as a GitHub Action. It writes one results file. This page already reads that file.</p>
+        <p class="section-intro">Anubys does not replace your agent framework, and it is not a partnership with one. Gemini today. You keep the agent. The Gemini adapter is Built, and it is the only provider today. The packaged GitHub Action is still planned. Cassette replay is Built. This page reads 2.1.0, and still reads 1 and 2.0.0. The check would fail on Block once the packaged Action ships.</p>
         <div class="spec-grid">
-          <article class="spec"><b class="spec-word">Wrap</b><p>The agent under test sits behind a small adapter. The gate does not import a provider SDK. The first backend is Gemini. It is in progress, not merged.</p></article>
+          <article class="spec"><b class="spec-word">Wrap</b><p>The agent under test sits behind a small adapter. The gate does not import a provider SDK. The first backend is Gemini. The Gemini adapter is Built.</p></article>
           <article class="spec"><b class="spec-word">Action</b><p>A GitHub Action on the pull request is how the check is meant to run. That Action is planned. It is not in this repository.</p></article>
-          <article class="spec"><b class="spec-word">Replay</b><p>Record/replay cassettes: In review, on harness #14. A re-run would reuse a recorded trace instead of calling the model again. It is not merged yet.</p></article>
-          <article class="spec"><b class="spec-word">Results</b><p>The run writes <code>results.json</code>. This page reads version 1 and version 2.0.0. The check fails on Block.</p></article>
+          <article class="spec"><b class="spec-word">Replay</b><p>Cassette replay is Built. A re-run reuses a recorded trace instead of calling the model again. The key is a hash of each model request. You need your own --record first. No sample recording ships.</p></article>
+          <article class="spec"><b class="spec-word">Results</b><p>This page reads 2.1.0, and still reads 1 and 2.0.0. Today <code>harness run</code> writes <code>run_summary.json</code>, not a verdict. The check would fail on Block once the packaged Action ships.</p></article>
         </div>
-        <div class="logo-strip" aria-label="First backend, in progress">
-          <p>In progress</p>
+        <div class="logo-strip" aria-label="Gemini today">
+          <p>Gemini today</p>
           <ul>
-            <li>a pinned Gemini Flash-Lite model id (exact version set in suite config) · in progress</li>
+            <li>a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>) · Built</li>
           </ul>
         </div>
         <div class="logo-strip" aria-label="Roadmap adapter examples">
@@ -87,7 +88,7 @@
             <li>MCP · planned</li>
             <li>OpenTelemetry GenAI · planned</li>
             <li>GitHub Action · planned</li>
-            <li>Record/replay cassettes · In review</li>
+            <li>Record/replay cassettes · Built</li>
             <li>Inspect · planned</li>
             <li>promptfoo · planned</li>
             <li>LangSmith · planned</li>
@@ -95,15 +96,15 @@
             <li>DeepEval · planned</li>
           </ul>
         </div>
-        <p class="fine">No official partnerships. In progress means the Gemini adapter is the first backend and is not merged yet. A roadmap adapter example is a shape a later wrapper could take. Planned means it is not built in this repository.</p>
+        <p class="fine">No official partnerships. Gemini today is the only provider. A roadmap adapter example is a shape a later wrapper could take. Planned means it is not built in this repository.</p>
         <div class="faq-list">
           <details>
             <summary>Technical details</summary>
-            <p>The adapter contract is provider-agnostic, and it is the intended seam. This repository does not ship an adapter. One rollout is one call: scenario id, SHA-256 of the scenario text, arm (<code>baseline</code> or <code>candidate</code>), and a step budget. The adapter returns pass, fail, agent timeout, or an infrastructure miss. An agent timeout scores 0. A provider error, a rate limit, or a killed runner is excluded from the score and counted toward the 5% miss cap. The model name does not enter the suite verdict.</p>
-            <p>First backend, in progress. The harness calls a pinned Gemini Flash-Lite model id (exact version set in suite config). That version is not final. A floating alias is not the pin, because it moves. The adapter stays labeled in progress until it merges. OpenAI Agents SDK, Claude Agent SDK, LangGraph, LlamaIndex, CrewAI, AutoGen, and Microsoft Agent Framework are roadmap adapter examples, not backends in development, and not partnerships.</p>
+            <p>The adapter contract is provider-agnostic, and it is the intended seam. Gemini is the only adapter today. One rollout is one call: scenario id, SHA-256 of the scenario text, arm (<code>baseline</code> or <code>candidate</code>), and a step budget. The adapter returns pass, fail, agent timeout, or an infrastructure miss. An agent timeout scores 0. A provider error, a rate limit, or a killed runner is excluded from the score and counted toward the 5% miss cap. The model name does not enter the suite verdict.</p>
+            <p>Gemini today. The harness calls a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>). A floating alias is not the pin, because it moves. The Gemini adapter is Built. OpenAI Agents SDK, Claude Agent SDK, LangGraph, LlamaIndex, CrewAI, AutoGen, and Microsoft Agent Framework are roadmap adapter examples, not backends in development, and not partnerships.</p>
             <p>The scorer does not import an agent SDK. It pairs scenarios, builds the 90% interval, and the check fails on Block. Scenario rows stay diagnostics. They are not individual gates.</p>
             <p>GitHub Action, planned. Trigger <code>pull_request</code> so the check can be required. The job runs both arms through the adapter and uploads <code>results.json</code>. It fails the check on Block. An invalid run is reported as invalid and isn't scored. A merge queue would also need the <code>merge_group</code> event. Buildkite, Jenkins, and your own runner are the same planned job, not separate products.</p>
-            <p>Record/replay cassettes: In review, on harness #14. Not merged yet. Record mode would store model and tool traffic keyed by the scenario hash and the arm. Replay mode would return that recording and would not call the provider. A hash mismatch is a miss, not a silent reuse. A cassette is an input to scoring. It is not a verdict.</p>
+            <p>Cassette replay is Built. Record mode stores model and tool traffic keyed by a hash of each model request. Replay mode returns that recording and does not call the provider. You need your own --record first. No sample recording ships. A hash mismatch is a miss, not a silent reuse. A cassette is an input to scoring. It is not a verdict.</p>
             
             <p>OpenTelemetry GenAI spans, planned. If an agent already emits them, an adapter may attach the trace as a diagnostic. Spans do not set the suite status. Those semantic conventions are still marked Development. Inspect, promptfoo, LangSmith, Braintrust, and DeepEval are planned sources of scenarios or scores. They do not become the suite verdict.</p>
           </details>
@@ -118,7 +119,7 @@
           </ul>
         </div>
         <div class="faq-list">
-          <details><summary>Which frameworks does it work with?</summary><p>None are official integrations. The gate stays provider-agnostic. The first backend is a pinned Gemini Flash-Lite model id (exact version set in suite config), and that adapter is in progress until it merges. OpenAI Agents SDK, Claude Agent SDK, and the other framework names are roadmap adapter examples. The GitHub Action is planned. Record/replay cassettes are In review on harness #14. This page does read the results file.</p></details>
+          <details><summary>Which frameworks does it work with?</summary><p>None are official integrations. The gate stays provider-agnostic. The first backend is a pinned Gemini Flash-Lite model id (lives in <code>config/allowed_models.txt</code> and is passed with <code>--model</code>), and that adapter is Built. OpenAI Agents SDK, Claude Agent SDK, and the other framework names are roadmap adapter examples. The GitHub Action is planned. Cassette replay is Built. This page does read the results file.</p></details>
         </div>
       </div>
     </section>
@@ -146,9 +147,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -159,15 +159,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>
