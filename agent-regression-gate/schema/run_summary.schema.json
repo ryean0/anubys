@@ -1,22 +1,179 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "run_summary.schema.json",
-  "title": "Run summary",
-  "description": "Separate file written by harness run. Not a field of results.json. schema_version is 1.0.0.",
+  "$id": "https://ci-agent-regression-harness.local/schema/run_summary/1.0.0.json",
+  "title": "RunSummary",
+  "description": "run_summary.json written by harness run. Every key below is always present. Dollar amounts are decimal strings. This file is not a verdict and it is not results.json.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version"],
+  "required": [
+    "schema_version",
+    "run_id",
+    "date",
+    "git_sha",
+    "suite_id",
+    "model",
+    "mode",
+    "seed",
+    "ceiling",
+    "planned_rollouts",
+    "completed_rollouts",
+    "counts_by_outcome",
+    "infra_misses",
+    "stopped",
+    "total_cost_usd",
+    "per_rollout_cost_usd",
+    "total_prompt_tokens",
+    "total_thinking_tokens",
+    "total_cached_input_tokens",
+    "rollout_duration_p50_s",
+    "rollout_duration_max_s"
+  ],
   "properties": {
-    "schema_version": { "const": "1.0.0" },
-    "planned_rollouts": { "type": "integer", "minimum": 0 },
-    "completed_rollouts": { "type": "integer", "minimum": 0 },
-    "infra_misses": { "type": "integer", "minimum": 0 },
-    "stopped": {
-      "oneOf": [{ "type": "null" }, { "const": "monthly_cap" }]
+    "schema_version": {
+      "const": "1.0.0",
+      "type": "string"
     },
-    "total_cost_usd": { "type": "number", "minimum": 0 },
-    "total_cached_input_tokens": { "type": "integer", "minimum": 0 },
-    "rollout_duration_p50_s": { "type": "number", "minimum": 0 },
-    "rollout_duration_max_s": { "type": "number", "minimum": 0 }
+    "run_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "date": {
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "type": "string"
+    },
+    "git_sha": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "suite_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "model": {
+      "description": "Model id that was requested. Not a default filled in by the command.",
+      "minLength": 1,
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "live",
+        "replay"
+      ],
+      "type": "string"
+    },
+    "seed": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ceiling": {
+      "description": "Per-rollout dollar ceiling. A decimal string, or null when replay omits --ceiling.",
+      "anyOf": [
+        {
+          "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "planned_rollouts": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "completed_rollouts": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "counts_by_outcome": {
+      "additionalProperties": false,
+      "properties": {
+        "pass": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "fail": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "env_miss": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "timeout": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "error": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "pass",
+        "fail",
+        "env_miss",
+        "timeout",
+        "error"
+      ],
+      "type": "object"
+    },
+    "infra_misses": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "stopped": {
+      "anyOf": [
+        {
+          "const": "monthly_cap",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "total_cost_usd": {
+      "description": "Dollar total of the completed rollouts. A decimal string, not a JSON number.",
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+      "type": "string"
+    },
+    "per_rollout_cost_usd": {
+      "description": "One decimal string per completed rollout.",
+      "items": {
+        "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]+)?$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "total_prompt_tokens": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "total_thinking_tokens": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "total_cached_input_tokens": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "rollout_duration_p50_s": {
+      "description": "Median rollout duration in seconds. An even count averages the two middle values.",
+      "minimum": 0,
+      "type": "number"
+    },
+    "rollout_duration_max_s": {
+      "description": "Longest completed rollout, in seconds.",
+      "minimum": 0,
+      "type": "number"
+    }
   }
 }
