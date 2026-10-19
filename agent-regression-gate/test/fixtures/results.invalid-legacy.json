@@ -7,7 +7,7 @@
   "invalid_run": false,
   "suite": "preliminary-example",
   "run_kind": "screening",
-  "baseline_pool_model_id": "baseline model id (exact version set in suite config)",
+  "baseline_pool_model_id": "baseline model id (lives in config/allowed_models.txt and is passed with --model)",
   "min_valid_fraction_per_scenario": "0.6",
   "rollouts_per_scenario": { "baseline": 20, "candidate": 20 },
   "verdicts": {
@@ -16,8 +16,8 @@
       "difference_ci": { "lower": "-0.04", "upper": "0.02", "level": "0.9" },
       "likely_regression": false,
       "model_ids": {
-        "baseline": "baseline model id (exact version set in suite config)",
-        "candidate": "a pinned Gemini Flash-Lite model id (exact version set in suite config)"
+        "baseline": "baseline model id (lives in config/allowed_models.txt and is passed with --model)",
+        "candidate": "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)"
       }
     }
   },
@@ -42,7 +42,7 @@
       "environment_misses": 0,
       "miss_counts": { "missing": 0, "infrastructure": 0 },
       "pass_rate": "72/80",
-      "model_id": "baseline model id (exact version set in suite config)",
+      "model_id": "baseline model id (lives in config/allowed_models.txt and is passed with --model)",
       "caption": "Production arm stayed within 0.05 of the previous gate."
     },
     "candidate": {
@@ -50,7 +50,7 @@
       "environment_misses": 1,
       "miss_counts": { "missing": 0, "infrastructure": 1 },
       "pass_rate": "3/5",
-      "model_id": "a pinned Gemini Flash-Lite model id (exact version set in suite config)",
+      "model_id": "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)",
       "caption": "Candidate arm under test, with a $1.25 sample fee in the prompt."
     }
   },
