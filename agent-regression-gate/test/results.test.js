@@ -101,14 +101,14 @@ test("an invalid legacy file parses and banners", () => {
   assert.equal(view.banner.tone, "preliminary");
   assert.match(view.banner.title, /Preliminary/);
   assert.equal(view.verdict, "no_regression");
-  assert.equal(view.arms.baseline.modelId, "baseline model id (exact version set in suite config)");
-  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (exact version set in suite config)");
+  assert.equal(view.arms.baseline.modelId, "baseline model id (lives in config/allowed_models.txt and is passed with --model)");
+  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(view.modelIdSources.baseline, "overall");
   assert.equal(view.modelIdSources.candidate, "overall");
-  assert.equal(view.modelIds.baseline, "baseline model id (exact version set in suite config)");
-  assert.equal(view.modelIds.candidate, "a pinned Gemini Flash-Lite model id (exact version set in suite config)");
+  assert.equal(view.modelIds.baseline, "baseline model id (lives in config/allowed_models.txt and is passed with --model)");
+  assert.equal(view.modelIds.candidate, "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(view.runKind, "screening");
-  assert.equal(view.baselinePoolModelId, "baseline model id (exact version set in suite config)");
+  assert.equal(view.baselinePoolModelId, "baseline model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(view.minValidFraction.text, "0.6");
   assert.deepEqual(view.minValidFraction.ratio, { numerator: 3, denominator: 5 });
   assert.deepEqual(view.rolloutsPerScenario, { baseline: 20, candidate: 20 });
@@ -279,8 +279,8 @@ test("an invalid legacy file still parses", () => {
   assert.equal(viaV2.schemaVersion, "2.1.0");
   assert.equal(viaV2.headline, "Pass");
   assert.equal(viaV2.verdict, "no_regression");
-  assert.equal(viaV2.arms.baseline.modelId, "baseline model id (exact version set in suite config)");
-  assert.equal(viaV2.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (exact version set in suite config)");
+  assert.equal(viaV2.arms.baseline.modelId, "baseline model id (lives in config/allowed_models.txt and is passed with --model)");
+  assert.equal(viaV2.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(viaV2.modelIdSources.baseline, "overall");
   assert.equal(viaV2.modelIdSources.candidate, "overall");
   assert.equal(viaV2.interval.fromFile, true);
@@ -301,8 +301,8 @@ test("version 2.0.0 still parses from per-arm model ids and falls back the inter
   assert.equal(view.verdict, "no_regression");
   assert.equal(view.modelIdSources.baseline, "arm");
   assert.equal(view.modelIdSources.candidate, "arm");
-  assert.equal(view.arms.baseline.modelId, "baseline model id (exact version set in suite config)");
-  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (exact version set in suite config)");
+  assert.equal(view.arms.baseline.modelId, "baseline model id (lives in config/allowed_models.txt and is passed with --model)");
+  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(view.modelIds.baseline, view.arms.baseline.modelId);
   assert.equal(view.modelIds.candidate, view.arms.candidate.modelId);
   assert.equal(view.interval.fromFile, false);
@@ -477,7 +477,7 @@ test("a 2.0.0 file can take one overall model id and keep the other arm id", () 
   assert.equal(view.modelIdSources.baseline, "overall");
   assert.equal(view.modelIdSources.candidate, "arm");
   assert.equal(view.arms.baseline.modelId, "gemini-2.5-flash-lite-001");
-  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (exact version set in suite config)");
+  assert.equal(view.arms.candidate.modelId, "a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)");
   assert.equal(view.headline, "Pass");
 });
 

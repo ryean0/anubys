@@ -143,13 +143,15 @@ test("run_summary example is a separate schema 1.0.0 file", () => {
     "planned_rollouts",
     "completed_rollouts",
     "infra_misses",
-    "total_cost_usd",
     "total_cached_input_tokens",
     "rollout_duration_p50_s",
     "rollout_duration_max_s",
   ]) {
     assert.equal(typeof summary[name], "number", name);
   }
+  assert.equal(typeof summary.total_cost_usd, "string");
+  assert.match(summary.total_cost_usd, /^(0|[1-9][0-9]*)(\.[0-9]+)?$/);
+  assert.equal(summary.per_rollout_cost_usd.every((value) => typeof value === "string"), true);
 });
 
 test("rendered results and site copy never show a count out of 20", () => {

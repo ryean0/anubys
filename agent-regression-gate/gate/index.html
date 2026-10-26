@@ -93,7 +93,7 @@
                 </li>
                 <li>
                   <h3>Timeout policy</h3>
-                  <p>A loop or an exhausted step budget scores 0 and stays in the sample. Provider 5xx, rate limits, and a killed CI runner are excluded from the score and counted toward the miss cap. spend_ceiling: Miss today, being changed (team decision October 16).</p>
+                  <p>A loop or an exhausted step budget scores 0 and stays in the sample. Provider 5xx, rate limits, and a killed CI runner are excluded from the score and counted toward the miss cap. A rollout that goes over its dollar ceiling (<code>spend_ceiling</code>) counts as an error: a failed rollout in the pass rate, scored 0. A rollout that already ended as an infrastructure miss stays a miss.</p>
                   <p class="annotation">agent timeout → 0 · infrastructure timeout → excluded</p>
                   <div class="tvis" aria-hidden="true">
                     <p class="tvis-kicker">Outcome</p>
@@ -101,7 +101,7 @@
                     <p class="tvis-row"><span>Provider 5xx</span><b>Excluded</b></p>
                     <p class="tvis-row"><span>Rate limit</span><b>Excluded</b></p>
                     <p class="tvis-row"><span>Runner killed</span><b>Excluded</b></p>
-                    <p class="tvis-row"><span>spend_ceiling</span><b>Miss</b></p>
+                    <p class="tvis-row"><span>spend_ceiling</span><b>Score 0</b></p>
                   </div>
                 </li>
                 <li>
