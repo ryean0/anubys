@@ -37,7 +37,8 @@ test("the landing section compares a runtime guardrail with the CI path", () => 
   assert.match(latency, /class="path-flow path-flow-ci"/);
   assert.match(latency, /Untouched/);
   assert.match(latency, /Orange marks the Anubys CI path/);
-  assert.match(latency, /Cassette replay <span class="ship-tag">Landing with harness #14<\/span>/);
+  assert.match(latency, /Cassette replay <span class="ship-tag">Built<\/span>/);
+  assert.doesNotMatch(latency, /harness #14/);
   assert.equal(latency.includes("Built today"), false);
   assert.match(latency, /<a class="more" href="performance\/">More details<\/a>/);
   assert.match(home, /<a href="performance\/">Performance<\/a>/);
@@ -64,15 +65,13 @@ test("the performance route states the built mitigations and the rollout tradeof
     "No spend",
     "max_steps",
     "can't hang the check",
-    "$38 CI spend stop",
+    "Monthly spend check",
     "No servers or proxies",
     "GitHub's runners",
     "then exits",
     "Pinned model ids",
     "Direct provider calls",
     "No extra hop",
-    "One small file",
-    "only after merge to main",
     "Rollouts per arm is the overhead knob",
     "smaller MDE",
     "longer check",
@@ -87,13 +86,14 @@ test("the performance route states the built mitigations and the rollout tradeof
   assert.match(html, /class="example-tag">Example</);
   const builtAt = html.indexOf('class="mitigations"');
   const builtList = html.slice(builtAt, html.indexOf("</ul>", builtAt));
-  assert.equal(builtList.includes("Cassette replay"), false);
-  assert.match(html, /class="mitigation-review"[\s\S]*Cassette replay <span class="ship-tag">Landing with harness #14<\/span>/);
-  assert.match(html, /Harness #14 is not merged yet/);
+  assert.match(builtList, /Cassette replay/);
+  assert.doesNotMatch(html, /harness #14/);
+  assert.doesNotMatch(html, /S3 upload/);
   const spend = read("docs/guides/spend/index.html");
   const integrations = read("integrations/index.html");
-  assert.match(spend, /Record\/replay cassettes: In review, on harness #14/);
-  assert.match(integrations, /Record\/replay cassettes · In review/);
+  assert.match(spend, /Cassette replay is Built/);
+  assert.doesNotMatch(spend, /hard stop/i);
+  assert.match(integrations, /Record\/replay cassettes · Built/);
   assert.equal(/cassettes are planned/i.test(integrations), false);
   assert.equal(/cassettes · planned/i.test(integrations), false);
   assert.match(integrations, /GitHub Action · planned/);

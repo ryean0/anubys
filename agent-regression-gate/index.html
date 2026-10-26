@@ -178,29 +178,29 @@
           <li>
             <a href="docs/reference/ci/#keyless">
               <svg class="ent-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><circle cx="12" cy="15" r="5.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M16.2 17.4 26 26M21.5 21.5H26M21.5 25.5H25" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
-              <span class="ent-copy"><span class="ent-name">Keyless CI</span><span class="ent-note">OIDC. No stored keys. Read-only pull-request roles.</span></span>
-              <span class="ent-state" data-state="built">Built</span>
+              <span class="ent-copy"><span class="ent-name">Keyless CI</span><span class="ent-note">Keyless CI (OIDC): roles deployed, CI wiring in progress.</span></span>
+              <span class="ent-state" data-state="planned">In progress</span>
             </a>
           </li>
           <li>
             <a href="docs/guides/spend/#stop">
               <svg class="ent-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M4 16h16" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M20 8v16" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span class="ent-copy"><span class="ent-name">Spend governance</span><span class="ent-note">A monthly hard stop. The example is $38.</span></span>
+              <span class="ent-copy"><span class="ent-name">Spend governance</span><span class="ent-note">The <span class="example-tag">Example</span> $38 monthly spend check stops new live rollouts. A run already in progress can finish.</span></span>
               <span class="ent-state" data-state="built">Built</span>
             </a>
           </li>
           <li>
             <a href="docs/reference/data/#cloud">
               <svg class="ent-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M10.5 23h11.2a4.6 4.6 0 0 0 .3-9.2 6.4 6.4 0 0 0-12.3 1.8 4.2 4.2 0 0 0 .8 7.4Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span class="ent-copy"><span class="ent-name">Data stays in your cloud</span><span class="ent-note">Planned. Results go to an S3 bucket the team controls.</span></span>
+              <span class="ent-copy"><span class="ent-name">Data stays in your cloud</span><span class="ent-note">Planned, and post-MVP. Nothing uploads results yet. The results file on this site is an Example.</span></span>
               <span class="ent-state" data-state="planned">Planned</span>
             </a>
           </li>
           <li>
             <a href="docs/reference/results/#audit-trail">
               <svg class="ent-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M6 9h20M6 16h13M6 23h8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M20 21.5 22.4 24 28 18.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span class="ent-copy"><span class="ent-name">Reproducible audit trail</span><span class="ent-note">The results file records the run.</span></span>
-              <span class="ent-state" data-state="built">Built</span>
+              <span class="ent-copy"><span class="ent-name">Reproducible audit trail</span><span class="ent-note">Today harness run writes run_summary.json. The results file lands with scoring.</span></span>
+              <span class="ent-state" data-state="planned">In progress</span>
             </a>
           </li>
         </ul>
@@ -245,7 +245,7 @@
         </div>
         <p class="path-legend"><i aria-hidden="true"></i>Orange marks the Anubys CI path.</p>
         <p class="v-line">Anubys never sits in the live request path. It runs as a CI check when a PR opens, so it adds 0 ms to production model responses. The cost is time on the PR check.</p>
-        <p class="ship-line">Cassette replay <span class="ship-tag">Landing with harness #14</span></p>
+        <p class="ship-line">Cassette replay <span class="ship-tag">Built</span></p>
         <a class="more" href="performance/">More details</a>
       </div>
     </section>
@@ -255,6 +255,7 @@
         <p class="kicker">Pipeline</p>
         <h2 id="pipeline-title">Pull request to one status.</h2>
         <p class="v-line">Same scenarios. Both arms. One check.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <ol class="vpipe" aria-label="Sample pipeline. Pull request, both arms, compare, then a status. This sample resolves to Block.">
           <li style="--i:0">
             <div class="vpipe-node">
@@ -312,6 +313,7 @@
         <p class="kicker">Statuses</p>
         <h2 id="status-title">Four answers.</h2>
         <p class="v-line">Orange means Block. An invalid run isn't scored.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <ul class="status-board">
           <li class="status-card" style="--i:0" data-status="pass">
             <span class="status-mark" aria-hidden="true"></span>
@@ -357,13 +359,27 @@
     <section class="section v-section" id="works" aria-labelledby="works-title">
       <div class="wrap">
         <p class="kicker">Works with</p>
-        <h2 id="works-title">Your agent. Your CI.</h2>
-        <p class="v-line">Provider-agnostic. No official partnerships.</p>
+        <h2 id="works-title">Gemini today.</h2>
+        <p class="v-line">No official partnerships.</p>
         <div class="marquee">
           <div class="marquee-track">
-            <ul><li><span class="mark" aria-hidden="true">Ge</span>Gemini</li><li><span class="mark" aria-hidden="true">OA</span>OpenAI</li><li><span class="mark" aria-hidden="true">Cl</span>Claude</li><li><span class="mark" aria-hidden="true">Lg</span>LangGraph</li><li><span class="mark" aria-hidden="true">Li</span>LlamaIndex</li><li><span class="mark" aria-hidden="true">Cr</span>CrewAI</li><li><span class="mark" aria-hidden="true">Au</span>AutoGen</li><li><span class="mark" aria-hidden="true">Gh</span>GitHub</li><li><span class="mark" aria-hidden="true">MC</span>MCP</li><li><span class="mark" aria-hidden="true">OT</span>OpenTelemetry</li></ul>
-            <ul aria-hidden="true"><li><span class="mark" aria-hidden="true">Ge</span>Gemini</li><li><span class="mark" aria-hidden="true">OA</span>OpenAI</li><li><span class="mark" aria-hidden="true">Cl</span>Claude</li><li><span class="mark" aria-hidden="true">Lg</span>LangGraph</li><li><span class="mark" aria-hidden="true">Li</span>LlamaIndex</li><li><span class="mark" aria-hidden="true">Cr</span>CrewAI</li><li><span class="mark" aria-hidden="true">Au</span>AutoGen</li><li><span class="mark" aria-hidden="true">Gh</span>GitHub</li><li><span class="mark" aria-hidden="true">MC</span>MCP</li><li><span class="mark" aria-hidden="true">OT</span>OpenTelemetry</li></ul>
+            <ul><li><span class="mark" aria-hidden="true">Ge</span>Gemini</li></ul>
+            <ul aria-hidden="true"><li><span class="mark" aria-hidden="true">Ge</span>Gemini</li></ul>
           </div>
+        </div>
+        <div class="logo-strip" aria-label="Roadmap">
+          <p>Roadmap</p>
+          <ul>
+            <li>OpenAI</li>
+            <li>Claude</li>
+            <li>LangGraph</li>
+            <li>LlamaIndex</li>
+            <li>CrewAI</li>
+            <li>AutoGen</li>
+            <li>GitHub</li>
+            <li>MCP</li>
+            <li>OpenTelemetry</li>
+          </ul>
         </div>
         <a class="more" href="integrations/">More details</a>
       </div>
@@ -374,6 +390,7 @@
         <p class="kicker">Results</p>
         <h2 id="preview-title">One results file.</h2>
         <p class="v-line">The suite status is recorded in the file.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <aside class="teaser" id="results-teaser" aria-label="Recorded suite status">
           <p class="teaser-bar"><span>results.json</span><span class="teaser-meta">Preliminary</span></p>
           <p class="teaser-status" data-verdict="insufficient_evidence">Insufficient evidence</p>
@@ -386,8 +403,9 @@
       <div class="wrap">
         <p class="kicker">Sample use cases</p>
         <h2 id="use-title">Try the free checks.</h2>
-        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay and the GitHub Action are coming soon.</p>
+        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay needs your own recording. The GitHub Action is coming soon.</p>
         <ul class="use-tease">
+          <li><a href="use-cases/#preview-a-run">Preview a run without calling a model</a></li>
           <li><a href="use-cases/#why-youd-use-this">Why you'd use this</a></li>
           <li><a href="use-cases/#validate-examples">Check that the example scenarios are valid</a></li>
           <li><a href="use-cases/#safety-checks">Run the safety checks</a></li>
@@ -406,7 +424,7 @@
         <div class="close-panel">
           <p class="kicker">Pilot</p>
           <h2>Put the next agent change behind a check.</h2>
-          <p class="lede">Bring a suite you already run.</p>
+          <p class="lede">Bring a suite you already run is post-MVP. Today the check uses the packaged retail suite.</p>
           <div class="cta-row">
             <button type="button" class="btn btn-primary" data-pilot>Request a pilot</button>
           </div>
@@ -438,9 +456,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -451,15 +468,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

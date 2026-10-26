@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Where results go · Anubys</title>
-  <meta name="description" content="Data stays in your cloud is Planned. Results currently go to an S3 bucket the team controls.">
+  <meta name="description" content="Data stays in your cloud is Planned, and post-MVP. Nothing uploads results yet.">
   <link rel="canonical" href="https://anubys.dev/docs/reference/data/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/docs/reference/data/">
@@ -69,16 +69,16 @@
         <header class="docs-head">
           <p class="kicker">Reference</p>
           <h1>Where results go</h1>
-          <p class="docs-lede">Data stays in your cloud is Planned. Results currently go to an S3 bucket the team controls.</p>
+          <p class="docs-lede">Data stays in your cloud is Planned, and post-MVP. Nothing uploads results yet. The results file on this site is an Example.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
           <ol><li><a href="#today">Where results go today</a></li><li><a href="#cloud">Data stays in your cloud</a></li><li><a href="#bucket">Bring-your-own bucket</a></li></ol>
         </nav>
         <div class="docs-body">
-          <section class="docs-sec" id="today" aria-labelledby="today-title"><h2 id="today-title">Where results go today</h2><p>Results currently go to an S3 bucket the team controls. That is the store for the results file today. It is not a bucket in your account.</p></section>
-<section class="docs-sec" id="cloud" aria-labelledby="cloud-title"><h2 id="cloud-title">Data stays in your cloud <span class="docs-badge" data-state="planned">Planned</span></h2><p>Data stays in your cloud is Planned. It is not how the run is stored today. Keyless CI, spend governance, and the reproducible audit trail stay Built. This one does not.</p></section>
-<section class="docs-sec" id="bucket" aria-labelledby="bucket-title"><h2 id="bucket-title">Bring-your-own bucket <span class="docs-badge" data-state="planned">Planned</span></h2><p>Bring-your-own bucket is Planned. It is post-MVP. The bucket the team controls is the current store. A bucket in your account is the later step.</p></section>
+          <section class="docs-sec" id="today" aria-labelledby="today-title"><h2 id="today-title">Where results go today</h2><p>Nothing uploads results yet. Today <code>harness run</code> writes <code>run_summary.json</code> on the runner. The results file on this site is an Example. OIDC roles and an artifacts bucket were deployed on October 9 to the dev AWS account. CI does not use them yet.</p></section>
+<section class="docs-sec" id="cloud" aria-labelledby="cloud-title"><h2 id="cloud-title">Data stays in your cloud <span class="docs-badge" data-state="planned">Planned</span></h2><p>Data stays in your cloud is Planned, and post-MVP. It is not how the run is stored today. Spend governance is Built. Keyless CI (OIDC): roles deployed, CI wiring in progress. The reproducible audit trail is in progress.</p></section>
+<section class="docs-sec" id="bucket" aria-labelledby="bucket-title"><h2 id="bucket-title">Bring-your-own bucket <span class="docs-badge" data-state="planned">Planned</span></h2><p>Bring-your-own bucket is Planned. It is post-MVP. Nothing uploads results yet. A bucket in your account is the later step.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../ci/"><span>Previous</span><b>CI and OIDC</b></a><a class="docs-next" href="../../changelog/"><span>Next</span><b>Changelog</b></a></nav>
       </article>
@@ -107,9 +107,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -120,15 +119,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

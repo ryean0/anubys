@@ -14,9 +14,9 @@ import { RESULTS_PATH, RUN_SUMMARY_PATH, parseResults, parseResultsV2, parseRunS
 import { TIMING_SAMPLE_PATH, readTiming, renderTimingHtml } from "./timing.js";
 import { bindFilm, bindStory, renderFilmHtml, renderStoryHtml } from "./story.js";
 import { METHOD_NOTES, armMissExceeds, formatPercent, formatPoints, formatSignedNumber, scoreRun } from "./verdict.js";
-import { bindFounderEmails, renderFoundersHtml } from "./founders.js";
+import { renderFoundersHtml } from "./founders.js";
 
-const EMAIL = "ryanphua.dev@outlook.com";
+const LINKEDIN = "https://www.linkedin.com/in/rphua-dev";
 const SLOT_LABEL = {
   pass: "Pass",
   fail: "Fail",
@@ -382,16 +382,8 @@ function initChrome() {
 
   document.getElementById("pilot-form").addEventListener("submit", (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const body = [
-      `Name: ${String(data.get("name") || "").trim()}`,
-      `Work email: ${String(data.get("email") || "").trim()}`,
-      `Company: ${String(data.get("company") || "").trim()}`,
-      "",
-      String(data.get("note") || "").trim() || `We would like to pilot ${BRAND}.`,
-    ].join("\n");
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Pilot: ${BRAND}`)}&body=${encodeURIComponent(body)}`;
-    document.getElementById("pilot-note").textContent = `If your email app did not open, write to ${EMAIL}.`;
+    window.location.href = LINKEDIN;
+    document.getElementById("pilot-note").textContent = `If LinkedIn did not open, use ${LINKEDIN}.`;
   });
 }
 
@@ -448,7 +440,7 @@ function renderResults(view) {
         ["Over the 5% miss line", view.arms.baseline.overMissLimit ? "Yes" : "No", view.arms.candidate.overMissLimit ? "Yes" : "No"],
       ];
   if (!harness && (view.arms.baseline.modelId || view.arms.candidate.modelId)) {
-    armRows.unshift(["Model", view.arms.baseline.modelId || "—", view.arms.candidate.modelId || "—"]);
+    armRows.unshift(["Model", view.arms.baseline.modelId || "n/a", view.arms.candidate.modelId || "n/a"]);
   }
   const meta = [view.runKind, harness ? view.baselinePoolModelId : "", view.suiteId, view.interval.text].filter(Boolean).join(" · ");
 
@@ -767,7 +759,7 @@ function renderDemo() {
   }
 
   function armNote(caption, modelId) {
-    if (modelId && caption) return `${modelId} — ${caption}`;
+    if (modelId && caption) return `${modelId}: ${caption}`;
     return modelId || caption || "";
   }
 
@@ -798,7 +790,7 @@ function renderDemo() {
   }
 
   function rateRow(name, arm) {
-    const text = arm.passRate == null ? "—" : formatPercent(arm.passes, arm.valid);
+    const text = arm.passRate == null ? "n/a" : formatPercent(arm.passes, arm.valid);
     const width = arm.passRate == null ? 0 : Math.round(arm.passRate * 1000) / 10;
     return el("div", { class: "rate-row" }, [
       el("span", {}, name),
@@ -884,7 +876,6 @@ let repaintConsole = () => {};
 
 const founderList = document.getElementById("founder-list");
 if (founderList) founderList.innerHTML = renderFoundersHtml();
-bindFounderEmails(document);
 
 const howRoot = document.getElementById("how-root");
 if (howRoot) howRoot.innerHTML = renderStoryHtml();

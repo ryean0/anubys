@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>results.json · Anubys</title>
-  <meta name="description" content="Results schema 1, 2.0.0, and 2.1.0. Wk4 fields on the file are in progress.">
+  <meta name="description" content="Results schema 1, 2.0.0, and 2.1.0. Planned fields on the file are in progress.">
   <link rel="canonical" href="https://anubys.dev/docs/reference/results/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/docs/reference/results/">
@@ -69,7 +69,7 @@
         <header class="docs-head">
           <p class="kicker">Reference</p>
           <h1>results.json</h1>
-          <p class="docs-lede">The page reads schema 1, schema 2.0.0, and schema 2.1.0. The Wk4 fields are in progress.</p>
+          <p class="docs-lede">The page reads schema 1, schema 2.0.0, and schema 2.1.0. The planned fields are in progress.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
@@ -88,13 +88,13 @@
       &quot;scheduled_rollouts&quot;: 8,
       &quot;environment_misses&quot;: 0,
       &quot;miss_counts&quot;: {},
-      &quot;model_id&quot;: &quot;a pinned Gemini Flash-Lite model id (exact version set in suite config)&quot;
+      &quot;model_id&quot;: &quot;a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)&quot;
     },
     &quot;candidate&quot;: {
       &quot;scheduled_rollouts&quot;: 8,
       &quot;environment_misses&quot;: 0,
       &quot;miss_counts&quot;: {},
-      &quot;model_id&quot;: &quot;a pinned Gemini Flash-Lite model id (exact version set in suite config)&quot;
+      &quot;model_id&quot;: &quot;a pinned Gemini Flash-Lite model id (lives in config/allowed_models.txt and is passed with --model)&quot;
     }
   }
 }</code></pre></div></section>
@@ -112,14 +112,14 @@
       }
     }
   }
-}</code></pre></div><p>The suite verdict is <code>verdicts.overall.verdict</code>: pass, block, insufficient_evidence, or invalid_run. <code>likely_regression</code> is a boolean on that verdict, not a fifth status. Diagnostics live on <code>verdicts.diagnostics</code>. The bundled rows include <code>example.clean.v1</code> (family <code>example.clean</code>) and <code>example.broken.v1</code> (family <code>example.broken</code>). A run summary is a separate file, <code>run_summary.json</code>, with <code>schema_version</code> <code>1.0.0</code>. It is not a field of results.json. The results panel reads example summary data from <code>data/run_summary.example.json</code>. This is still schema 2.1.0.</p><p>Still in progress, and not part of this 2.1.0 reader: a per-family estimate and interval, cost per verdict, and the MDE on the check. A family row has no verdict. The gate stays on the pooled result. Those fields are Next, in Wk4.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">Wk4 fields · in progress</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>{
+}</code></pre></div><p>The suite verdict is <code>verdicts.overall.verdict</code>: pass, block, insufficient_evidence, or invalid_run. <code>likely_regression</code> is a boolean on that verdict, not a fifth status. Diagnostics live on <code>verdicts.diagnostics</code>. The bundled rows include <code>example.clean.v1</code> (family <code>example.clean</code>) and <code>example.broken.v1</code> (family <code>example.broken</code>). A run summary is a separate file, <code>run_summary.json</code>, with <code>schema_version</code> <code>1.0.0</code>. It is not a field of results.json. The results panel reads example summary data from <code>data/run_summary.example.json</code>. This is still schema 2.1.0.</p><p>Still in progress, and not part of this 2.1.0 reader: a per-family estimate and interval, and cost per verdict. A family row has no verdict. The gate stays on the pooled result. Those fields are Next, by October 29. Showing the MDE on the check is planned with Milestone B (target November 10).</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">Example · planned fields</p><button type="button" class="code-copy">Copy</button></div><p class="guide-see"><span class="example-tag">Example</span></p><pre tabindex="0"><code>{
   &quot;families&quot;: [
     { &quot;id&quot;: &quot;refund&quot;, &quot;estimate_pp&quot;: -1.5, &quot;interval_pp&quot;: [-4.0, 1.0] }
   ],
   &quot;cost_per_verdict_usd&quot;: 0.42,
   &quot;mde_pp&quot;: 5
 }</code></pre></div></section>
-<section class="docs-sec" id="audit-trail" aria-labelledby="audit-trail-title"><h2 id="audit-trail-title">Reproducible audit trail <span class="docs-badge" data-state="built">Built</span></h2><p>The results file is the reproducible audit trail. It records the schema version, the suite status, both arms, and the scenario hash. A later review can read the same file and reach the same status.</p><p>That trail is Built. Where the file is stored is separate: results currently go to an S3 bucket the team controls. <a href="../data/">Data stays in your cloud</a> is Planned.</p></section>
+<section class="docs-sec" id="audit-trail" aria-labelledby="audit-trail-title"><h2 id="audit-trail-title">Reproducible audit trail <span class="docs-badge" data-state="progress">In progress</span></h2><p>Today <code>harness run</code> writes <code>run_summary.json</code>. The results file, with scoring, is the audit trail once scoring lands. It will record the schema version, the suite status, both arms, and the scenario hash.</p><p>Nothing uploads results yet. The results file on this site is an Example. <a href="../data/">Data stays in your cloud</a> is Planned, and post-MVP.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../../guides/spend/"><span>Previous</span><b>Spend governance</b></a><a class="docs-next" href="../adapter/"><span>Next</span><b>Adapter contract</b></a></nav>
       </article>
@@ -148,9 +148,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -161,15 +160,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

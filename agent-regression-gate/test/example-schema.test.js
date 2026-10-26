@@ -108,9 +108,9 @@ test("results schema 2.1.0 records model ids on the suite verdict", () => {
     miss: [view.arms.baseline.rateText, view.arms.candidate.rateText],
     interval: view.interval.text,
   });
-  assert.equal(publicText("exactly 1/20"), "exactly 5%");
-  assert.equal(view.arms.baseline.rateText, "0%");
-  assert.equal(view.arms.candidate.rateText, "5%");
+  assert.equal(publicText("exactly 1/20"), "exactly Example: 5%");
+  assert.equal(view.arms.baseline.rateText, "Example: 0% miss rate");
+  assert.equal(view.arms.candidate.rateText, "Example: 5% miss rate");
   assert.doesNotMatch(shown, /of 20/);
   assert.doesNotMatch(shown, /\/20(?!\d)/);
   rejectCopy(JSON.stringify(summarySchema), "run summary schema");
@@ -184,7 +184,7 @@ test("rendered results and site copy never show a count out of 20", () => {
     view.charts.aa.title,
     view.charts.aa.caption,
   ].join("\n");
-  assert.equal(view.arms.candidate.rateText, "5%");
+  assert.equal(view.arms.candidate.rateText, "Example: 5% miss rate");
   assert.doesNotMatch(rendered, /of 20/i);
   assert.doesNotMatch(rendered, /\/20(?!\d)/);
   assert.match(JSON.stringify(example.environment_misses), /"0\/20"/);

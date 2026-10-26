@@ -53,8 +53,15 @@ const RATE_DENOMINATOR = "20";
 export function publicText(value) {
   const pattern = new RegExp(`(\\d+)${RATE_SLASH}${RATE_DENOMINATOR}\\b`, "g");
   return String(value ?? "").replace(pattern, (_, count) => (
-    percentFromNumber(Number(count) / Number(RATE_DENOMINATOR))
+    `Example: ${percentFromNumber(Number(count) / Number(RATE_DENOMINATOR))}`
   ));
+}
+
+/** Render a misses/scheduled fraction as an Example percentage. */
+export function formatMissRate(rate) {
+  const shown = publicText(rate);
+  if (/^Example: \d+(?:\.\d+)?%$/.test(shown)) return `${shown} miss rate`;
+  return shown;
 }
 
 export function parseResults(doc) {
@@ -219,7 +226,7 @@ function readSummaryFields(raw, label) {
     completedRollouts: readOptionalCount(raw.completed_rollouts, `${label}.completed_rollouts`),
     infraMisses: readOptionalCount(raw.infra_misses, `${label}.infra_misses`),
     stopped: readStopped(raw.stopped),
-    totalCostUsd: readOptionalNumber(raw.total_cost_usd, `${label}.total_cost_usd`),
+    totalCostUsd: readOptionalMoney(raw.total_cost_usd, `${label}.total_cost_usd`),
     totalCachedInputTokens: readOptionalCount(raw.total_cached_input_tokens, `${label}.total_cached_input_tokens`),
     rolloutDurationP50S: readOptionalNumber(raw.rollout_duration_p50_s, `${label}.rollout_duration_p50_s`),
     rolloutDurationMaxS: readOptionalNumber(raw.rollout_duration_max_s, `${label}.rollout_duration_max_s`),
@@ -245,6 +252,27 @@ function readOptionalNumber(value, label) {
   return value;
 }
 
+/** Money from harness run: a non-negative number, or a decimal string such as "0.0123".
+ * Decimal strings never use exponent notation or a leading minus. */
+const MONEY_STRING = /^(?:0|[1-9]\d*)(?:\.\d+)?$/;
+
+function readOptionalMoney(value, label) {
+  if (value == null) return null;
+  if (typeof value === "number") return readOptionalNumber(value, label);
+  if (typeof value !== "string") {
+    throw new Error(`${label} must be a non-negative number or decimal string`);
+  }
+  const text = value.trim();
+  if (/[eE]/.test(text) || text.startsWith("-") || !MONEY_STRING.test(text)) {
+    throw new Error(`${label} must be a non-negative number or decimal string`);
+  }
+  const parsed = Number(text);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error(`${label} must be a non-negative number or decimal string`);
+  }
+  return parsed;
+}
+
 /** Rows for the results panel. Numbers are marked so the page can tag them Example. */
 export function summaryRows(summary) {
   if (!summary) return [];
@@ -255,16 +283,17 @@ export function summaryRows(summary) {
     summaryRow("Stopped", summary.stopped, "stop"),
     summaryRow("Total cost", summary.totalCostUsd, "usd"),
     summaryRow("Cached input tokens", summary.totalCachedInputTokens, "count"),
-    summaryRow("Rollout duration p50", summary.rolloutDurationP50S, "seconds"),
-    summaryRow("Rollout duration max", summary.rolloutDurationMaxS, "seconds"),
+    summaryRow("Rollout duration p50", summary.rolloutDurationP50S, "seconds", summary.completedRollouts),
+    summaryRow("Rollout duration max", summary.rolloutDurationMaxS, "seconds", summary.completedRollouts),
   ];
 }
 
-function summaryRow(label, value, kind) {
-  const missing = kind !== "stop" && value == null;
+function summaryRow(label, value, kind, completedRollouts) {
+  const noDuration = kind === "seconds" && value === 0 && completedRollouts === 0;
+  const missing = (kind !== "stop" && value == null) || noDuration;
   return {
     label,
-    text: formatSummaryValue(value, kind),
+    text: noDuration ? "n/a" : formatSummaryValue(value, kind),
     example: !missing && kind !== "stop",
   };
 }
@@ -538,7 +567,7 @@ function parseArm(raw, name, modelId) {
     environmentMisses,
     missCounts,
     passRate,
-    passRateText: passRate ? formatRatio(passRate) : "—",
+    passRateText: passRate ? formatRatio(passRate) : "n/a",
     overMissLimit: exceedsRate(environmentMisses, scheduled, 1, 20),
   };
   if (caption) arm.caption = caption;
@@ -775,7 +804,7 @@ function buildHarnessView(doc) {
       missCounts: {},
       passRate: null,
       passRateText: "Not in this file",
-      rateText: publicText(miss.rate),
+      rateText: formatMissRate(miss.rate),
       overMissLimit: exceedsRate(miss.misses, miss.scheduled, 1, 20),
       modelId: modelIds[name],
     };

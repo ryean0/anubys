@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spend governance · Anubys</title>
-  <meta name="description" content="A $38 monthly hard stop as the example, cost per call, and $0 replays.">
+  <meta name="description" content="The monthly spend check, cost per call, and Example $0 replays.">
   <link rel="canonical" href="https://anubys.dev/docs/guides/spend/">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://anubys.dev/docs/guides/spend/">
@@ -69,18 +69,16 @@
         <header class="docs-head">
           <p class="kicker">Guides</p>
           <h1>Spend governance</h1>
-          <p class="docs-lede">A monthly hard stop, a cost on every call, and a replay at $0. The example stop is $38.</p>
+          <p class="docs-lede">A monthly spend check, a cost on every call, and a replay at <span class="example-tag">Example</span> $0.</p>
         </header>
         <nav class="docs-toc" aria-labelledby="on-this-page">
           <p class="docs-toc-label" id="on-this-page">On this page</p>
-          <ol><li><a href="#stop">Monthly hard stop</a></li><li><a href="#call">Cost per call</a></li><li><a href="#replay">Replays</a></li></ol>
+          <ol><li><a href="#stop">Monthly spend check</a></li><li><a href="#call">Cost per call</a></li><li><a href="#replay">Replays</a></li></ol>
         </nav>
         <div class="docs-body">
-          <section class="docs-sec" id="stop" aria-labelledby="stop-title"><h2 id="stop-title">Monthly hard stop <span class="docs-badge" data-state="built">Built</span></h2><p>Spend governance is a hard stop on monthly spend. The example is $38. When recorded spend reaches the stop, the run halts.</p><p>The stop is Built. $38 is the example, not a price for every install.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">spend.yml</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>spend:
-  monthly_hard_stop_usd: 38
-  replay_usd: 0</code></pre></div></section>
-<section class="docs-sec" id="call" aria-labelledby="call-title"><h2 id="call-title">Cost per call</h2><p>Each call records its cost. That cost sits with the outcome. It is not a suite status.</p><p>Showing cost per verdict on the check is Next, in Wk4.</p></section>
-<section class="docs-sec" id="replay" aria-labelledby="replay-title"><h2 id="replay-title">Replays</h2><p>A replay is $0. The call is not billed again.</p><p>Record/replay cassettes: In review, on harness #14. Not merged yet. They would store a trace and return it. The price of a replay is $0. The cassette player is not shipped until that pull request merges.</p></section>
+          <section class="docs-sec" id="stop" aria-labelledby="stop-title"><h2 id="stop-title">Monthly spend check <span class="docs-badge" data-state="built">Built</span></h2><p><code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish, so the month can overshoot slightly.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">shell</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>python scripts/check_monthly_spend.py --threshold 38</code></pre></div></section>
+<section class="docs-sec" id="call" aria-labelledby="call-title"><h2 id="call-title">Cost per call</h2><p>Each call records its cost. That cost sits with the outcome. It is not a suite status.</p><p>Showing cost per verdict on the check is Next, by October 29.</p></section>
+<section class="docs-sec" id="replay" aria-labelledby="replay-title"><h2 id="replay-title">Replays <span class="docs-badge" data-state="built">Built</span></h2><p>A replay is <span class="example-tag">Example</span> $0. The call is not billed again.</p><p>Cassette replay is Built. The cassette key is a hash of each model request (<code>cassette.py</code> <code>request_key</code> is sha256). You need your own <code>--record</code> first. No sample recording ships.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../adapters/"><span>Previous</span><b>Adding a provider adapter</b></a><a class="docs-next" href="../../reference/results/"><span>Next</span><b>results.json</b></a></nav>
       </article>
@@ -109,9 +107,8 @@
       </nav>
       <nav aria-label="Elsewhere">
         <p>Contact</p>
-        <a href="https://github.com/rphua-dev/ci-agent-regression-harness" rel="noopener noreferrer">Source</a>
+        <a href="https://www.linkedin.com/in/rphua-dev" rel="noopener noreferrer">LinkedIn</a>
         <a href="https://ryean0.github.io/">Portfolio</a>
-        <a href="mailto:ryanphua.dev@outlook.com">Email</a>
       </nav>
     </div>
     <div class="wrap footer-bottom">
@@ -122,15 +119,14 @@
     <form id="pilot-form">
       <p class="kicker">Pilot</p>
       <h2 id="pilot-title">Request a pilot</h2>
-      <p class="lede">Opens an email draft. Nothing is stored on this page.</p>
+      <p class="lede">Opens a LinkedIn profile. Nothing is stored on this page.</p>
       <div class="fields">
         <label>Name <input name="name" autocomplete="name" required></label>
-        <label>Work email <input name="email" type="email" autocomplete="email" required></label>
         <label>Company <input name="company" autocomplete="organization" required></label>
         <label>What should the gate watch? <textarea name="note"></textarea></label>
       </div>
       <div class="pilot-actions">
-        <button type="submit" class="btn btn-primary">Open email draft</button>
+        <button type="submit" class="btn btn-primary">Open LinkedIn</button>
         <button type="button" class="btn btn-ghost" id="pilot-cancel">Cancel</button>
       </div>
       <p class="fine" id="pilot-note" role="status"></p>

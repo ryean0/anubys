@@ -16,7 +16,7 @@ export const METHOD_NOTES = {
   pairing: "The gap is the unweighted average of (candidate pass rate − baseline pass rate) across scenarios. Each scenario counts once. Scenarios are combined in id order, so the recorded order cannot change the verdict.",
   interval: "Uncertainty on each pass rate is a Jeffreys binomial variance, so an all-pass or all-fail arm still carries a little noise. The 90% interval is a normal approximation around the average gap.",
   regression: "Non-inferiority, δ = 5 pp. Pass if the 90% interval's lower bound is above −5 pp. Block if its upper bound is below −5 pp. Otherwise the result is insufficient evidence, which can carry a Likely regression warning. An invalid run isn't scored.",
-  timeouts: "An agent timeout (a loop, or the step budget ran out) scores 0 and counts as a valid rollout. An infrastructure timeout — provider 5xx, a rate limit, or the CI runner being killed — is excluded from the score and counts toward the 5% miss limit. A missing result is treated the same way.",
+  timeouts: "An agent timeout (a loop, or the step budget ran out) scores 0 and counts as a valid rollout. An infrastructure timeout (provider 5xx, a rate limit, or a killed CI runner) is excluded from the score and counts toward the 5% miss limit. A missing result is treated the same way.",
 };
 
 function assertInteger(name, value) {
