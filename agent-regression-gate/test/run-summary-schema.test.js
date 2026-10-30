@@ -12,8 +12,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const repo = path.resolve(root, "..");
 const read = (rel) => fs.readFileSync(path.join(root, rel));
 
-// sha256 of harness/schema/run_summary.schema.json at harness main 8bb1633 (git blob bcda2343afb5cd0bd9d616c157f82608764bb113).
-const HARNESS_SCHEMA_SHA256 = "9d028895e64ff249dde41be7687b21e3a5f235347acd6cc15963694b5cb0c6c0";
+// sha256 of harness/schema/run_summary.schema.json at harness main 63f2ba2 (schema 1.1.0, adds model_version).
+const HARNESS_SCHEMA_SHA256 = "94217b63e05342cbb1388e7d77033ed90d4316839d3d59f3f8aa2441ff48a393";
 
 const schema = JSON.parse(read("schema/run_summary.schema.json").toString("utf8"));
 const example = JSON.parse(read("data/run_summary.example.json").toString("utf8"));
@@ -21,7 +21,7 @@ const example = JSON.parse(read("data/run_summary.example.json").toString("utf8"
 test("schema/run_summary.schema.json is byte-identical to the harness copy", () => {
   const bytes = read("schema/run_summary.schema.json");
   assert.equal(createHash("sha256").update(bytes).digest("hex"), HARNESS_SCHEMA_SHA256);
-  assert.equal(bytes.length, 4074);
+  assert.equal(bytes.length, 4406);
 });
 
 test("the example run_summary validates against the copied schema", () => {

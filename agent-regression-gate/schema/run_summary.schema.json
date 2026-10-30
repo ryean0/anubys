@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://ci-agent-regression-harness.local/schema/run_summary/1.0.0.json",
+  "$id": "https://ci-agent-regression-harness.local/schema/run_summary/1.1.0.json",
   "title": "RunSummary",
   "description": "run_summary.json written by harness run. Every key below is always present. Dollar amounts are decimal strings. This file is not a verdict and it is not results.json.",
   "type": "object",
@@ -12,6 +12,7 @@
     "git_sha",
     "suite_id",
     "model",
+    "model_version",
     "mode",
     "seed",
     "ceiling",
@@ -30,7 +31,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "1.0.0",
+      "const": "1.1.0",
       "type": "string"
     },
     "run_id": {
@@ -54,6 +55,18 @@
       "description": "Model id that was requested. Not a default filled in by the command.",
       "minLength": 1,
       "type": "string"
+    },
+    "model_version": {
+      "description": "Version string reported by Gemini models.get before a live run. Null when the run did not call the API (replay).",
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
     },
     "mode": {
       "enum": [

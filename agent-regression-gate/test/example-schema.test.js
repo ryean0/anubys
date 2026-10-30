@@ -133,11 +133,13 @@ test("suite_id is optional on the site schema and the parser accepts tau_retail"
   assert.throws(() => parseResults(withSuite), /suite_id must not be empty/);
 });
 
-test("run_summary example is a separate schema 1.0.0 file", () => {
-  assert.equal(summarySchema.properties.schema_version.const, "1.0.0");
+test("run_summary example is a separate schema 1.1.0 file", () => {
+  assert.equal(summarySchema.properties.schema_version.const, "1.1.0");
+  assert.equal(summarySchema.required.includes("model_version"), true);
   assert.equal(summarySchema.required.includes("schema_version"), true);
   assert.equal(Object.hasOwn(summarySchema.properties, "rollout_duration_p95_s"), false);
-  assert.equal(summary.schema_version, "1.0.0");
+  assert.equal(summary.schema_version, "1.1.0");
+  assert.equal(typeof summary.model_version, "string");
   assert.equal(summary.stopped, null);
   for (const name of [
     "planned_rollouts",

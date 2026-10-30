@@ -43,7 +43,7 @@ export const INTERVAL_FALLBACK = "δ = 5 pp / 90%";
 /** Drop real harness output at this path. */
 export const RESULTS_PATH = "data/results.preliminary.json";
 
-/** Example of the separate run_summary.json written by harness run. schema_version 1.0.0. */
+/** Example of the separate run_summary.json written by harness run. schema_version 1.1.0. */
 export const RUN_SUMMARY_PATH = "data/run_summary.example.json";
 
 const RATE_SLASH = "/";
@@ -209,13 +209,16 @@ function readRunSummary(doc) {
   return readSummaryFields(raw, "run_summary");
 }
 
-/** Read run_summary.json. schema_version is 1.0.0. This object is not inside results.json. */
+/** run_summary.json versions this page reads. harness main writes 1.1.0, which adds model_version. */
+export const RUN_SUMMARY_VERSIONS = Object.freeze(["1.0.0", "1.1.0"]);
+
+/** Read run_summary.json (schema_version 1.0.0 or 1.1.0). This object is not inside results.json. */
 export function parseRunSummary(doc) {
   if (!doc || typeof doc !== "object" || Array.isArray(doc)) {
     throw new Error("run_summary.json must be an object");
   }
-  if (doc.schema_version !== "1.0.0") {
-    throw new Error("run_summary schema_version must be 1.0.0");
+  if (!RUN_SUMMARY_VERSIONS.includes(doc.schema_version)) {
+    throw new Error("run_summary schema_version must be 1.0.0 or 1.1.0");
   }
   return readSummaryFields(doc, "run_summary");
 }
