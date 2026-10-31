@@ -1,10 +1,11 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "run_id": "2026-10-19-tau_retail-example",
   "date": "2026-10-19",
   "git_sha": "example",
   "suite_id": "tau_retail",
   "model": "<id from config/allowed_models.txt>",
+  "model_version": "<version from config/model_versions.txt>",
   "mode": "live",
   "seed": null,
   "ceiling": "0.05",

@@ -677,3 +677,22 @@ function asVersion1(doc = bundled) {
   for (const scenario of copy.scenarios) delete scenario.caption;
   return copy;
 }
+
+test("run_summary reads 1.1.0 from harness main and still reads 1.0.0", () => {
+  const base = {
+    planned_rollouts: 1,
+    completed_rollouts: 1,
+    infra_misses: 0,
+    stopped: null,
+    total_cost_usd: "0.01",
+    total_cached_input_tokens: 0,
+    rollout_duration_p50_s: 1,
+    rollout_duration_max_s: 1,
+  };
+  assert.equal(parseRunSummary({ ...base, schema_version: "1.1.0", model_version: "v" }).totalCostUsd, 0.01);
+  assert.equal(parseRunSummary({ ...base, schema_version: "1.1.0", model_version: null }).totalCostUsd, 0.01);
+  assert.equal(parseRunSummary({ ...base, schema_version: "1.0.0" }).totalCostUsd, 0.01);
+  for (const bad of ["1.2.0", "2.0.0", "1", undefined]) {
+    assert.throws(() => parseRunSummary({ ...base, schema_version: bad }), /must be 1\.0\.0 or 1\.1\.0/);
+  }
+});

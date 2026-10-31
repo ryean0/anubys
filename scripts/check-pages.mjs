@@ -239,7 +239,7 @@ assert.equal(shippedView.modelIds.baseline, shipped.baseline_pool_model_id);
 assert.equal(shippedView.modelIds.candidate, shipped.verdicts.overall.model_ids.candidate);
 assert.equal(shipped.arms, undefined);
 const summary = JSON.parse(fs.readFileSync(path.join(site, RUN_SUMMARY_PATH), "utf8"));
-assert.equal(summary.schema_version, "1.0.0");
+assert.equal(summary.schema_version, "1.1.0");
 assert.equal(parseRunSummary(summary).stopped, null);
 
 const mainSource = fs.readFileSync(path.join(site, "js/main.js"), "utf8");
