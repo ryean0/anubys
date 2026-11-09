@@ -90,11 +90,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # Planned: a packaged Action, one file.
+      # Planned for v0.2, after the November 30 release.
       # The job requests an OIDC token.
       # It does not store a cloud key.</code></pre></div></section>
 <section class="docs-sec" id="roles" aria-labelledby="roles-title"><h2 id="roles-title">Read-only pull-request roles</h2><p>The pull-request role is read-only. <code>contents: read</code>. <code>pull-requests: read</code>. <code>id-token: write</code> is the OIDC token, not a permission to change the pull request.</p><p>The job does not get a write role on the repository.</p></section>
-<section class="docs-sec" id="action" aria-labelledby="action-title"><h2 id="action-title">Packaged Action <span class="docs-badge" data-state="planned">Planned</span></h2><p>A packaged GitHub Action for a one-file setup is Planned. Until it ships, the workflow above is the shape, not a published action.</p></section>
+<section class="docs-sec" id="action" aria-labelledby="action-title"><h2 id="action-title">Packaged Action <span class="docs-badge" data-state="planned">Planned</span></h2><p>A packaged GitHub Action for a one-file setup is planned for v0.2, after the November 30 release. Until it ships, the workflow above is the shape, not a published action.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../adapter/"><span>Previous</span><b>Adapter contract</b></a><a class="docs-next" href="../data/"><span>Next</span><b>Where results go</b></a></nav>
       </article>

@@ -138,10 +138,12 @@ test("getting started ports the verified guide", () => {
   assert.match(main, /You should see/);
   assert.match(main, /not public yet/);
   assert.match(main, /\(beta testing\)/);
-  assert.match(main, /Coming soon/);
+  assert.match(main, /Planned for v0\.2/);
   assert.match(main, /Do not start a live run from this page/);
   assert.match(main, /experiment\.yml/);
-  assert.match(main, /after a required reviewer approves/);
+  assert.match(main, /starts each paid run by hand with Run workflow/);
+  assert.doesNotMatch(main, /approving reviewer/);
+  assert.doesNotMatch(main, /reviewer approves/);
   assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /Anubys records that rollout as an error with reason <code>spend_ceiling<\/code>\. It counts as an error: a failed rollout in the pass rate, scored 0\./);
   assert.match(main, /stays a miss even if it also went over the ceiling/);
@@ -149,7 +151,7 @@ test("getting started ports the verified guide", () => {
   assert.match(main, /creates <code>~\/\.anubys<\/code> with mode 0700/);
   assert.match(main, /including <code>\.\/spend\/spend_log\.jsonl<\/code>/);
   assert.match(main, /per user and per machine/);
-  assert.match(main, /until an approved live run appends a row/);
+  assert.match(main, /until a live run appends a row/);
   assert.doesNotMatch(main, /being changed to count as a fail|Miss today|team decision October 16|previous logged row|labeled experiment/);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /Block: clearly worse, by more than the allowed margin\./);
@@ -216,9 +218,11 @@ test("sample use cases follow the verified checks", () => {
   assert.match(main, /They do not call a model, and they do not spend money\./);
   assert.match(main, /Suite scoring, statistics, and report rendering are still placeholders/);
   assert.match(main, /stub that exits with an error on purpose/);
-  assert.match(main, /Coming soon/);
+  assert.match(main, /Planned for v0\.2/);
   assert.match(main, /Do not start a live run from this page/);
-  assert.match(main, /after a required reviewer approves/);
+  assert.match(main, /starts each paid run by hand with Run workflow/);
+  assert.doesNotMatch(main, /approving reviewer/);
+  assert.doesNotMatch(main, /reviewer approves/);
   assert.doesNotMatch(main, /after Ryan approves/);
   assert.match(main, /Anubys records that rollout as an error with reason <code>spend_ceiling<\/code>\. It counts as an error: a failed rollout in the pass rate, scored 0\./);
   assert.match(main, /stays a miss even if it also went over the ceiling/);
@@ -226,7 +230,7 @@ test("sample use cases follow the verified checks", () => {
   assert.match(main, /creates <code>~\/\.anubys<\/code> with mode 0700/);
   assert.match(main, /including <code>\.\/spend\/spend_log\.jsonl<\/code>/);
   assert.match(main, /per user and per machine/);
-  assert.match(main, /until an approved live run appends a row/);
+  assert.match(main, /until a live run appends a row/);
   assert.doesNotMatch(main, /being changed to count as a fail|Miss today|team decision October 16|previous logged row|labeled experiment/);
   assert.match(main, /The 115 is the original tau-bench task list\. The 87 earlier are the scenarios Anubys converted from it, so the numbers are not supposed to match\./);
   assert.match(main, /clearly worse, by more than the allowed margin/);
