@@ -64,7 +64,10 @@ test("the performance route states the built mitigations and the rollout tradeof
     "No API waits",
     "No spend",
     "max_steps",
-    "can't hang the check",
+    "max_tokens",
+    "180 seconds",
+    "750 seconds",
+    "Invalid run",
     "Monthly spend check",
     "No servers or proxies",
     "GitHub's runners",
@@ -75,7 +78,7 @@ test("the performance route states the built mitigations and the rollout tradeof
     "Rollouts per arm is the overhead knob",
     "smaller MDE",
     "longer check",
-    "Measured numbers coming from Oct cost runs",
+    "Measured check times come from the November 10 to 12 cost runs",
     "No per-family verdict",
     'id="timing-root"',
     'data-timing="data/timing.sample.json"',
@@ -96,7 +99,7 @@ test("the performance route states the built mitigations and the rollout tradeof
   assert.match(integrations, /Record\/replay cassettes · Built/);
   assert.equal(/cassettes are planned/i.test(integrations), false);
   assert.equal(/cassettes · planned/i.test(integrations), false);
-  assert.match(integrations, /GitHub Action · planned/);
+  assert.match(integrations, /GitHub Action · Planned for v0\.2/);
   const css = read("css/site.css");
   assert.match(css, /\.ship-tag\s*\{[^}]*color:\s*var\(--faint\)/);
   assert.equal(/\.ship-tag\s*\{[^}]*#ff7a1a/.test(css), false);

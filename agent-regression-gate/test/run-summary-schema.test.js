@@ -34,6 +34,20 @@ test("the example run_summary validates against the copied schema", () => {
   assert.equal(summaryRows(parsed).find((row) => row.label === "Total cost").text, "$1.25");
 });
 
+test("run_summary 1.0.0 schema is 1.1.0 without model_version", () => {
+  const old = JSON.parse(read("schema/run_summary-1.0.0.schema.json").toString("utf8"));
+  assert.equal(old.$id, "https://ci-agent-regression-harness.local/schema/run_summary/1.0.0.json");
+  assert.equal(old.properties.schema_version.const, "1.0.0");
+  assert.equal(Object.hasOwn(old.properties, "model_version"), false);
+  assert.equal(old.required.includes("model_version"), false);
+  const stripped = structuredClone(schema);
+  stripped.$id = old.$id;
+  stripped.properties.schema_version.const = "1.0.0";
+  delete stripped.properties.model_version;
+  stripped.required = stripped.required.filter((key) => key !== "model_version");
+  assert.deepEqual(old, stripped);
+});
+
 test("the schema rejects a JSON-number dollar amount and a missing key", () => {
   assert.notDeepEqual(validate(schema, { ...example, total_cost_usd: 1.25 }), []);
   const missing = { ...example };

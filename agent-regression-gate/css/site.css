@@ -849,8 +849,7 @@ html.motion .vpipe-node {
 }
 .status-card p { color: var(--muted); font-size: 0.92rem; }
 .status-warn {
-  color: var(--accent); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0;
-  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.35);
+  color: var(--muted); font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0;
 }
 html.motion .status-card {
   animation: flow-rise 0.55s ease both;
@@ -1950,10 +1949,28 @@ html.motion .how-step.is-in .how-svg .how-bar {
   font-size: 0.6875rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--faint);
-  border: 1px solid var(--line);
+  color: rgba(244, 244, 245, 0.75);
+  border: 1px solid var(--line-strong);
   border-radius: 999px;
   padding: 0.2rem 0.45rem;
+}
+.spec-badge {
+  display: inline-block;
+  margin-right: 0.4rem;
+  vertical-align: 0.12em;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.2rem 0.45rem;
+}
+.spec-line {
+  margin-top: 0.9rem;
+  color: var(--ink);
+  font-size: 0.95rem;
 }
 .verdict-rates {
   display: grid;

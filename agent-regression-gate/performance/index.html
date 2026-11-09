@@ -96,8 +96,8 @@
         <h2 id="mitigations-title">What keeps the check from lingering.</h2>
         <ul class="mitigations">
           <li>
-            <h3>Wall-clock and max_steps caps</h3>
-            <p>A stuck agent can't hang the check.</p>
+            <h3>Step and token caps</h3>
+            <p>Each rollout enforces <code>max_steps</code> and <code>max_tokens</code>. Each model call times out at 180 seconds. Gemini retries are capped at 750 seconds. Hitting that cap counts as an infrastructure miss (Invalid run), not a regression.</p>
           </li>
           <li>
             <h3>Monthly spend check</h3>
@@ -140,7 +140,7 @@
           <h2 id="efficiency-title">Example check times.</h2>
           <span class="example-tag">Example</span>
         </div>
-        <p class="v-line">Measured numbers coming from Oct cost runs. No per-family verdict.</p>
+        <p class="v-line">Measured check times come from the November 10 to 12 cost runs. No per-family verdict.</p>
         <div id="timing-root" data-timing="data/timing.sample.json" aria-live="polite">
           <p class="timing-missing">Loading the example timing field.</p>
         </div>

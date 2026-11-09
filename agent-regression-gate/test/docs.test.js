@@ -108,7 +108,7 @@ test("concepts keep the gate rule, the four statuses, and the miss cap", () => {
   assert.match(html, /Exactly 5% still scores/);
   assert.match(html, /invalid_run/);
   assert.match(html, /minimum detectable effect/i);
-  assert.match(html, /Showing the MDE on the check is planned with Milestone B \(target November 10\)/);
+  assert.match(html, /Showing the MDE on the check is planned with Milestone B \(target November 19\)/);
   assert.doesNotMatch(html, /Showing the MDE on the check is Next/);
   const results = read("docs/reference/results/index.html");
   assert.match(results, /schema_version/);
@@ -175,9 +175,12 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.match(spend, /<code>harness run<\/code> stops new live rollouts at a fixed \$38\. The standalone <code>scripts\/check_monthly_spend\.py<\/code> takes <code>--threshold<\/code> \/ <code>MONTHLY_SPEND_CAP_USD<\/code>/);
   assert.doesNotMatch(spend, /real knob/);
   assert.match(html, /Stats gate rule/);
-  assert.match(html, /Milestone B \(target November 10\)/);
-  assert.match(html, /October 23/);
-  assert.match(html, /October 29/);
+  assert.match(html, /Milestone B \(target November 19\)/);
+  assert.match(html, /Cost runs are scheduled November 10 to 12/);
+  assert.match(html, /no live experiment has run yet/);
+  assert.match(html, /November 20 to 24/);
+  assert.doesNotMatch(html, /October 23/);
+  assert.doesNotMatch(html, /October 29/);
   assert.match(html, /No per-family verdict/);
   assert.match(html, /The gate stays on the pooled result/);
   assert.match(html, /Cost per verdict/);
@@ -186,7 +189,14 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   const plannedLane = html.slice(html.indexOf('id="planned"'));
   assert.equal(nextLane.includes("MDE on the check"), false);
   assert.match(plannedLane, /MDE on the check/);
-  assert.match(plannedLane, /Showing the MDE on the check is planned with Milestone B \(target November 10\)/);
+  assert.match(plannedLane, /Showing the MDE on the check is planned with Milestone B \(target November 19\)/);
+  assert.match(plannedLane, /Per-family breakdown/);
+  assert.match(plannedLane, /harness export-replay/);
+  assert.match(plannedLane, /Planned for v0\.2, after the November 30 release/);
+  assert.equal(nextLane.includes("Per-family breakdown"), false);
+  assert.equal(nextLane.includes("export-replay"), false);
+  assert.match(nextLane, /20 cost runs/);
+  assert.match(nextLane, /November 17/);
   for (const item of [
     "Packaged GitHub Action",
     "A second provider",

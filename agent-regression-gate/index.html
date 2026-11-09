@@ -255,7 +255,7 @@
         <p class="kicker">Pipeline</p>
         <h2 id="pipeline-title">Pull request to one status.</h2>
         <p class="v-line">Same scenarios. Both arms. One check.</p>
-        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <ol class="vpipe" aria-label="Sample pipeline. Pull request, both arms, compare, then a status. This sample resolves to Block.">
           <li style="--i:0">
             <div class="vpipe-node">
@@ -313,7 +313,7 @@
         <p class="kicker">Statuses</p>
         <h2 id="status-title">Four answers.</h2>
         <p class="v-line">Orange means Block. An invalid run isn't scored.</p>
-        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <ul class="status-board">
           <li class="status-card" style="--i:0" data-status="pass">
             <span class="status-mark" aria-hidden="true"></span>
@@ -327,7 +327,7 @@
             <span class="status-mark" aria-hidden="true"></span>
             <div>
               <h3>Insufficient evidence</h3>
-              <p class="status-warn">Likely regression warning</p>
+              <p class="status-warn">Likely regression: a warning flag shown on Insufficient evidence. Not a separate status.</p>
             </div>
           </li>
           <li class="status-card" style="--i:3" data-status="invalid">
@@ -370,15 +370,10 @@
         <div class="logo-strip" aria-label="Roadmap">
           <p>Roadmap</p>
           <ul>
-            <li>OpenAI</li>
-            <li>Claude</li>
-            <li>LangGraph</li>
-            <li>LlamaIndex</li>
-            <li>CrewAI</li>
-            <li>AutoGen</li>
+            <li>OpenAI · v0.2</li>
+            <li>Claude · v0.2</li>
             <li>GitHub</li>
-            <li>MCP</li>
-            <li>OpenTelemetry</li>
+            <li>OpenTelemetry · Planned post-MVP</li>
           </ul>
         </div>
         <a class="more" href="integrations/">More details</a>
@@ -390,7 +385,7 @@
         <p class="kicker">Results</p>
         <h2 id="preview-title">One results file.</h2>
         <p class="v-line">The suite status is recorded in the file.</p>
-        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 10). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
         <aside class="teaser" id="results-teaser" aria-label="Recorded suite status">
           <p class="teaser-bar"><span>results.json</span><span class="teaser-meta">Preliminary</span></p>
           <p class="teaser-status" data-verdict="insufficient_evidence">Insufficient evidence</p>
@@ -403,7 +398,7 @@
       <div class="wrap">
         <p class="kicker">Sample use cases</p>
         <h2 id="use-title">Try the free checks.</h2>
-        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay needs your own recording. The GitHub Action is coming soon.</p>
+        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay needs your own recording. The GitHub Action is planned for v0.2.</p>
         <ul class="use-tease">
           <li><a href="use-cases/#preview-a-run">Preview a run without calling a model</a></li>
           <li><a href="use-cases/#why-youd-use-this">Why you'd use this</a></li>
@@ -413,7 +408,7 @@
           <li><a href="use-cases/#replay">Replay a recorded run</a></li>
           <li><a href="use-cases/#tau-preview">Preview converting tau-bench retail tasks</a></li>
           <li><a href="use-cases/#live-model">Run against a real model (costs money)</a></li>
-          <li><a href="use-cases/#github-ci">Use it in GitHub CI (coming soon)</a></li>
+          <li><a href="use-cases/#github-ci">Use it in GitHub CI (planned for v0.2)</a></li>
         </ul>
         <a class="more" href="use-cases/">More details</a>
       </div>

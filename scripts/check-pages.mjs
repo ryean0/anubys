@@ -289,15 +289,16 @@ assert.match(fs.readFileSync(path.join(site, "css/site.css"), "utf8"), /\.scale-
 
 const integrations = fs.readFileSync(path.join(site, "integrations/index.html"), "utf8");
 assert.match(integrations, /id="integrations"/);
-assert.match(integrations, /adapter example/);
 assert.match(integrations, /a pinned Gemini Flash-Lite model id \(lives in <code>config\/allowed_models\.txt<\/code> and is passed with <code>--model<\/code>\)/);
 assert.match(integrations, /Gemini is the only adapter today/);
 assert.doesNotMatch(integrations, /does not ship an adapter/);
 assert.doesNotMatch(integrations, /gemini-/);
 assert.match(integrations, /Gemini adapter is Built/);
-assert.match(integrations, /OpenAI Agents SDK · adapter example/);
-assert.match(integrations, /Claude Agent SDK · adapter example/);
-assert.match(integrations, /GitHub Action · planned/);
+assert.match(integrations, /OpenAI · v0\.2/);
+assert.match(integrations, /Claude · v0\.2/);
+assert.match(integrations, /OpenTelemetry · Planned post-MVP/);
+assert.match(integrations, /GitHub Action · Planned for v0\.2/);
+assert.doesNotMatch(integrations, /LangGraph|LlamaIndex|CrewAI|AutoGen|\bMCP\b/);
 assert.match(integrations, /Record\/replay cassettes · Built/);
 assert.match(integrations, /No official partnerships/);
 assert.doesNotMatch(integrations, /gpt-4\.1-nano/i);
