@@ -77,7 +77,7 @@
         </nav>
         <div class="docs-body">
           <section class="docs-sec" id="keyless" aria-labelledby="keyless-title"><h2 id="keyless-title">Keyless CI <span class="docs-badge" data-state="progress">In progress</span></h2><p>Keyless CI (OIDC): roles deployed, CI wiring in progress. OIDC roles were deployed on October 9 to the dev AWS account. Pull-request CI is <code>contents: read</code> and does not receive an id-token. The pull-request job does not store a cloud key. <code>GEMINI_API_KEY</code> is a stored environment secret on <code>live-experiments</code>, not a repository secret.</p><p>Nothing uploads results yet. <a href="../data/">Data stays in your cloud</a> is Planned, and bring-your-own bucket is post-MVP.</p></section>
-<section class="docs-sec" id="workflow" aria-labelledby="workflow-title"><h2 id="workflow-title">The workflow</h2><p>The workflow runs on <code>pull_request</code> so the check can be required. A dispatch on the pull-request branch does not satisfy that requirement. The packaged Action is Planned, so the file below is the shape.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">workflow.yml · Planned action</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>name: anubys
+<section class="docs-sec" id="workflow" aria-labelledby="workflow-title"><h2 id="workflow-title">The workflow</h2><p>The workflow runs on <code>pull_request</code> so the check can be required. A dispatch on the pull-request branch does not satisfy that requirement. v0.1 ships a README CI workflow snippet instead of a packaged Action. The packaged Action is deferred to v0.2, post-v0.1, so the file below is that snippet, not a published action.</p><div class="docs-code"><div class="docs-code-bar"><p class="docs-code-label">README CI workflow snippet</p><button type="button" class="code-copy">Copy</button></div><pre tabindex="0"><code>name: anubys
 on:
   pull_request:
 permissions:
@@ -90,11 +90,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # Planned for v0.2, after the November 30 release.
+      # README CI workflow snippet for v0.1.
+      # A packaged Action is deferred to v0.2, post-v0.1, after the November 30 release.
       # The job requests an OIDC token.
       # It does not store a cloud key.</code></pre></div></section>
 <section class="docs-sec" id="roles" aria-labelledby="roles-title"><h2 id="roles-title">Read-only pull-request roles</h2><p>The pull-request role is read-only. <code>contents: read</code>. <code>pull-requests: read</code>. <code>id-token: write</code> is the OIDC token, not a permission to change the pull request.</p><p>The job does not get a write role on the repository.</p></section>
-<section class="docs-sec" id="action" aria-labelledby="action-title"><h2 id="action-title">Packaged Action <span class="docs-badge" data-state="planned">Planned</span></h2><p>A packaged GitHub Action for a one-file setup is planned for v0.2, after the November 30 release. Until it ships, the workflow above is the shape, not a published action.</p></section>
+<section class="docs-sec" id="action" aria-labelledby="action-title"><h2 id="action-title">Packaged Action <span class="docs-badge" data-state="planned">Planned</span></h2><p>A packaged GitHub Action for a one-file setup is deferred to v0.2, post-v0.1, after the November 30 release. Until it ships, the workflow above is the README CI workflow snippet, not a published action.</p></section>
         </div>
         <nav class="docs-pager" aria-label="Previous and next"><a class="docs-prev" href="../adapter/"><span>Previous</span><b>Adapter contract</b></a><a class="docs-next" href="../data/"><span>Next</span><b>Where results go</b></a></nav>
       </article>

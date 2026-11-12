@@ -124,7 +124,7 @@ python scripts/check_monthly_spend.py</code></pre>
               <pre tabindex="0"><code>export GEMINI_API_KEY="your-key-here"</code></pre>
             </div>
             <p>Never in a file. In CI the value is an environment secret on the <code>live-experiments</code> environment, never a repository secret. The environment deploys from main only, and the repo owner starts each paid run by hand with Run workflow.</p>
-            <p>A live run needs <code>HOME</code> set. The per-user spend log lives at <code>~/.anubys/spend_log.jsonl</code>. Gemini retries are capped at 750 seconds. Hitting that cap counts as an infrastructure miss (Invalid run), not a regression.</p>
+            <p>A live run needs <code>HOME</code> set. The per-user spend log lives at <code>~/.anubys/spend_log.jsonl</code>. Gemini retries are capped at 750 seconds. Hitting that cap is an infrastructure miss, not a regression. Too many misses make the run invalid.</p>
             <p>In CI, that value is an environment secret on the <code>live-experiments</code> environment. It is not a repository secret. Live runs are manual, on the experiment workflow (<code>.github/workflows/experiment.yml</code>). That workflow starts with the spend check. The model id is an explicit input, pinned, and checked against the allowlist (<code>config/allowed_models.txt</code>). Ids that contain latest, preview, or exp are rejected. There is no fallback.</p>
             <details class="docs-fold">
               <summary>Contributors</summary>
@@ -144,12 +144,12 @@ terraform validate</code></pre>
               </div>
             </details>
             <h3 id="verdict">Read the verdict <span class="docs-badge" data-state="planned">Coming soon</span></h3>
-            <p>A full gate on your machine is Coming soon. The rollout runner is implemented. Suite scoring, statistics, and report rendering are still placeholders. The only free run step is the dry run in the getting started guide.</p>
-            <p>When a run does print a suite status, read it as one of four: <strong>Pass</strong>, <strong>Block</strong>, <strong>Insufficient evidence</strong>, or <strong>Invalid run</strong>. <code>likely_regression</code> is a warning. It is not a status. An invalid run is not scored. Scenario rows stay diagnostics. The rule is on <a href="../concepts/">Concepts</a>.</p>
+            <p>A full gate on your machine is Coming soon. The rollout runner is implemented. Suite scoring, statistics, and report rendering are still placeholders. The HTML report is deferred to v0.2, post-v0.1. The only free run step is the dry run in the getting started guide.</p>
+            <p>When a run does print a suite status, read it as one of four: <strong>Pass</strong>, <strong>Block</strong>, <strong>Insufficient evidence</strong>, or <strong>Invalid run</strong>. <code>likely_regression</code> is a warning. It is not a status. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2). An invalid run is not scored. Scenario rows stay diagnostics. The rule is on <a href="../concepts/">Concepts</a>.</p>
           </section>
           <section class="docs-sec" id="enterprise" aria-labelledby="enterprise-title">
             <h2 id="enterprise-title">Enterprise and CI</h2>
-            <p>The packaged GitHub Action is <span class="docs-badge" data-state="planned">Planned for v0.2</span>. The <code>action/</code> directory is an intentional stub.</p>
+            <p>The packaged GitHub Action is <span class="docs-badge" data-state="planned">Planned for v0.2</span>. The <code>action/</code> directory is an intentional stub. v0.1 ships a README CI workflow snippet instead of a packaged Action.</p>
             <p>CI on main is <code>.github/workflows/ci.yml</code>. It runs on pull requests and on pushes to main. The job is read-only (<code>contents: read</code>). The workflow has no secrets. A pull request run does not receive an OIDC token.</p>
             <p>A live model call is a different workflow. It is manual, it starts with the spend check, and it reads <code>GEMINI_API_KEY</code> from the <code>live-experiments</code> environment. Pull request runs never receive that secret. The spend check stops new live rollouts at <span class="example-tag">Example</span> $38 of logged spend this UTC month. A run already in progress can finish. The experiment workflow also has a dollar ceiling.</p>
           </section>
@@ -165,7 +165,7 @@ terraform validate</code></pre>
             <ul>
               <li><strong>Missing key.</strong> Offline checks do not need <code>GEMINI_API_KEY</code>. A live run does. If the variable is unset, the provider call cannot start. The placeholder is <code>your-key-here</code>. In CI the real value is an environment secret on <code>live-experiments</code>.</li>
               <li><strong>Spend cap stop.</strong> <code>harness run</code> stops new live rollouts at a fixed $38. The standalone <code>scripts/check_monthly_spend.py</code> takes <code>--threshold</code> / <code>MONTHLY_SPEND_CAP_USD</code>. A run already in progress can finish.</li>
-              <li><strong>Insufficient evidence.</strong> The interval does not support Pass, and it does not support Block. <code>likely_regression</code> on that result is a warning, not its own status. Read the statuses on <a href="../concepts/#statuses">Concepts</a>.</li>
+              <li><strong>Insufficient evidence.</strong> The interval does not support Pass, and it does not support Block. <code>likely_regression</code> on that result is a warning, not its own status. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2). Read the statuses on <a href="../concepts/#statuses">Concepts</a>.</li>
             </ul>
           </section>
         </div>

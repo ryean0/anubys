@@ -67,7 +67,7 @@ test("the performance route states the built mitigations and the rollout tradeof
     "max_tokens",
     "180 seconds",
     "750 seconds",
-    "Invalid run",
+    "an infrastructure miss, not a regression. Too many misses make the run invalid",
     "Monthly spend check",
     "No servers or proxies",
     "GitHub's runners",

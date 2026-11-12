@@ -1,7 +1,7 @@
 /**
  * Plain-language "How it works" story.
  * Verdicts are pass, block, insufficient evidence, or invalid run.
- * Likely regression is only a warning on insufficient evidence.
+ * Likely regression is a spec flag on insufficient evidence, not computed in v0.1 (deferred to v0.2).
  * The decision is non-inferiority at δ = 5 percentage points.
  * This module does not score the console and does not read results.json.
  */
@@ -66,7 +66,8 @@ export function gapAxis(pp) {
  * Non-inferiority at δ = 5 pp.
  * Pass when the lower bound is above −5. Block when the upper bound is below −5.
  * Otherwise a valid run is insufficient evidence.
- * Likely regression is a warning, and only when that insufficient interval lies entirely below zero.
+ * Likely regression is a spec flag, and only when that insufficient interval lies entirely below zero.
+ * v0.1 does not compute it. Deferred to v0.2.
  * Invalid runs are not scored.
  */
 export function classifyGap({ lower, upper, valid = true } = {}) {
@@ -141,7 +142,8 @@ export function storyMotion(prefersReducedMotion) {
 export function sentenceCount(text) {
   const trimmed = String(text ?? "").trim();
   if (!trimmed) return 0;
-  const matches = trimmed.match(/[.!?]+/g);
+  const stripped = trimmed.replace(/\bv\d+(?:\.\d+)+\b/gi, (token) => token.replaceAll(".", ""));
+  const matches = stripped.match(/[.!?]+/g);
   return matches ? matches.length : 0;
 }
 
@@ -431,7 +433,7 @@ export const STORY_STEPS = [
     headline: "You get one of four answers.",
     support: 'Pass, Block, Insufficient evidence, or Invalid run, with "Likely regression" only as a warning on insufficient evidence.',
     terms: ["CI verdict"],
-    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today harness run runs rollouts and writes run_summary.json, not a verdict. Pass, block, and insufficient evidence are scored from that interval, and an invalid run is not scored. Likely regression is only a warning attached to insufficient evidence.",
+    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today harness run runs rollouts and writes run_summary.json plus a CLI summary, not a verdict. Pass, block, and insufficient evidence are scored from that interval, and an invalid run is not scored. Likely regression is only a warning attached to insufficient evidence, a spec flag not computed in v0.1 (deferred to v0.2).",
     graphic: verdictGraphic(),
     signalsRegression: true,
   },
@@ -461,7 +463,7 @@ export const STORY_STEPS = [
     headline: "It runs on every pull request.",
     support: "The same check starts on the change and posts one answer before the change merges.",
     terms: ["CI gate"],
-    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today harness run runs rollouts and writes run_summary.json, not a verdict. The check would fail on Block once the packaged Action ships.",
+    dive: "Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today harness run runs rollouts and writes run_summary.json plus a CLI summary, not a verdict. v0.1 ships a README CI workflow snippet instead of a packaged Action. The check would fail on Block once the packaged Action ships. The Action is deferred to v0.2, post-v0.1.",
     graphic: gateGraphic(),
     signalsRegression: false,
   },

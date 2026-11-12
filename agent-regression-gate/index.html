@@ -199,7 +199,7 @@
           <li>
             <a href="docs/reference/results/#audit-trail">
               <svg class="ent-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M6 9h20M6 16h13M6 23h8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M20 21.5 22.4 24 28 18.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-              <span class="ent-copy"><span class="ent-name">Reproducible audit trail</span><span class="ent-note">Today harness run writes run_summary.json. The results file lands with scoring.</span></span>
+              <span class="ent-copy"><span class="ent-name">Reproducible audit trail</span><span class="ent-note">Today harness run writes run_summary.json plus a CLI summary. The results file lands with scoring.</span></span>
               <span class="ent-state" data-state="planned">In progress</span>
             </a>
           </li>
@@ -255,7 +255,7 @@
         <p class="kicker">Pipeline</p>
         <h2 id="pipeline-title">Pull request to one status.</h2>
         <p class="v-line">Same scenarios. Both arms. One check.</p>
-        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code> plus a CLI summary, not a verdict.</p>
         <ol class="vpipe" aria-label="Sample pipeline. Pull request, both arms, compare, then a status. This sample resolves to Block.">
           <li style="--i:0">
             <div class="vpipe-node">
@@ -313,7 +313,7 @@
         <p class="kicker">Statuses</p>
         <h2 id="status-title">Four answers.</h2>
         <p class="v-line">Orange means Block. An invalid run isn't scored.</p>
-        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code> plus a CLI summary, not a verdict.</p>
         <ul class="status-board">
           <li class="status-card" style="--i:0" data-status="pass">
             <span class="status-mark" aria-hidden="true"></span>
@@ -327,7 +327,7 @@
             <span class="status-mark" aria-hidden="true"></span>
             <div>
               <h3>Insufficient evidence</h3>
-              <p class="status-warn">Likely regression: a warning flag shown on Insufficient evidence. Not a separate status.</p>
+              <p class="status-warn">Likely regression: a warning flag shown on Insufficient evidence. Not a separate status. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2).</p>
             </div>
           </li>
           <li class="status-card" style="--i:3" data-status="invalid">
@@ -385,7 +385,7 @@
         <p class="kicker">Results</p>
         <h2 id="preview-title">One results file.</h2>
         <p class="v-line">The suite status is recorded in the file.</p>
-        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="spec-line"><span class="spec-badge">Spec</span> The rules are fixed. Computing them on real runs lands with Milestone B (November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code> plus a CLI summary, not a verdict.</p>
         <aside class="teaser" id="results-teaser" aria-label="Recorded suite status">
           <p class="teaser-bar"><span>results.json</span><span class="teaser-meta">Preliminary</span></p>
           <p class="teaser-status" data-verdict="insufficient_evidence">Insufficient evidence</p>
@@ -398,7 +398,7 @@
       <div class="wrap">
         <p class="kicker">Sample use cases</p>
         <h2 id="use-title">Try the free checks.</h2>
-        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay needs your own recording. The GitHub Action is planned for v0.2.</p>
+        <p class="v-line">The free commands do not call a model, and they do not spend money. A live model run can cost money. Replay needs your own recording. v0.1 ships a README CI workflow snippet instead of a packaged Action. The GitHub Action is deferred to v0.2, post-v0.1.</p>
         <ul class="use-tease">
           <li><a href="use-cases/#preview-a-run">Preview a run without calling a model</a></li>
           <li><a href="use-cases/#why-youd-use-this">Why you'd use this</a></li>
