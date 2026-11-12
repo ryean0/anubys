@@ -15,7 +15,7 @@ export const METHOD_NOTES = {
   coverage: "Each scenario needs at least ceil(0.6 × scheduled) valid rollouts on both arms. 0.6 is 3/5, and the ceiling uses integer arithmetic.",
   pairing: "The gap is the unweighted average of (candidate pass rate − baseline pass rate) across scenarios. Each scenario counts once. Scenarios are combined in id order, so the recorded order cannot change the verdict.",
   interval: "Uncertainty on each pass rate is a Jeffreys binomial variance, so an all-pass or all-fail arm still carries a little noise. The 90% interval is a normal approximation around the average gap.",
-  regression: "Non-inferiority, δ = 5 pp. Pass if the 90% interval's lower bound is above −5 pp. Block if its upper bound is below −5 pp. Otherwise the result is insufficient evidence, which can carry a Likely regression warning. An invalid run isn't scored.",
+  regression: "Non-inferiority, δ = 5 pp. Pass if the 90% interval's lower bound is above −5 pp. Block if its upper bound is below −5 pp. Otherwise the result is insufficient evidence, which can carry a Likely regression warning. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2). An invalid run isn't scored.",
   timeouts: "An agent timeout (a loop, or the step budget ran out) scores 0 and counts as a valid rollout. An infrastructure timeout (provider 5xx, a rate limit, or a killed CI runner) is excluded from the score and counts toward the 5% miss limit. A missing result is treated the same way.",
 };
 
@@ -278,7 +278,7 @@ export function scoreRun(scenarios, options = {}) {
     ? `Suite gap ${gap} across ${rows.length} scenarios, candidate minus baseline. The ${percent} interval is ${band}. Its upper bound is below −5 pp, so the suite check blocks.`
     : pass
       ? `Suite gap ${gap} across ${rows.length} scenarios. The ${percent} interval is ${band}. Its lower bound is above −5 pp, so the suite check passes.`
-      : `Suite gap ${gap} across ${rows.length} scenarios. The ${percent} interval is ${band}. That is insufficient evidence. It can carry a Likely regression warning.`;
+      : `Suite gap ${gap} across ${rows.length} scenarios. The ${percent} interval is ${band}. That is insufficient evidence. It can carry a Likely regression warning. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2).`;
 
   return {
     verdict: block ? "likely_regression" : pass ? "no_regression" : "insufficient",

@@ -61,7 +61,7 @@ export const METHOD_STEPS = [
     node: "n5",
     title: "Suite check",
     subtitle: "One status",
-    plain: "You get one suite answer: Pass, Block, Insufficient evidence, or Invalid run. Insufficient evidence can carry a Likely regression warning.",
+    plain: "You get one suite answer: Pass, Block, Insufficient evidence, or Invalid run. Insufficient evidence can carry a Likely regression warning. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2).",
     technical: DECISION_RULE,
   },
 ];

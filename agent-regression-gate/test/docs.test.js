@@ -183,7 +183,10 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.doesNotMatch(html, /October 29/);
   assert.match(html, /No per-family verdict/);
   assert.match(html, /The gate stays on the pooled result/);
-  assert.match(html, /Cost per verdict/);
+  assert.match(html, /Spend is logged per run, measured from the A\/A and Block runs/);
+  assert.match(html, /v0\.1 does not compute a derived cost per verdict/);
+  assert.doesNotMatch(html, /Next for v0\.1/);
+  assert.doesNotMatch(html, /20 cost runs/);
   assert.match(html, /MDE on the check/);
   const nextLane = html.slice(html.indexOf('id="next"'), html.indexOf('id="planned"'));
   const plannedLane = html.slice(html.indexOf('id="planned"'));
@@ -192,10 +195,13 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   assert.match(plannedLane, /Showing the MDE on the check is planned with Milestone B \(target November 19\)/);
   assert.match(plannedLane, /Per-family breakdown/);
   assert.match(plannedLane, /harness export-replay/);
-  assert.match(plannedLane, /Planned for v0\.2, after the November 30 release/);
+  assert.match(plannedLane, /HTML report/);
+  assert.match(plannedLane, /Deferred to v0\.2, post-v0\.1/);
+  assert.match(plannedLane, /after the November 30 release/);
   assert.equal(nextLane.includes("Per-family breakdown"), false);
   assert.equal(nextLane.includes("export-replay"), false);
-  assert.match(nextLane, /20 cost runs/);
+  assert.equal(nextLane.includes("Cost per verdict"), false);
+  assert.equal(nextLane.includes("20 cost runs"), false);
   assert.match(nextLane, /November 17/);
   for (const item of [
     "Packaged GitHub Action",
@@ -208,6 +214,14 @@ test("roadmap lanes are Built, Next, and Planned", () => {
   }
   assert.match(html, /OpenAI or Anthropic/);
   assert.match(html, /Data stays in your cloud is Planned, and post-MVP/);
+  assert.match(html, /README CI workflow snippet/);
+  assert.match(html, /HTML report/);
+  const changelog = read("docs/changelog/index.html");
+  assert.doesNotMatch(changelog, /12826ff/);
+  assert.match(changelog, /the November 9 plan/);
+  assert.match(changelog, /id="copy-nov-12"/);
+  assert.match(changelog, /November 12 scope cuts/);
+  assert.match(changelog, /an infrastructure miss, not a regression\. Too many misses make the run invalid/);
   const css = read("css/site.css");
   assert.match(css, /prefers-reduced-motion:\s*reduce[\s\S]*\.roadmap/);
   assert.match(css, /\.docs-nav a\[aria-current="page"\]\s*\{[^}]*color:\s*var\(--block\)/);

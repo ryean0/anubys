@@ -55,7 +55,7 @@
       <div class="wrap">
         <p class="kicker">Method</p>
         <h1>Same scenarios. Both versions. One check.</h1>
-        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code>, not a verdict.</p>
+        <p class="fine">Gate spec. The rules are fixed. Computing them on real runs lands with Milestone B (target November 19). Today <code>harness run</code> runs rollouts and writes <code>run_summary.json</code> plus a CLI summary, not a verdict.</p>
         <p class="section-intro">The job runs in CI, after the change is built and before it merges. Hover a step, focus it, or tap it for a plain-language read.</p>
         <figure class="flow" data-step="0">
           <figcaption class="sr-only">Pipeline from hashed scenarios, through a CI runner, into baseline and candidate rollouts, a scorer, and one suite check. Each step opens an explanation. Escape closes it.</figcaption>
@@ -187,7 +187,7 @@
                   <circle cx="6" cy="64" r="2.5" fill="none" stroke="#d4d4dc" stroke-width="1.25" stroke-dasharray="1.6 1.4"/>
                   <text x="16" y="67" fill="#d4d4dc" font-family="ui-monospace,monospace" font-size="11">Invalid run</text>
                 </svg>
-                <p class="flow-plain">You get one suite answer: Pass, Block, Insufficient evidence, or Invalid run. Insufficient evidence can carry a Likely regression warning.</p>
+                <p class="flow-plain">You get one suite answer: Pass, Block, Insufficient evidence, or Invalid run. Insufficient evidence can carry a Likely regression warning. Likely regression is a spec flag, not computed in v0.1 (deferred to v0.2).</p>
                 <p class="flow-tech">Pass if the 90% interval's lower bound is above −5 pp, block if its upper bound is below −5 pp, otherwise insufficient evidence; an invalid run isn't scored.</p>
               </div>
             </div>

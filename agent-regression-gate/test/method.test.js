@@ -274,7 +274,8 @@ test("every route avoids the retired gate phrases", () => {
     const withoutWarning = text
       .replace(/likely regression warning/gi, "")
       .replace(/warning · likely regression/gi, "")
-      .replace(/likely regression: a warning flag shown on insufficient evidence\. not a separate status\./gi, "");
+      .replace(/likely regression: a warning flag shown on insufficient evidence\. not a separate status\./gi, "")
+      .replace(/likely regression is a spec flag, not computed in v0\.1 \(deferred to v0\.2\)\./gi, "");
     assert.equal(/likely regression/i.test(withoutWarning), false, path.relative(root, file));
     assert.equal(/gpt-4\.1-nano/i.test(html), false, path.relative(root, file));
   }
